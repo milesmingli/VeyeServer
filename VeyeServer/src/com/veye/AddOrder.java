@@ -144,7 +144,7 @@ public class AddOrder extends HttpServlet {
 			//刚刚生成的 订单 的 id
 			String orderid = rs.getString(1);
 			rs.close();
-			
+			 
 			
 			//---------------插入订单明细
 			artworks = artworks.substring(1,artworks.length()-1);
@@ -160,7 +160,7 @@ public class AddOrder extends HttpServlet {
 				String price = oneArtwork[1];
 				String amount = oneArtwork[2];
 				
-				sql = "select name,artist, thumbnail from artwork where id=" + artworkid;
+				sql = "select name,artist, thumbnail from artwork where id='" + artworkid + "'";
 				System.out.println(sql);
 				rs = stmt.executeQuery(sql); 
 				rs.next();
@@ -170,7 +170,7 @@ public class AddOrder extends HttpServlet {
 				String thumbnail = rs.getString("thumbnail");
 				rs.close();
 				
-				sql = "insert into order_item values(" + orderid + "," + artworkid + "," + price + "," + amount +
+				sql = "insert into order_item values(" + orderid + ",'" + artworkid + "'," + price + "," + amount +
 					",'" + name + "','" + artist + "','" + thumbnail + "')";
 				System.out.println(sql);
 				stmt.execute(sql);

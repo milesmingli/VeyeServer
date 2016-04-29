@@ -127,7 +127,12 @@ public class GetAllOrdersByUser extends HttpServlet {
 				
 				JsonArray artworkArray = new JsonArray();
 				
-				sql ="select artworkid, price, name, artist, thumbnail from order_item where orderid=" + orderInfo.get("id");
+				sql ="select artworkid, order_item.price, size, order_item.name, order_item.artist, order_item.thumbnail, stock from order_item, artwork where order_item.artworkid = artwork.id and orderid=" + orderInfo.get("id");
+				
+				
+				System.out.println(sql);
+				
+				
 				rs = stmt.executeQuery(sql);		
 				metaData = rs.getMetaData();  
 				columnCount = metaData.getColumnCount();

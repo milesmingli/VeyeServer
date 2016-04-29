@@ -122,7 +122,7 @@ public class GetOrganizationGalleryArtworkForMainpage extends HttpServlet {
 				
 				
 				
-				sql = "select id, gallery, thumbnail from artwork where galleryid=" + galleryObj.get("id").getAsString();
+				sql = "select id, gallery, size, thumbnail, artistid, artist from artwork where galleryid='" + galleryObj.get("id").getAsString() + "'";
 				rs = stmt.executeQuery(sql);		
 				metaData = rs.getMetaData();  
 				columnCount = metaData.getColumnCount();
@@ -146,7 +146,7 @@ public class GetOrganizationGalleryArtworkForMainpage extends HttpServlet {
 				
 				galleryObj.add("artworks", artworkArray);
 				
-				System.out.println(galleryObj);
+				//System.out.println(galleryObj);
 				
 			}
 			

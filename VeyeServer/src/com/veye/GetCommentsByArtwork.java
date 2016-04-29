@@ -100,8 +100,13 @@ public class GetCommentsByArtwork extends HttpServlet {
 			stmt = conn.createStatement();
 			
 			
-			//获取gallery
-			String sql = "select * from comment where artworkid=" + artworkId + " order by datetime desc";
+			//获取评论
+			//String sql = "select * from comment where artworkid='" + artworkId + "' order by datetime desc";
+			
+			String sql = "select commentid,comment, c.userid, u.nickname, u.portrait, artworkid, datetime from comment c, user u where c.userid = u.id ";
+			sql = sql + " and artworkid='" + artworkId + "' order by datetime desc";
+			
+			
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
 			int columnCount = metaData.getColumnCount();

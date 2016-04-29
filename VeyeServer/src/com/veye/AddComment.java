@@ -65,6 +65,9 @@ public class AddComment extends HttpServlet {
 	
 		String userid = URLDecoder.decode(request.getParameter("userid"),
 				"UTF-8");
+		
+		String nickname = URLDecoder.decode(request.getParameter("nickname"),
+		"UTF-8");
 
 		String artworkid = URLDecoder
 				.decode(request.getParameter("artworkid"), "UTF-8");
@@ -73,7 +76,7 @@ public class AddComment extends HttpServlet {
 		String comment = URLDecoder.decode(request.getParameter("comment"),
 				"UTF-8");
 
-		JsonObject returnJson = this.addComment(userid, artworkid, comment);
+		JsonObject returnJson = this.addComment(userid, nickname, artworkid, comment);
 
 		PrintWriter out = response.getWriter();
 		out.println(returnJson.toString());
@@ -81,12 +84,15 @@ public class AddComment extends HttpServlet {
 
 	}
 
-	private JsonObject addComment(String userid, String artworkid,
+	private JsonObject addComment(String userid, String nickname, String artworkid,
 			String comment) {
 
 		JsonObject returnJson = new JsonObject();
 
 		String returnMsg = "更新成功";
+		
+		JsonArray commentArray = new JsonArray();
+		
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -103,13 +109,36 @@ public class AddComment extends HttpServlet {
 			stmt = conn.createStatement();
 			
 			
-			String sql= "insert into comment(userid, artworkid, datetime, comment) values(";
-			sql = sql + userid + "," + artworkid + ", NOW(), '" + comment + "')";
+			String sql= "insert into comment(userid,nickname, artworkid, datetime, comment) values(";
+			sql = sql + "" +userid + ",'" + nickname + "','" + artworkid + "', NOW(), '" + comment + "')";
 			
 			
-			//System.out.println(sql);
+			System.out.println(sql);
 			
 			stmt.execute(sql);
+			
+			
+			
+			//获取评论
+			sql = "select * from comment where artworkid='" + artworkid + "' order by datetime desc";
+			ResultSet rs = stmt.executeQuery(sql);		
+			ResultSetMetaData metaData = rs.getMetaData();  
+			int columnCount = metaData.getColumnCount();
+
+			while (rs.next()) {
+				JsonObject artworkObj = new JsonObject();
+				for (int i = 1; i <= columnCount; i++) {  
+		            String columnName =metaData.getColumnLabel(i);  
+		            String value = rs.getString(columnName);  
+		            if(value == null)
+						value="";
+		            artworkObj.addProperty(columnName, value);  
+		        }   
+				
+				commentArray.add(artworkObj);
+			}			
+			
+			
 		
 
 			stmt.close();
@@ -147,6 +176,7 @@ public class AddComment extends HttpServlet {
 		}
 
 		returnJson.addProperty("returnMsg", returnMsg);
+		returnJson.add("comments", commentArray);
 		return returnJson;
 	}
 

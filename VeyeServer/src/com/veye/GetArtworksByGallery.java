@@ -101,7 +101,7 @@ public class GetArtworksByGallery extends HttpServlet {
 			
 			
 			//ªÒ»°gallery
-			String sql = "select * from artwork where galleryid=" + galleryId;
+			String sql = "select * from artwork_view where galleryid='" + galleryId + "'";
 			
 			System.out.println(sql);
 			

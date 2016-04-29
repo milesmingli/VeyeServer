@@ -83,7 +83,7 @@ public class GetArtistsByGallery extends HttpServlet {
 
 		String returnMsg = "获取成功";
 
-		JsonArray artworkArray = new JsonArray();
+		JsonArray artistArray = new JsonArray();
 	
 		Connection conn = null;
 		Statement stmt = null;
@@ -102,7 +102,7 @@ public class GetArtistsByGallery extends HttpServlet {
 			
 			//获取gallery下的所有画家
 			
-			String sql = "select * from artist where id in (select distinct artistid from artwork where galleryid=" + galleryId + ")";
+			String sql = "select * from artist where id in (select distinct artistid from artwork where galleryid='" + galleryId + "')";
 			
 			System.out.println(sql);
 			
@@ -120,7 +120,7 @@ public class GetArtistsByGallery extends HttpServlet {
 		            artworkObj.addProperty(columnName, value);  
 		        }   
 				
-				artworkArray.add(artworkObj);
+				artistArray.add(artworkObj);
 			}			
 			rs.close();
 			
@@ -162,7 +162,7 @@ public class GetArtistsByGallery extends HttpServlet {
 		}
 
 		returnJson.addProperty("returnMsg", returnMsg);
-		returnJson.add("artworks", artworkArray);
+		returnJson.add("artists", artistArray);
 		return returnJson;
 	}
 

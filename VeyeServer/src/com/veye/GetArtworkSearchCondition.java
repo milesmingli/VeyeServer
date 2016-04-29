@@ -97,10 +97,44 @@ public class GetArtworkSearchCondition extends HttpServlet {
 			stmt = conn.createStatement();
 			
 			
-			//获取所有 title
-			String sql = "select distinct title from search_condition where type='artwork'";
+			//1----根据category表格生成查询条件
+			JsonObject titleObj = new JsonObject();
+			titleObj.addProperty("title", "类别");
+			
+			String sql = "select category as name, CONCAT(\"category='\",  category, \"'\") as  search_condition, brief, icon from category order by value";
+				
+			System.out.println(sql);
+			
+			
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
+			int columnCount = metaData.getColumnCount();
+
+			
+			JsonArray subArray = new JsonArray();
+			while (rs.next()) {
+				JsonObject Obj = new JsonObject();
+				for (int j = 1; j <= columnCount; j++) {  
+		            String columnName =metaData.getColumnLabel(j);  
+		            String value = rs.getString(columnName);  
+		            if(value == null)
+						value="";
+		            Obj.addProperty(columnName, value);  
+		        }   
+				subArray.add(Obj);
+			}			
+			rs.close();
+			
+			titleObj.add("conditions", subArray);
+			
+			conditionArray.add(titleObj);
+			
+			
+			//2----从 Search_condition表中获取其他查询条件
+			//获取所有 title
+			sql = "select distinct title from search_condition where type='artwork'";
+			 rs = stmt.executeQuery(sql);		
+			 metaData = rs.getMetaData();  
 			
 			ArrayList<String> titles = new ArrayList<String>();
 			
@@ -116,19 +150,19 @@ public class GetArtworkSearchCondition extends HttpServlet {
 			
 			for(int i=0; i< titles.size(); i ++){
 				
-				sql = "select name, search_condition, icon from search_condition where type='artwork' and title='" + titles.get(i) + "'";
+				sql = "select name, search_condition, icon, brief from search_condition where type='artwork' and title='" + titles.get(i) + "'";
 				
 				System.out.println(sql);
 				
 				
 				rs = stmt.executeQuery(sql);		
 				metaData = rs.getMetaData();  
-				int columnCount = metaData.getColumnCount();
+				columnCount = metaData.getColumnCount();
 
-				JsonObject titleObj = new JsonObject();
+				titleObj = new JsonObject();
 				titleObj.addProperty("title", titles.get(i));
 				
-				JsonArray subArray = new JsonArray();
+				subArray = new JsonArray();
 				while (rs.next()) {
 					JsonObject Obj = new JsonObject();
 					for (int j = 1; j <= columnCount; j++) {  

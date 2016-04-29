@@ -50,7 +50,8 @@ public class GetArtworkById extends HttpServlet {
 	protected void doPost(HttpServletRequest request,
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		
+		String userId = URLDecoder
+		.decode(request.getParameter("userId"), "UTF-8");
 
 		String artworkId = URLDecoder
 				.decode(request.getParameter("artworkId"), "UTF-8");
@@ -68,7 +69,7 @@ public class GetArtworkById extends HttpServlet {
 		response.setHeader("Access-Control-Max-Age", "86400");
 
 	
-		JsonObject returnJson = this.getArtworkById(artworkId);
+		JsonObject returnJson = this.getArtworkById(artworkId,userId);
 
 		PrintWriter out = response.getWriter();
 		out.println(returnJson.toString());
@@ -76,14 +77,14 @@ public class GetArtworkById extends HttpServlet {
 
 	}
 
-	private JsonObject getArtworkById(String artworkId) {
+	private JsonObject getArtworkById(String artworkId, String userId) {
 
 		JsonObject returnJson = new JsonObject();
 
 
 		String returnMsg = "获取成功";
 
-		JsonArray artworkArray = new JsonArray();
+		JsonObject artworkObj = new JsonObject();
 	
 		Connection conn = null;
 		Statement stmt = null;
@@ -100,8 +101,8 @@ public class GetArtworkById extends HttpServlet {
 			stmt = conn.createStatement();
 			
 			
-			//获取gallery
-			String sql = "select * from artwork where id=" + artworkId;
+			//获取artwork
+			String sql = "select * from artwork_view where id='" + artworkId + "'";
 			
 			System.out.println(sql);
 			
@@ -110,7 +111,7 @@ public class GetArtworkById extends HttpServlet {
 			int columnCount = metaData.getColumnCount();
 
 			while (rs.next()) {
-				JsonObject artworkObj = new JsonObject();
+		
 				for (int i = 1; i <= columnCount; i++) {  
 		            String columnName =metaData.getColumnLabel(i);  
 		            String value = rs.getString(columnName);  
@@ -119,8 +120,25 @@ public class GetArtworkById extends HttpServlet {
 		            artworkObj.addProperty(columnName, value);  
 		        }   
 				
-				artworkArray.add(artworkObj);
+				
 			}			
+			rs.close();
+			
+			//判断是否收藏
+			
+			sql = "select * from favorite where itemtype='artwork' and  itemid='" + artworkId + "' and userid=" + userId;
+			
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);		
+			
+
+			if (rs.next()) {
+				artworkObj.addProperty("myfavorite", "true");  
+			}else{
+				artworkObj.addProperty("myfavorite", "false");   
+			}
+			
 			rs.close();
 			
 			
@@ -161,7 +179,7 @@ public class GetArtworkById extends HttpServlet {
 		}
 
 		returnJson.addProperty("returnMsg", returnMsg);
-		returnJson.add("artworks", artworkArray);
+		returnJson.add("artwork", artworkObj);
 		return returnJson;
 	}
 

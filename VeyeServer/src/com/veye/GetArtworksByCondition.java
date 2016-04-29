@@ -105,7 +105,7 @@ public class GetArtworksByCondition extends HttpServlet {
 			
 			
 			//ªÒ»°gallery
-			String sql = "select * from artwork where " + condition;
+			String sql = "select * from artwork_view where " + condition;
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
 			int columnCount = metaData.getColumnCount();

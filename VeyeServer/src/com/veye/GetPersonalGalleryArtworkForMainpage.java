@@ -30,7 +30,7 @@ public class GetPersonalGalleryArtworkForMainpage extends HttpServlet {
 	 */
 	public GetPersonalGalleryArtworkForMainpage() {
 		super();
-		// TODO Auto-generated constructor stub
+		// TODO Auto-generated constructor stub                                                                                                                          
 	}
 
 	/**
@@ -97,7 +97,7 @@ public class GetPersonalGalleryArtworkForMainpage extends HttpServlet {
 			
 			
 			//获取所有机构 gallery
-			String sql = "select id, name, province,city from gallery where type='个人'";
+			String sql = "select id, name, owner_artist, province,city from gallery where type='个人'";
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
 			int columnCount = metaData.getColumnCount();
@@ -122,7 +122,7 @@ public class GetPersonalGalleryArtworkForMainpage extends HttpServlet {
 				
 				
 				
-				sql = "select id, gallery, thumbnail from artwork where galleryid=" + galleryObj.get("id").getAsString();
+				sql = "select id, gallery, size, thumbnail, artistid, artist from artwork where galleryid='" + galleryObj.get("id").getAsString() + "'";
 				rs = stmt.executeQuery(sql);		
 				metaData = rs.getMetaData();  
 				columnCount = metaData.getColumnCount();
@@ -146,7 +146,7 @@ public class GetPersonalGalleryArtworkForMainpage extends HttpServlet {
 				
 				galleryObj.add("artworks", artworkArray);
 				
-				System.out.println(galleryObj);
+				//System.out.println(galleryObj);
 				
 			}
 			

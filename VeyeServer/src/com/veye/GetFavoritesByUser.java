@@ -104,37 +104,89 @@ public class GetFavoritesByUser extends HttpServlet {
 			stmt = conn.createStatement();
 			
 			
-			//获取
-			String sql = "select itemtype, itemid from favorite where userid=" + userId ;
-			ResultSet rs = stmt.executeQuery(sql);		
+			//获取作品的收藏
+			String sql = "select * from artwork_view where id in (select itemid from favorite where  favorite.itemtype='artwork' and favorite.userid=" + userId + ")";
 		
+			System.out.println(sql);
+			
+			ResultSet rs = stmt.executeQuery(sql);	
+			ResultSetMetaData metaData = rs.getMetaData();  
+			int columnCount = metaData.getColumnCount();
 
 			while (rs.next()) {
-				JsonObject Obj = new JsonObject();
+				JsonObject artworkObj = new JsonObject();
+				for (int i = 1; i <= columnCount; i++) {  
+		            String columnName =metaData.getColumnLabel(i);  
+		            String value = rs.getString(columnName);  
+		            if(value == null)
+						value="";
+		            artworkObj.addProperty(columnName, value);  
+		        }   
 				
+				artworkArray.add(artworkObj);
+			}			
+			rs.close();
+			
+			
+			
+			//获取gallery 				
+			sql = "select * from gallery where id in (select itemid from favorite where  favorite.itemtype='gallery' and favorite.userid=" + userId + ")";
+			
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);	
+			
+		
+			 metaData = rs.getMetaData();  
+			 columnCount = metaData.getColumnCount();
+
+			while (rs.next()) {
+				JsonObject galleryObj = new JsonObject();
+				for (int i = 1; i <= columnCount; i++) {  
+		            String columnName =metaData.getColumnLabel(i);  
+		            String value = rs.getString(columnName);  
+		            if(value == null)
+						value="";
+		            galleryObj.addProperty(columnName, value);  
+		        }   
 				
-				
-				if(rs.getString("itemtype").equalsIgnoreCase("artwork")){
-					
-					Obj.addProperty("artworkid", rs.getString("itemid"));
-					artworkArray.add(Obj);
-					
-				}else if(rs.getString("itemtype").equalsIgnoreCase("artist")){
-					
-					Obj.addProperty("artistid", rs.getString("itemid"));
-					artistArray.add(Obj);
-					
-				}else if(rs.getString("itemtype").equalsIgnoreCase("gallery")){
-					
-					Obj.addProperty("galleryid", rs.getString("itemid"));
-					galleryArray.add(Obj);
-				}
-				
-				//System.out.println(Obj);
+				galleryArray.add(galleryObj);
 				
 			}			
 			rs.close();
 			
+	
+			
+			
+			
+			
+			//artist的收藏
+				
+			sql = "select * from artist where id in (select itemid from favorite where  favorite.itemtype='artist' and favorite.userid=" + userId + ")";
+			
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);
+			
+		
+			 metaData = rs.getMetaData();  
+			 columnCount = metaData.getColumnCount();
+
+			while (rs.next()) {
+				JsonObject Obj = new JsonObject();
+				
+				for (int i = 1; i <= columnCount; i++) {  
+		            String columnName =metaData.getColumnLabel(i);  
+		            String value = rs.getString(columnName);  
+		            if(value == null)
+						value="";
+		            Obj.addProperty(columnName, value);  
+		        }   
+				
+				artistArray.add(Obj);
+				
+			}			
+			rs.close();
 			
 		
 

@@ -103,7 +103,10 @@ public class GetArtworksByArtist extends HttpServlet {
 			
 			
 			//ªÒ»°gallery
-			String sql = "select * from artwork where artistid=" + artistId;
+			String sql = "select * from artwork_view where artistid='" + artistId + "'";
+			
+			System.out.print(sql);
+			
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
 			int columnCount = metaData.getColumnCount();

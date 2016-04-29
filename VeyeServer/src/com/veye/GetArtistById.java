@@ -51,7 +51,8 @@ public class GetArtistById extends HttpServlet {
 			HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
 		
-
+		String userId = URLDecoder
+		.decode(request.getParameter("userId"), "UTF-8");
 		String artistId = URLDecoder
 				.decode(request.getParameter("artistId"), "UTF-8");
 
@@ -68,7 +69,7 @@ public class GetArtistById extends HttpServlet {
 		response.setHeader("Access-Control-Max-Age", "86400");
 
 	
-		JsonObject returnJson = this.getArtistById(artistId);
+		JsonObject returnJson = this.getArtistById(artistId,userId);
 
 		PrintWriter out = response.getWriter();
 		out.println(returnJson.toString());
@@ -76,7 +77,7 @@ public class GetArtistById extends HttpServlet {
 
 	}
 
-	private JsonObject getArtistById(String artistId) {
+	private JsonObject getArtistById(String artistId, String userId) {
 
 		JsonObject returnJson = new JsonObject();
 
@@ -101,7 +102,10 @@ public class GetArtistById extends HttpServlet {
 			
 			
 			//获取gallery
-			String sql = "select * from artist where id=" + artistId;
+			String sql = "select * from artist where id='" + artistId + "'";
+			
+			System.out.println(sql);
+			
 			ResultSet rs = stmt.executeQuery(sql);		
 			ResultSetMetaData metaData = rs.getMetaData();  
 			int columnCount = metaData.getColumnCount();
@@ -117,6 +121,23 @@ public class GetArtistById extends HttpServlet {
 		        }   
 				
 			}			
+			rs.close();
+			
+			//判断是否收藏
+			
+			sql = "select * from favorite where itemtype='artist' and  itemid='" + artistId + "' and userid=" + userId;
+			
+			System.out.println(sql);
+			
+			rs = stmt.executeQuery(sql);		
+			
+
+			if (rs.next()) {
+				galleryObj.addProperty("myfavorite", "true");  
+			}else{
+				galleryObj.addProperty("myfavorite", "false");   
+			}
+			
 			rs.close();
 			
 			

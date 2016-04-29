@@ -64,11 +64,14 @@ public class UpdatePassword extends HttpServlet {
 
 		String phone = URLDecoder
 				.decode(request.getParameter("phone"), "UTF-8");
+		
+		String oldpassword = URLDecoder.decode(
+				request.getParameter("oldpassword"), "UTF-8");
 
 		String newpassword = URLDecoder.decode(
 				request.getParameter("newpassword"), "UTF-8");
 
-		JsonObject returnJson = this.registerUser(phone, newpassword);
+		JsonObject returnJson = this.registerUser(phone,oldpassword, newpassword);
 
 		PrintWriter out = response.getWriter();
 		out.println(returnJson.toString());
@@ -76,7 +79,7 @@ public class UpdatePassword extends HttpServlet {
 
 	}
 
-	private JsonObject registerUser(String phone, String newpassword) {
+	private JsonObject registerUser(String phone, String oldpassword, String newpassword) {
 
 		JsonObject returnJson = new JsonObject();
 
@@ -97,32 +100,42 @@ public class UpdatePassword extends HttpServlet {
 					Constants.USER, Constants.PASS);
 			// Execute SQL query
 			stmt = conn.createStatement();
-
-			String sql = "update USER set password='" + newpassword + "'";
-			sql = sql + "  where phone='" + phone + "'";
-
-			System.out.println(sql);
-
-			stmt.execute(sql);
-
-			sql = "select * from user where phone = '" + phone + "'";
+			
+			
+			//check æ…√‹¬Î «∑Ò’˝»∑
+			String sql = "select * from user where phone = '" + phone + "' and password='" + oldpassword + "'";
 			ResultSet rs = stmt.executeQuery(sql);
+			if(!rs.next()){
+				returnMsg = "æ…√‹¬Î¥ÌŒÛ";
+				rs.close();
+			}else{
+				rs.close();
 
-			System.out.println(sql);
-
-			ResultSetMetaData metaData = rs.getMetaData();
-			int columnCount = metaData.getColumnCount();
-
-			if (rs.next()) {
-				for (int i = 1; i <= columnCount; i++) {
-					String columnName = metaData.getColumnLabel(i);
-					String value = rs.getString(columnName);
-					if(value == null)
-						value="";
-					userInfo.addProperty(columnName, value);
+				sql = "update USER set password='" + newpassword + "'";
+				sql = sql + "  where phone='" + phone + "'";
+	
+				System.out.println(sql);
+	
+				stmt.execute(sql);
+	
+				sql = "select * from user where phone = '" + phone + "'";
+				rs = stmt.executeQuery(sql);
+	
+				System.out.println(sql);
+	
+				ResultSetMetaData metaData = rs.getMetaData();
+				int columnCount = metaData.getColumnCount();
+	
+				if (rs.next()) {
+					for (int i = 1; i <= columnCount; i++) {
+						String columnName = metaData.getColumnLabel(i);
+						String value = rs.getString(columnName);
+						if(value == null)
+							value="";
+						userInfo.addProperty(columnName, value);
+					}
 				}
 			}
-
 			stmt.close();
 			stmt = null;
 

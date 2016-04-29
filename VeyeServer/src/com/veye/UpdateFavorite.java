@@ -92,6 +92,8 @@ public class UpdateFavorite extends HttpServlet {
 		JsonObject userInfo = new JsonObject();
 
 		String returnMsg = "更新成功";
+		
+		String returnFav="";
 
 		Connection conn = null;
 		Statement stmt = null;
@@ -110,26 +112,105 @@ public class UpdateFavorite extends HttpServlet {
 			
 			String sql="";
 			
+			
 			if(favorite.trim().equalsIgnoreCase("0")){
-				sql = "delete from favorite where userid=" + userid + " and itemtype='" + itemtype + "' and itemid=" + itemid;
+				sql = "delete from favorite where userid=" + userid + " and itemtype='" + itemtype + "' and itemid='" + itemid + "'";
 				stmt.execute(sql);
 				
 				if(itemtype.equalsIgnoreCase("artwork")){
-					sql = "update artwork set favorite = favorite - 1 where id=" + itemid; 
-					stmt.execute(sql);
+					sql = "update artwork set favorite = favorite - 1 where id='" + itemid  + "'"; 
+					
+				}else if(itemtype.equalsIgnoreCase("artist")){
+					sql = "update artist set favorite = favorite - 1 where id='" + itemid + "'"; 
+					
+				}if(itemtype.equalsIgnoreCase("gallery")){
+					sql = "update gallery set favorite = favorite - 1 where id='" + itemid + "'"; 
+					
 				}
+				stmt.execute(sql);
 				
 			}else if (favorite.trim().equalsIgnoreCase("1")){
-				sql = "insert IGNORE into favorite values (" + userid + ",'" + itemtype + "'," + itemid +  ")";				
+				
+				//获取缩略图
+				String thumb = "";
+				
+				if(itemtype.equalsIgnoreCase("artwork")){
+					sql = "select thumbnail from artwork where id='" + itemid + "'";
+					
+					
+				}else if(itemtype.equalsIgnoreCase("gallery")){
+					sql = "select portrait from gallery where id='" + itemid + "'";
+					
+				}else if(itemtype.equalsIgnoreCase("artist")){
+					sql = "select portrait from artist where id='" + itemid + "'";
+					
+				}
+				
+				System.out.println(sql);
+				
+				ResultSet rs = stmt.executeQuery(sql);
+				if(rs.next()){
+					thumb = rs.getString(1);
+				}
+				rs.close();
+				
+				
+				//插入数据
+				sql = "insert IGNORE into favorite values (" + userid + ",'" + itemtype + "','" + itemid + "','" + thumb + "')";	
+				
+				System.out.println(sql);
+				
 				stmt.execute(sql);
 				
 				if(itemtype.equalsIgnoreCase("artwork")){
-					sql = "update artwork set favorite = favorite + 1 where id=" + itemid; 
-					stmt.execute(sql);
+					sql = "update artwork set favorite = favorite + 1 where id='" + itemid+ "'"; 
+					
+				}else if(itemtype.equalsIgnoreCase("artist")){
+					sql = "update artist set favorite = favorite + 1 where id='" + itemid+ "'"; 
+					
+				}if(itemtype.equalsIgnoreCase("gallery")){
+					sql = "update gallery set favorite = favorite + 1 where id='" + itemid+ "'"; 
+					
 				}
+				
+				System.out.println(sql);
+				stmt.execute(sql);
 			}
 
+			//查询修改之后有多少favorite
+			if(itemtype.equalsIgnoreCase("artwork")){
+				sql = "select favorite from artwork where id='" + itemid + "'"; 
 				
+			}else if(itemtype.equalsIgnoreCase("artist")){
+				sql = "select favorite from artist where id='" + itemid + "'"; 
+				
+			}if(itemtype.equalsIgnoreCase("gallery")){
+				sql = "select favorite from gallery where id='" + itemid + "'";  
+				
+			}
+			
+			ResultSet rs = stmt.executeQuery(sql);
+			if(rs.next()){
+				returnFav = rs.getString(1);
+			}
+			rs.close();
+			
+			//如果小于零，重置为0
+			if(Integer.valueOf(returnFav)<0){
+				returnFav = "0";
+			
+				if(itemtype.equalsIgnoreCase("artwork")){
+					sql = "update artwork set favorite=0 where id='" + itemid + "'"; 
+					
+				}else if(itemtype.equalsIgnoreCase("artist")){
+					sql = "update artist set favorite=0 where id='" + itemid + "'";  
+					
+				}if(itemtype.equalsIgnoreCase("gallery")){
+					sql = "update gallery set favorite=0 where id='" + itemid + "'";   
+					
+				}
+				stmt.execute(sql);
+			}
 			
 
 			stmt.close();
@@ -167,6 +248,7 @@ public class UpdateFavorite extends HttpServlet {
 		}
 
 		returnJson.addProperty("returnMsg", returnMsg);
+		returnJson.addProperty("favorite", returnFav);
 		return returnJson;
 	}
 
