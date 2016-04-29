@@ -92,10 +92,6 @@ public class AddAddress extends HttpServlet {
 		String isdefault = URLDecoder.decode(request.getParameter("isdefault"),
 		"UTF-8");
 
-
-		System.out.println("12345");
-
-		System.out.println("ewqr345");
 			
 		JsonObject returnJson = this.addAddress(userid, province, city, district,address, postcode ,receiver, phone,isdefault);
 
