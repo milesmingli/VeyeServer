@@ -1,8 +1,6 @@
 package com.veye;
 
 import java.io.IOException;
-import java.io.PrintWriter;
-import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,9 +16,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
-
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 
 /**
  * Servlet implementation class UserUpdate

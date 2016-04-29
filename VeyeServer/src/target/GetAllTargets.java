@@ -15,8 +15,6 @@ import org.apache.http.impl.cookie.DateUtils;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
 
-import target.SignatureBuilder;
-
 
 //See the Vuforia Web Services Developer API Specification - https://developer.vuforia.com/resources/dev-guide/listing-targets-cloud-database
 

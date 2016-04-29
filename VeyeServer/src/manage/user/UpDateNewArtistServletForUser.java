@@ -4,22 +4,18 @@ import java.io.IOException;
 import java.io.PrintWriter;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import manage.Decoder;
-import Decoder.BASE64Decoder;
-
-import com.google.gson.JsonArray;
 import com.veye.Constants;
+
+import manage.Decoder;
 
 public class UpDateNewArtistServletForUser extends HttpServlet {
 	private static final long serialVersionUID = 1L;

@@ -1,8 +1,6 @@
 package manage;
 
 import java.io.File;
-import java.util.Calendar;
-import java.util.Random;
 
 public class CreateFile {
 

@@ -7,10 +7,7 @@ import java.util.Date;
 import java.util.Timer;
 import java.util.TimerTask;
 
-import manage.target.SignatureBuilder;
-
 import org.apache.http.HttpResponse;
-import org.apache.http.ParseException;
 import org.apache.http.client.ClientProtocolException;
 import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpGet;

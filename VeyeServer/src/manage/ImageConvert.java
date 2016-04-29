@@ -1,12 +1,8 @@
 package manage;
 
 
-import java.io.BufferedReader;  
-import java.io.InputStreamReader;  
-  
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
-import org.im4java.process.ProcessStarter;
 
 
 public class ImageConvert {

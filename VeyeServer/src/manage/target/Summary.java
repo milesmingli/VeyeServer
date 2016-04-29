@@ -18,8 +18,6 @@ import org.apache.http.util.EntityUtils;
 
 import com.veye.Constants;
 
-import  manage.target.SignatureBuilder;
-
 
 //See the Vuforia Web Services Developer API Specification - https://developer.vuforia.com/resources/dev-guide/database-summary-report
 

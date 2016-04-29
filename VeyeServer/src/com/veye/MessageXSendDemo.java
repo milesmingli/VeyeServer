@@ -1,8 +1,8 @@
 package com.veye;
 
-import utils.ConfigLoader;
 import config.AppConfig;
 import lib.MESSAGEXsend;
+import utils.ConfigLoader;
 
 public class MessageXSendDemo {
 

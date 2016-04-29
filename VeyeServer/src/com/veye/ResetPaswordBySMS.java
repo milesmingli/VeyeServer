@@ -6,7 +6,6 @@ import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.SQLException;
 import java.sql.Statement;
 
@@ -15,13 +14,11 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import lib.MESSAGEXsend;
-import utils.ConfigLoader;
-
-import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
 
 import config.AppConfig;
+import lib.MESSAGEXsend;
+import utils.ConfigLoader;
 
 /**
  * Servlet implementation class UserUpdate
