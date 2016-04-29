@@ -1,0 +1,917 @@
+<!DOCTYPE HTML>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport"
+	content="width=device-width, initial-scale=1, maximum-scale=1">
+<title>index</title>
+<link rel="stylesheet" type="text/css" href="css/main.css" />
+<link rel="stylesheet" type="text/css" href="css/style.css" />
+<script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="js/jquery.cookie.js"></script>
+
+<script src="js/main.js"></script>
+
+<style type="text/css">
+.input_1 {
+	font-family: 微软雅黑;
+	font-size: 10 px;
+	border: 1px;
+	color: red;
+	width: 200px
+}
+
+.input_2 {
+	font-family: 微软雅黑;
+	font-size: 10 px;
+	border: 1px;
+	color: #7FFFAA
+}
+
+.button.blue {
+	border: 1px solid #2f889a;
+	box-shadow: 0 1px 2px #2f889a inset, 0 -1px 0 #2f889a inset, 0 -2px 3px
+		#2f889a inset;
+	background: -webkit-linear-gradient(top, #2f889a, #2f889a);
+	background: -moz-linear-gradient(top, #2f889a, #2f889a);
+	background: linear-gradient(top, #2f889a, #2f889a);
+	padding: 16px;
+	width: 94%;
+	font-size: 15px;
+	color: white;
+	font-family: 微软雅黑;
+}
+
+#nav {
+  line-height: 18px;  list-style-type: none; text-align: center;
+}
+
+#nav a {
+ display: block; width: 100px; text-align:center;
+}
+
+#nav a:link  {
+ color:#666; text-decoration:none;
+}
+#nav a:visited  {
+ color:#666;text-decoration:none;
+}
+#nav a:hover  {
+ color:#FFF;text-decoration:none;font-weight:bold;
+}
+
+#nav li {
+  text-align: center;width: 100px; background:#CCC;
+}
+#nav li a:hover{
+ background:#999;text-align: center;
+}
+#nav li ul {
+ line-height: 18px;  list-style-type: none;text-align:left;
+ left: -999em; width: 100px; position: absolute;
+}
+#nav li ul li{
+ float: left; width: 100px;
+ background: #F6F6F6;
+}
+
+
+#nav li ul a{
+ display: block; width: 100px;_width: 100px;height:auto; margin:0 auto;text-align:left; padding-left:0px;
+}
+
+#nav li ul a:link  {
+ color:#666; text-decoration:none;
+}
+#nav li ul a:visited  {
+ color:#666;text-decoration:none;
+}
+#nav li ul a:hover  {
+ color:#F3F3F3;text-decoration:none;font-weight:normal;text-align: center;
+
+}
+
+#nav li:hover ul {
+ left: auto;
+}
+#nav li.sfhover ul {
+ left: auto;
+}
+#content {
+ clear: left;
+}
+</style>
+<script type="text/javascript">
+	var randomconut = Math.floor(Math.random() * 1000);
+	var checkverificode = null;
+	var verifyemailcode=null;
+	var nickname=null;
+	var user="";
+	function EmailRegister() {
+
+		var email = document.getElementById("signup-email").value;
+		var verifycode=document.getElementById("verifyemail").value;
+		var password1 = document.getElementById("signup-password").value;
+		var password2 = document.getElementById("signupms-password").value;
+
+		if (email == null || email == "") {
+
+			document.getElementById("tishi").value = "请输入邮箱";
+			return;
+		}
+
+		if (email != null && email != "") {
+
+			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+			if (!filter.test(email)) {
+				document.getElementById("tishi").className = "input_1";
+				document.getElementById("tishi").value = "邮箱格式不正确";
+				return;
+			} else {
+
+				document.getElementById("tishi").className = "input_2";
+				document.getElementById("tishi").value = "输入正确";
+			}
+		}
+
+		if (password1.length > 0) {
+
+			var reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+			if (!reg.test(password1) || password1.length<6||password1.length>16) {
+				document.getElementById("tishi1").className = "input_1";
+				document.getElementById("tishi1").value = "请输入6-16位字母数字组合";
+				return;
+			} else {
+				document.getElementById("tishi1").className = "input_2";
+				document.getElementById("tishi1").value = "输入正确";
+			}
+		}
+
+		if (password1.length > 0 && password2.length > 0) {
+
+			if (password1 != password2) {
+
+				document.getElementById("tishi2").className = "input_1";
+				document.getElementById("tishi2").value = "两次密码输入不一致";
+				return;
+
+			} else {
+				document.getElementById("tishi2").className = "input_2";
+				document.getElementById("tishi2").value = "输入正确";
+			}
+
+		}
+
+		
+		if (verifycode == verifyemailcode) {
+
+			document.getElementById("tishi11").className = "input_2";
+			document.getElementById("tishi11").value = "输入正确";
+		}else if (verifycode.length>0){
+			
+			document.getElementById("tishi11").className = "input_1";
+			document.getElementById("tishi11").value = "验证码错误";
+			return;
+		}
+		
+		
+	}
+
+	function PhoneRegister() {
+
+		var phone = document.getElementById("phone").value;
+		var password1 = document.getElementById("phone-password").value;
+		var password2 = document.getElementById("phonems-password").value;
+		var verificode = document.getElementById("verificode").value;
+
+		if (phone == null || phone == "") {
+
+			document.getElementById("tishi3").value = "请输入手机号";
+
+			return;
+		}
+
+		if (phone != null && phone != "") {
+
+			var filter = /^1\d{10}$/;
+			if (!filter.test(phone)) {
+				document.getElementById("tishi3").className = "input_1";
+				document.getElementById("tishi3").value = "请输入正确的11位手机号";
+				return;
+			} else {
+
+				document.getElementById("tishi3").className = "input_2";
+				document.getElementById("tishi3").value = "输入正确";
+			}
+		}
+
+		if (password1.length > 0) {
+
+			var reg = /^(([a-z]+[0-9]+)|([0-9]+[a-z]+))[a-z0-9]*$/i;
+			if (!reg.test(password1) || password1.length<6||password1.length>16) {
+				document.getElementById("tishi5").className = "input_1";
+				document.getElementById("tishi5").value = "请输入6-16位字母数字组合";
+				return;
+			} else {
+				document.getElementById("tishi5").className = "input_2";
+				document.getElementById("tishi5").value = "输入正确";
+			}
+		}
+
+		if (password1.length > 0 && password2.length > 0) {
+
+			if (password1 != password2) {
+
+				document.getElementById("tishi6").className = "input_1";
+				document.getElementById("tishi6").value = "两次密码输入不一致";
+				return;
+
+			} else {
+				document.getElementById("tishi6").className = "input_2";
+				document.getElementById("tishi6").value = "输入正确";
+			}
+
+		}
+
+		if (verificode == checkverificode) {
+
+			document.getElementById("tishi4").className = "input_2";
+			document.getElementById("tishi4").value = "输入正确";
+		}else if (verificode.length>0){
+			document.getElementById("tishi4").className = "input_1";
+			document.getElementById("tishi4").value = "验证码错误";
+			return;
+			
+		}
+
+	}
+	var wait = 60;
+	function time(o) {
+		if (wait == 0) {
+			o.removeAttribute("disabled");
+			o.value = "发送验证码";
+			wait = 60;
+		} else {
+			o.setAttribute("disabled", true);
+			o.value = "重新发送(" + wait + ")";
+			wait--;
+			setTimeout(function() {
+				time(o)
+			}, 1000)
+		}
+	}
+
+	function verifi(obj) {
+		time(obj);
+		var phone = document.getElementById("phone").value;
+		$.ajax({
+
+			url : "http://123.57.81.165:8080/VeyeServer/SmsVerify?phone="
+					+ phone + "&randomconut=" + randomconut,
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				//console.log(data);
+				checkverificode = data["verifyCode"];
+				//console.log("checkverificode:" + checkverificode);
+
+			}
+		});
+
+	}
+
+	
+	
+	function verifyemail1(obj){
+		time(obj);
+		var email = document.getElementById("signup-email").value;
+		$.ajax({
+
+			url : "./EmailVerifyServlet?email="
+					+ email + "&randomconut=" + randomconut,
+			dataType : "text",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				//console.log(data);
+				verifyemailcode=data;
+				
+			}
+		});
+		
+		
+	}
+	
+
+	function dosubmitemail() {
+
+		EmailRegister();
+		var email = document.getElementById("signup-email").value;
+		var verifycode=document.getElementById("verifyemail").value;
+		var password = document.getElementById("signup-password").value;
+		var mspassword = document.getElementById("signupms-password").value;
+		var name = "email";
+
+		if (verifycode.length < 6 || verifycode.length >6) {
+
+			document.getElementById("tishi11").className = "input_1";
+			document.getElementById("tishi11").value = "验证码错误";
+
+			return;
+
+		} else if (verifycode.length == 6
+				&& verifycode == verifyemailcode) {
+
+			document.getElementById("tishi11").className = "input_2";
+			document.getElementById("tishi11").value = "输入正确";
+
+		}
+		
+		
+		$.ajax({
+					url : "./CheckEmailServlet?email=" + email
+							+ "&randomconut=" + randomconut,
+					dataType : "text",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					error : function(request, error) {
+						alert(error);
+					},
+
+					success : function(data) {
+
+						//console.log("data:" + data);
+
+				
+						
+						if (data == "fail" && (email.length > 6)) {
+							document.getElementById("tishi").className = "input_1";
+							document.getElementById("tishi").value = "改邮箱已被注册";
+
+							return;
+							
+
+
+						} else {
+
+							
+							
+							if ((email.length > 6) && (password.length >= 6)
+									&& (mspassword == password)) {
+
+								$.ajax({
+
+											url : "./RegisterServlet?email="
+													+ email + "&password="
+													+ password + "&name="
+													+ name + "&randomconut="
+													+ randomconut,
+											dataType : "text",
+											contentType : "application/x-www-form-urlencoded; charset=utf-8",
+											error : function(request, error) {
+												alert(error);
+											},
+
+											success : function(data) {
+
+												//console.log("data:" + data);
+
+												if (data == "success") {
+
+													alert("注册成功");
+													
+													document.getElementById("unlogin").style.display = "none";
+
+													//window.location.href = "index.html";
+
+												}
+
+											}
+										});
+
+							} else {
+
+								alert("请核对注册信息");
+							}
+
+						}
+
+					}
+				});
+
+	}
+
+	function dosubmitphone() {
+
+		PhoneRegister();
+		var phone = document.getElementById("phone").value;
+		var password1 = document.getElementById("phone-password").value;
+		var password2 = document.getElementById("phonems-password").value;
+		var verificode = document.getElementById("verificode").value;
+		var name = "phone";
+		$.ajax({
+
+					url : "./CheckPhoneServlet?phone=" + phone
+							+ "&randomconut=" + randomconut,
+					dataType : "text",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					error : function(request, error) {
+						alert(error);
+					},
+
+					success : function(data) {
+
+						//console.log("data:" + data);
+
+						if (data == "fail" && (phone.length > 10)) {
+							document.getElementById("tishi3").className = "input_1";
+							document.getElementById("tishi3").value = "该手机已被注册";
+
+							return;
+
+						} else {
+
+							if (verificode.length < 6) {
+
+								document.getElementById("tishi4").className = "input_1";
+								document.getElementById("tishi4").value = "验证码错误";
+
+								return;
+
+							} else if (verificode.length == 6
+									&& verificode == checkverificode) {
+
+								document.getElementById("tishi4").className = "input_2";
+								document.getElementById("tishi4").value = "输入正确";
+
+							}
+
+							if ((phone.length > 10) && (password1.length >= 6)
+									&& (password2 == password1)
+									&& (verificode == checkverificode)) {
+
+								$.ajax({
+
+											url : "./RegisterServlet?phone="
+													+ phone + "&password1="
+													+ password1 + "&name="
+													+ name + "&randomconut="
+													+ randomconut,
+											dataType : "text",
+											contentType : "application/x-www-form-urlencoded; charset=utf-8",
+											error : function(request, error) {
+												alert(error);
+											},
+
+											success : function(data) {
+
+												//console.log("data:" + data);
+
+												if (data == "success") {
+
+													alert("注册成功");
+													document.getElementById("unlogin").style.display = "none";
+													
+													//window.location.href = "index.html";
+
+												}
+
+											}
+										});
+
+							} else {
+
+								alert("请核对注册信息");
+							}
+
+						}
+
+					}
+				});
+
+	}
+
+	function registerblock() {
+		document.getElementById("unlogin").style.display = "block";
+
+
+		document.getElementById("register").style.display = "block";
+		document.getElementById("cd-login1").style.display = "none";
+
+	}
+
+	function registernone() {
+		document.getElementById("unlogin").style.display = "block";
+
+		document.getElementById("register").style.display = "none";
+		document.getElementById("cd-login1").style.display = "block";
+
+	}
+
+	function dosubmitlogin() {
+		var username = document.getElementById("username").value;
+		var password = document.getElementById("userpassword").value;
+		var name = "";
+		if (username.indexOf("@") > 0) {
+			name = "email";
+		} else {
+			name = "phone";
+		}
+
+		$.ajax({
+
+					url : "./LoginServlet?username=" + username + "&password="
+							+ password + "&name=" + name + "&randomconut="
+							+ randomconut,
+					dataType : "text",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					error : function(request, error) {
+						alert(error);
+					},
+
+					success : function(data) {
+
+						//console.log("data:" + data);
+
+						if (data == "success") {
+							user =username;
+							if(username.length>10){
+								username=username.substring(0,7)+"...";
+							}
+			        		$.cookie('user_cookie', user, { expires: 365, path: '/' }); 
+							window.location.href = "index.html";
+						/* 	document.getElementById("unlogin").style.display = "none";
+							document.getElementById("unregister").style.display = "none";
+							document.getElementById("islogin").style.display = "block";
+							document.getElementById("nav").innerHTML="<li><a>"+username+"</a> <ul style='text-align: center;'><li><a href='#'>我的账号</a></li> <li><a href='#'>我的收藏</a></li> <li><a href='#'>我的订单</a></li><li><a href='#'>我的后台</a></li><li><a href='#' onclick='exitlogin()'>退出登录</a></li></ul></li>";
+				 */
+						} else {
+							document.getElementById("checklogin").className = "input_1";
+							document.getElementById("checklogin").style.display = "block";
+						}
+
+					}
+				});
+
+	}
+	
+	function menuFix() {
+		 var sfEls = document.getElementById("nav").getElementsByTagName("li");
+		 for (var i=0; i<sfEls.length; i++) {
+		  sfEls[i].onmouseover=function() {
+		  this.className+=(this.className.length>0? " ": "") + "sfhover";
+		  }
+		  sfEls[i].onMouseDown=function() {
+		  this.className+=(this.className.length>0? " ": "") + "sfhover";
+		  }
+		  sfEls[i].onMouseUp=function() {
+		  this.className+=(this.className.length>0? " ": "") + "sfhover";
+		  }
+		  sfEls[i].onmouseout=function() {
+		  this.className=this.className.replace(new RegExp("( ?|^)sfhover\\b"),
+
+		"");
+		  }
+		 }
+		}
+		window.onload=function(){
+			menuFix();
+			user = $.cookie('user_cookie');
+			var username=user;
+			if(username.length>10){
+				username=username.substring(0,7)+"...";
+			}
+			if(user!=""){
+			$.ajax({
+				
+				url : "./NickNameServlet?user="+user+"&randomconut="
+				+ randomconut,
+				dataType : "json",
+				contentType : "application/x-www-form-urlencoded; charset=utf-8",
+				error : function(request, error) {
+					alert(error);
+				},
+
+				success : function(data) {
+
+					////console.log("data:" + JSON.stringify(data));
+					 
+					$.cookie('type_cookie', data[0].type, { expires: 1, path: '/' }); 
+					$.cookie('userid', data[0].id, { expires: 1, path: '/' }); 
+					nickname=data[0].nickname;
+					//console.log(nickname);
+					if(nickname!=null && nickname!="" && nickname!="undefined"){
+						document.getElementById("userimg").src = "."+data[0].portrait+"?rand="+randomconut;
+						document.getElementById("nav").innerHTML="<li><a>"+nickname+"</a> <ul style='text-align: center;'><li><a href='account_manage/AccountMain.html'>我的账号</a></li> <li><a href='#'>我的收藏</a></li> <li><a href='#'>我的订单</a></li><li><a href='#'>我的后台</a></li><li><a href='#' onclick='exitlogin()'>退出登录</a></li></ul></li>";
+						document.getElementById("unlogin").style.display = "none";
+						document.getElementById("unregister").style.display = "none";
+						document.getElementById("islogin").style.display = "block";	
+						
+						}else{
+							
+							if(user!=null && user!="" && user!="undefined"){
+								document.getElementById("nav").innerHTML="<li><a>"+username+"</a> <ul style='text-align: center;'><li><a href='account_manage/AccountMain.html'>我的账号</a></li> <li><a href='#'>我的收藏</a></li> <li><a href='#'>我的订单</a></li><li><a href='#'>我的后台</a></li><li><a href='#' onclick='exitlogin()'>退出登录</a></li></ul></li>";
+								document.getElementById("unlogin").style.display = "none";
+								document.getElementById("unregister").style.display = "none";
+								document.getElementById("islogin").style.display = "block";
+								
+							}
+						
+						}
+
+					}
+				});
+			}
+			
+			
+			
+		}
+	
+		
+		function exitlogin(){
+			
+    		$.cookie('user_cookie', "", { expires: 365, path: '/' }); 
+    		
+				//document.getElementById("unlogin").style.display = "block";
+				document.getElementById("unregister").style.display = "block";
+				document.getElementById("islogin").style.display = "none";	
+				
+
+			
+		}
+	
+</script>
+
+
+
+
+
+
+
+</head>
+
+<body>
+
+
+
+	<div id="main" style="width: 100%;height: 100%">
+		<div class="demo"
+			style="width: 100%;height: 30%">
+		
+		<div id="islogin" style="display: none" >
+		<div style="width: 10%;float: right;margin-top: 60px">
+		<img alt="" src="images/u19.png" style="width: 55%;" />
+		
+		</div>
+			<div style="width: 10%;float: right;margin-top: 100px">
+				<ul id="nav">
+				<!-- <li><a>用户昵称</a>
+				    <ul style="text-align: center;">
+				        <li><a href="#">我的账号</a></li>
+				        <li><a href="#">我的收藏</a></li>
+				        <li><a href="#">我的订单</a></li>
+				        <li><a href="#">我的后台</a></li>
+				        <li><a href="#">退出登录</a></li>
+				    </ul>
+				</li> -->
+				 </ul>
+			</div>
+			<div style="width: 15%;float: right;margin-top: 50px">
+				<div style="text-align: right;">
+				<img alt="" src="images/u22.png" id="userimg" style="width: 45%;" />
+				</div>
+			</div>
+			</div>
+			<div style="width: 35%;float: right;margin-top: 10px;" id="unregister">
+			
+				<nav class="main_nav">
+					<ul>
+						<li><input type="button" value="登   录"
+							style="background-color:transparent;border: none;outline:none;font-size: 16px;font-family: 微软雅黑;color: white;"
+							onclick="registernone()" /></li>
+						<li><input type="button" value="注  册"
+							style="background-color:transparent;border: none;outline:none;font-size: 16px;font-family: 微软雅黑;color: white;"
+							onclick="registerblock()" /></li>
+					</ul>
+				</nav>
+			</div>
+			
+			
+			<div
+				style="width: 20%;float: left;margin-top: 70px;margin-left: 70px">
+				<img alt="" src="images/u0.png" style="width: 80%;">
+			</div>
+			<div
+				style="width: 20%;float: left;text-align: center;margin-top: 80px">
+
+				<input type="text" style="width: 90%;" />
+			</div>
+			<div style="width: 10%;float: left;margin-top: 80px">
+				<img alt="" src="images/u24.png" style="width: 20%">
+			</div>
+
+
+			<div style="width: 100%;">
+				<img alt="" src="images/u21_line.png"
+					style="width: 90%;margin-left: 60px">
+			</div>
+
+
+			<!-- <hr style="width: 90%;text-align: center;color: black;"> -->
+		</div>
+		<div style="width: 100%;height: 70%">
+			<div style="width: 40;float: left;margin-left: 60px;padding: 10px">
+				<table border="1">
+				<tbody>
+				<tr>
+				<td style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px">风格</td>
+				<td style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px">尺寸</td>
+				<td style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px">价格</td>
+				<td style="padding-left: 20px;padding-right: 20px;padding-top: 5px;padding-bottom: 5px">年代</td>
+				<tr>
+				</tbody>
+				
+				</table>
+			</div>
+
+		</div>
+
+
+
+		<div class="cd-user-modal" id="unlogin">
+			<div class="cd-user-modal-container">
+
+				<div id="register" style="display: none">
+					<ul class="cd-switcher">
+						<li><a href="#0">手机注册</a></li>
+						<li><a href="#0">邮箱注册</a></li>
+					</ul>
+
+					<div id="cd-login">
+						<!--手机注册-->
+						<form class="cd-form">
+							<p class="fieldset">
+								<label class="image-replace cd-username" for="phone">phone</label>
+								<input class="full-width4 has-padding has-border" id="phone"
+									type="text" placeholder="手机号码" onkeyup="PhoneRegister()">
+								&nbsp;<strong> <font color='red'>*</font></strong> <input
+									id="tishi3" value="" readonly="readonly" class="input_1"  disabled="disabled" style="background-color: #fff">
+
+							</p>
+
+							<p class="fieldset">
+								<label class="image-replace cd-password" for="verificode">验证码</label>
+								<input class="full-width4 has-padding has-border"
+									id="verificode" type="text" placeholder="输入验证码"
+									onkeyup="PhoneRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input type="button" value="发送验证码"
+									style="padding: 5px;margin-left: 0px;" id="verifibtn"
+									onclick="verifi(this)" /> <input id="tishi4" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+							</p>
+
+							<p class="fieldset">
+								<label class="image-replace cd-password" for="phone-password">输入密码</label>
+								<input class="full-width4 has-padding has-border"
+									id="phone-password" type="password" placeholder="输入密码"
+									onkeyup="PhoneRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input id="tishi5" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+
+							</p>
+							<p class="fieldset">
+								<label class="image-replace cd-password" for="phonems-password">确认密码</label>
+								<input class="full-width4 has-padding has-border"
+									id="phonems-password" type="password" placeholder="确认密码"
+									onkeyup="PhoneRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input id="tishi6" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+
+							</p>
+
+
+
+							<!-- 		<p class="fieldset">
+						<input type="checkbox" id="accept-terms">
+						<label for="accept-terms">我已阅读并同意 <a href="#0">用户协议</a></label>
+					</p>
+ -->
+							<a href="javascript:dosubmitphone();"> <input type="button"
+								class="blue button" value="注册新用户" id="submitbutton" />
+							</a>
+						</form>
+					</div>
+
+					<div id="cd-signup">
+						<!-- 邮箱注册 -->
+						<form class="cd-form" id="emailfrom" action="">
+
+							<p class="fieldset">
+								<label class="image-replace cd-email" for="signup-email">邮箱</label>
+								<input class=" full-width3 has-padding has-border"
+									id="signup-email" type="email" placeholder="输入mail"
+									onkeyup="EmailRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input id="tishi" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+
+
+							</p>
+						
+								<p class="fieldset">
+								<label class="image-replace cd-password" for="signup-password">验证码</label>
+								<input class=" full-width3 has-padding has-border"
+									id="verifyemail" type="text" placeholder="输入验证码"
+									onkeyup="EmailRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong>
+									 <input type="button" value="发送验证码" style="padding: 5px;margin-left: 0px;" id="verifyemailbtn" onclick="verifyemail1(this)" /> 
+									
+									<input id="tishi11" value="" readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff"/>
+
+							</p>
+
+							<p class="fieldset">
+								<label class="image-replace cd-password" for="signup-password">密码</label>
+								<input class=" full-width3 has-padding has-border"
+									id="signup-password" type="password" placeholder="输入密码"
+									onkeyup="EmailRegister()"> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input id="tishi1" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+
+							</p>
+
+							<p class="fieldset">
+								<label class="image-replace cd-password" for="signup-username">确认密码</label>
+								<input class="full-width3 has-padding has-border"
+									id="signupms-password" type="password" placeholder="确认密码"
+									onkeyup="EmailRegister()" /> &nbsp;<strong> <font
+									color='red'>*</font></strong> <input id="tishi2" value=""
+									readonly="readonly" class="input_1" disabled="disabled" style="background-color: #fff">
+							</p>
+
+
+							<!-- 
+
+					<p class="fieldset">
+						<input type="checkbox" id="accept-terms">
+						<label for="accept-terms">我已阅读并同意 <a href="#0">用户协议</a></label>
+					</p> -->
+
+							<p class="fieldset">
+								<a href="javascript:dosubmitemail();"> <input type="button"
+									class="blue button" value="注册新用户" id="submitbutton" />
+								</a>
+								<!-- <input class="full-width2" type="submit" value="注册新用户" > -->
+							</p>
+						</form>
+					</div>
+
+				</div>
+
+
+
+
+				<div id="cd-login1" style="display: none">
+					<!--手机注册-->
+					<form class="cd-form">
+
+						<p class="fieldset">
+							<small class="input_1" style="display: none;" id="checklogin">账号或密码错误，请重新输入</small>
+						</p>
+						<p class="fieldset">
+							<label class="image-replace cd-username" for="username">phone</label>
+							<input class="full-width has-padding has-border" id="username"
+								type="text" placeholder="手机号/邮箱">
+
+						</p>
+
+						<p class="fieldset">
+							<label class="image-replace cd-password" for="userpassword">输入密码</label>
+							<input class="full-width has-padding has-border"
+								id="userpassword" type="password" placeholder="输入密码">
+
+						</p>
+						<p class="fieldset">
+							<input type="checkbox"  checked="checked"> 记住登录状态 <label
+								style="float: right;margin-right: 50px"><a href="account_manage/forgetpassword.html">忘记密码</a></label>
+						</p>
+						<a href="javascript:dosubmitlogin();"> <input type="button"
+							class="blue button" value="登录" id="submitbutton" />
+						</a>
+					</form>
+				</div>
+
+			</div>
+		</div>
+
+
+	</div>
+
+
+</body>
+</html>

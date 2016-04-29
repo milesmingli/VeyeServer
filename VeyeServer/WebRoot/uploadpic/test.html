@@ -1,0 +1,397 @@
+<%@ page language="java" import="java.util.*" pageEncoding="utf-8"%>
+<%
+String path = request.getContextPath();
+String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.getServerPort()+path+"/";
+
+%>
+
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN">
+<html>
+  <head>
+    <base href="<%=basePath%>">
+    
+    <title>createartwork.jsp</title>
+    
+	<meta http-equiv="pragma" content="no-cache">
+	<meta http-equiv="cache-control" content="no-cache">
+	<meta http-equiv="expires" content="0">    
+	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
+	<meta http-equiv="description" content="This is my page">
+	<script language="javascript" type="text/javascript" src="<%=basePath%>js/My97DatePicker/WdatePicker.js"></script>
+	<script type="text/javascript" src="<%=basePath%>/js/jquery-1.9.1.min.js"></script>
+	
+
+<script type="text/javascript" charset="utf-8"> 
+
+
+	window.onload = function() {
+		//从艺术家表里查找所有艺术家返回结果添加到页面
+		var sql="select * from artist";
+		$.ajax({
+
+			url : "<%=basePath%>/SelectTypeServlet?sql="+sql,
+
+			dataType : 'text',
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				console.log(data);
+				var dataArray = data.split("*");
+			
+				var select = document.getElementById("artist");
+			
+
+				console.log(dataArray);
+				
+				for(var i=1;i <dataArray.length; i++){
+					
+					var opt = document.createElement('option');
+					 var optdata=dataArray[i].split(",");
+	                opt.value =dataArray[i];
+	                opt.selected = false;
+	                opt.innerHTML =optdata[0];
+	                select.appendChild(opt);  
+				}
+	
+			
+		
+			}
+		}); 
+		//从画廊表里查找所有画廊返回结果添加到页面
+		var sql="select * from gallery";
+		$.ajax({
+
+			url : "<%=basePath%>/SelectTypeServlet?sql="+sql,
+
+			dataType : 'text',
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				console.log(data);
+				var dataArray = data.split("*");
+			
+				var select = document.getElementById("gallery");
+			
+
+				console.log(dataArray);
+				
+				for(var i=1;i <dataArray.length; i++){
+					
+					var opt = document.createElement('option');
+					 var optdata=dataArray[i].split(",");
+	                opt.value =dataArray[i];
+	                opt.selected = false;
+	                opt.innerHTML =optdata[0];
+	                select.appendChild(opt);  
+				}
+	
+			
+		
+			}
+		}); 
+		
+		//从类别表里查找所有类别返回结果添加到页面
+		var sql="select * from category";
+		$.ajax({
+
+			url : "<%=basePath%>/SelectCategoryServlet?sql="+sql,
+
+			dataType : 'text',
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				console.log(data);
+				var dataArray = data.split("*");
+			
+				var select = document.getElementById("category");
+			
+
+				console.log(dataArray);
+				
+				for(var i=1;i <dataArray.length; i++){
+					
+					var opt = document.createElement('option');
+					 var optdata=dataArray[i].split(",");
+					 //console.log(optdata[0]);
+					 if(optdata[0]!="null"){
+						opt.value =optdata[0]; 
+						opt.selected = false;
+			            opt.innerHTML =optdata[0];
+			            select.appendChild(opt); 
+					 }
+	                
+				}
+				var select1 = document.getElementById("style");
+				for(var i=1;i <dataArray.length; i++){
+					
+					var opt = document.createElement('option');
+					 var optdata=dataArray[i].split(",");
+	                opt.value =optdata[1];
+	                opt.selected = false;
+	                opt.innerHTML =optdata[1];
+	                select1.appendChild(opt);  
+				}
+			
+		
+			}
+		}); 
+		
+		
+		var input = document.getElementById("demo_input");
+		var result = document.getElementById("result");
+		var img_area = document.getElementById("img_area");
+
+		if (typeof (FileReader) === 'undefined') {
+			result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
+			input.setAttribute('disabled', 'disabled');
+		} else {
+			input.addEventListener('change', readFile, false);
+		}
+	
+	}
+
+	function readFile() {
+		
+		
+		var file = this.files[0];
+		var imgs = new Image();
+		//这里我们判断下类型如果不是图片就返回 去掉就可以上传任意文件 
+		if (!/image\/\w+/.test(file.type)) {
+			alert("请确保文件为图像类型");
+			return false;
+		}
+		var reader = new FileReader();
+		reader.readAsDataURL(file);
+		reader.onload = function(e) {
+			result.innerHTML = this.result.split(",")[1];
+			
+			img_area.innerHTML = '<div class="sitetip" ></div><img src="'+this.result+'" alt="" id="imgs" width="260px" height="260px" style="border:#AAAAAB 2px solid;"/>';
+			imgs.src=document.getElementById("imgs").src;
+			
+			if(imgs.width<1100){
+				document.getElementById("imgs").src="";
+				alert("上传图片的宽度不得小于1100像素");
+			
+			}
+		
+		}
+		
+	
+	}
+
+	
+	function dosubmit() {
+	
+
+		var RsStream=document.getElementById("result").value;
+		var username=document.getElementById("name").value;
+		var brief=document.getElementById("brief").value;
+		
+		var address=document.getElementById("address").value;
+		var contactperson=document.getElementById("contactperson").value;
+		var phone=document.getElementById("phone").value;
+		var email=document.getElementById("email").value;
+		var seachprov;
+		var seachcity;
+		var seachdistrict;
+		var AreaName = showAreaID(); 
+			Area=AreaName.split(",");
+			//alert(Area.length);
+			
+			if(Area.length==3){
+				 seachprov=Area[0];
+				 seachcity=Area[1];
+				 seachdistrict=Area[2];
+				 document.getElementById("prov").value=seachprov; 
+				 document.getElementById("city").value=seachcity; 
+				 document.getElementById("district").value=seachdistrict; 
+
+			}
+			
+			if(Area.length==2 && (Area[0]=="北京市" ||Area[0]=="上海市" ||Area[0]=="天津市" ||Area[0]=="重庆市" ||Area[0]=="台湾省" ||Area[0]=="香港"  ||Area[0]=="澳门"  )){
+				 seachprov=Area[0];
+				 seachcity=Area[0];
+				 seachdistrict=Area[1];	
+				 document.getElementById("prov").value=seachprov; 
+				 document.getElementById("city").value=seachcity; 
+				 document.getElementById("district").value=seachdistrict; 
+			}else if(Area.length==2 && (Area[0]!="北京市" ||Area[0]!="上海市" ||Area[0]!="天津市" ||Area[0]!="重庆市" ||Area[0]!="台湾省" ||Area[0]!="香港"  ||Area[0]!="澳门"  )){
+				 alert("请把城市信息补充完整");
+			
+				 return;	
+			}
+			
+			
+			if(Area.length==1){
+				 alert("请把城市信息补充完整");
+				 return;
+			}
+		
+			
+				 if(username== null || username== ""){
+					   alert("姓名不能为空");
+						return;
+				 	}else if(RsStream== null || RsStream== ""){
+					   alert("请上传图片");
+						return;
+					   
+				   }else if(brief== null || brief== ""){
+					   alert("简介不能为空");
+						return;
+					   
+				   }else if(address== null || address== ""){
+					   alert("请输入街道");
+						return;
+					   
+				   }
+				   else if(phone== null || phone== ""){
+					   alert("手机不能为空");
+						return;
+					   
+				   }else if(email== null || email== ""){
+					   alert("邮箱不能为空");
+						return;
+				   }else if(contactperson== null || contactperson== ""){
+					    alert("联系人不能为空");
+						return;
+				   }
+	
+			 		//正则验证输入邮箱，性别，手机。。。。
+					if(email!= null || email!= ""){
+					
+						 var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+						 if (!filter.test(email)){
+							 alert('您的电子邮件格式不正确');
+							 return;
+						 }
+					}
+					
+				
+					
+					if(phone!= null || phone!= ""){
+						
+						 var filter  = /^1[3|4|5|8][0-9]\d{4,8}$/;
+						 if (!filter.test(phone)){
+							 alert('不是完整的11位手机号或者正确的手机号前七位');
+							 return;
+						 }
+					}
+					
+					
+					document.form1.submit();
+		
+		}
+	function CheckIsSale(){
+		
+		
+		var type= document.getElementsByName("issale");
+
+		  for ( var i = 0; i < type.length; i++) {
+			  if (type[i].checked==true) {
+			      i++;
+			  // alert("你选中的是第"+i+"个单选框。值为："+type[--i].value);
+			  		if(type[--i].value==1){
+					document.getElementById("stock").style.display="block";	
+			  		}else{
+					document.getElementById("stock").style.display="none";	
+	
+			  		} 
+			  
+			  }
+			  }
+
+		
+	}
+	
+	
+	
+</script>
+  </head>
+  
+  <body>
+   <div style="text-align: center;margin-top: 100px">
+	
+	
+	</div>
+
+	<div style="border:#AAAAAB 2px solid;width: 1000px;height:700px;margin-left: 20px">
+		<div style="font-size: 14px;margin-top: 30px">
+		
+			<form action="${pageContext.request.contextPath}/UploadGalleryServlet" method="post" name="form1">
+				
+				<div style="float: left;margin-left: 100px">
+				<input type="file" value="sdgsdg" id="demo_input" />
+				
+				<textarea id="result" rows=30 cols=300 name=RsStream style="display: none" ></textarea>
+				<p id="img_area"></p>
+				</div>
+				<div style="float: right;margin-top: 60px;margin-right: 20px;margin-right: 100px;">
+				I&nbsp;D&nbsp;:<input type="text" id="userid" name="userid"  value="${requestScope.idname}"  readonly="readonly" style="width:225px"/>
+				<br/>
+				作品名:<input type="text" id="name" name="name" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+			
+				艺术家:<select id="artist" name="artist" style="margin-top: 5px;width:225px"></select>
+				<br/>
+				
+				类&nbsp;别:<select id="category" name="category" style="margin-top: 5px;width:225px">
+						
+						 </select>
+				<br/>
+				类&nbsp;型:<select id="style" name="style" style="margin-top: 5px;width:225px">
+						
+							
+						 </select>
+				<br/>
+				简&nbsp;介:<input type="text" id="brief" name="brief" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+				
+				尺&nbsp;寸:<input type="text" id="size" name="size" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+				
+				价&nbsp;格:<input type="text" id="price" name="price" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+				画&nbsp;廊:<select id="gallery" name="gallery" style="margin-top: 5px;width:225px"></select>
+				<br/>	
+				经纪人:<input type="text" id="agent" name="agent" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+				
+				电&nbsp;话:<input type="text" id="agentphone" name="agentphone" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+				
+				邮&nbsp;箱:<input type="text" id="agentmail" name="agentmail" value="" style="margin-top: 5px;width:225px"/>
+				<br/>
+			
+				可&nbsp;售:<input type="radio" name="issale" value="1" style="margin-top: 5px" onclick="CheckIsSale()">是
+				<input type="radio" name="issale" value="0" style="margin-top: 5px"  onclick="CheckIsSale()">否
+				<br/>
+				
+				库&nbsp;存:<input type="text" id="stock" name="stock" value="" style="margin-top: 5px;width:225px;display: none"/>
+				<br/>
+				
+					<div style="margin-left: 120px;margin-top: 15px">
+						<a href="javascript:dosubmit();"> 
+						<input type="button" value="提交" />
+						</a>
+					</div>
+				
+				</div>
+				
+			</form>
+	
+		</div>
+	</div>
+  </body>
+</html>
