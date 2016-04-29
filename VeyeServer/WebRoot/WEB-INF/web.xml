@@ -1289,5 +1289,6 @@
 		<servlet-name>GetAllProducts</servlet-name>
 		<url-pattern>/GetAllProducts</url-pattern>
 	</servlet-mapping>
+	
 
 </web-app>
