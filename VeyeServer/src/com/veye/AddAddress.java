@@ -31,7 +31,6 @@ public class AddAddress extends HttpServlet {
 		super();
 		// TODO Auto-generated constructor stub
 		
-		// Miles comment on this for test
 	}
 
 	/**
