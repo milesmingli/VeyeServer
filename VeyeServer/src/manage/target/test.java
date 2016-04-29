@@ -1,49 +1,20 @@
 package manage.target;
 
-import java.io.File;
 import java.io.IOException;
-import java.net.URI;
+import java.io.InputStream;
+import java.io.OutputStreamWriter;
+import java.net.HttpURLConnection;
 import java.net.URISyntaxException;
-import java.util.Arrays;
-import java.util.Date;
+import java.net.URL;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Set;
 
-import manage.target.SignatureBuilder;
-import net.sf.json.JSONSerializer;
-
 import org.apache.commons.codec.digest.DigestUtils;
-import org.apache.commons.codec.binary.Base64;
-import org.apache.commons.io.FileUtils;
-import org.apache.http.HttpEntity;
-import org.apache.http.HttpResponse;
-import org.apache.http.HttpStatus;
 import org.apache.http.client.ClientProtocolException;
-import org.apache.http.client.HttpClient;
-import org.apache.http.client.methods.HttpPost;
-import org.apache.http.client.methods.HttpUriRequest;
-import org.apache.http.entity.StringEntity;
-import org.apache.http.impl.client.DefaultHttpClient;
-import org.apache.http.impl.cookie.DateUtils;
-import org.apache.http.message.BasicHeader;
-import org.apache.http.util.EntityUtils;
 import org.json.JSONException;
 import org.json.JSONObject;
-import org.json.JSONTokener;
-
-import java.io.IOException;  
-import java.io.InputStream;  
-import java.io.OutputStreamWriter;  
-import java.net.HttpURLConnection;  
-import java.net.URL;
-
-import com.alibaba.fastjson.JSON;
-import com.veye.Constants;
-
-import java.security.MessageDigest;
-import java.security.NoSuchAlgorithmException;
 
 public class test{
 

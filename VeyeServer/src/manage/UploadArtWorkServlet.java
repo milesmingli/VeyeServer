@@ -1,42 +1,25 @@
 package manage;
 
-import java.io.File;
-import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.io.PrintWriter;
 import java.net.URISyntaxException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.text.SimpleDateFormat;
-import java.util.Date;  
-import java.util.List;
-import java.util.Vector;
+import java.util.Date;
 
-//import javassist.bytecode.Descriptor.Iterator;
-
-import javax.security.auth.message.callback.PrivateKeyCallback.Request;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import manage.target.PostNewTarget;
-
-import org.apache.commons.fileupload.FileItem;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.disk.DiskFileItemFactory;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.json.JSONException;
 
-import Decoder.BASE64Decoder;
-
-import com.google.gson.JsonArray;
 import com.veye.Constants;
+
+import manage.target.PostNewTarget;
 
 public class UploadArtWorkServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;

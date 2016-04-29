@@ -15,7 +15,6 @@ import org.apache.http.impl.client.DefaultHttpClient;
 import org.apache.http.impl.cookie.DateUtils;
 import org.apache.http.message.BasicHeader;
 import org.apache.http.util.EntityUtils;
-import  manage.target.SignatureBuilder;
 
 import com.veye.Constants;
 

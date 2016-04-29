@@ -2,7 +2,6 @@ package com.veye;
 
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
-import org.im4java.process.ProcessStarter;
 
 
 public class Main {

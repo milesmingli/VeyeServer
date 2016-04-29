@@ -2,10 +2,9 @@ package lib;
 
 import java.util.Map;
 
+import config.AppConfig;
 import lib.base.ISender;
 import lib.base.Sender;
-
-import config.AppConfig;
 
 /**
  * A Sender class define the message mode to send HTTP request.

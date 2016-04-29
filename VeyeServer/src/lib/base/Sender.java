@@ -4,10 +4,6 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Map;
 
-import lib.Mail;
-import lib.Message;
-import net.sf.json.JSONObject;
-
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
 import org.apache.http.client.ClientProtocolException;
@@ -20,8 +16,11 @@ import org.apache.http.impl.client.HttpClientBuilder;
 import org.apache.http.protocol.HTTP;
 import org.apache.http.util.EntityUtils;
 
-import utils.RequestEncoder;
 import config.AppConfig;
+import lib.Mail;
+import lib.Message;
+import net.sf.json.JSONObject;
+import utils.RequestEncoder;
 
 /**
  * A class implements ISender contains common methods to process something that

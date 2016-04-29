@@ -1,10 +1,10 @@
 package com.veye;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
-import java.sql.ResultSetMetaData;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Enumeration;
@@ -16,11 +16,8 @@ import javax.servlet.http.HttpServletResponse;
 
 import org.json.JSONObject;
 
-import com.google.gson.JsonObject;
 import com.pingplusplus.model.Event;
 import com.pingplusplus.model.Webhooks;
-
-import java.io.BufferedReader;
 
 /**
  * Servlet implementation class UserUpdate

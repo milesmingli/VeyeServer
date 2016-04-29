@@ -2,9 +2,7 @@ package manage;
 
 
 import java.io.IOException;
-import java.io.PrintWriter;
 import java.net.URISyntaxException;
-import java.net.URLDecoder;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.ResultSet;
@@ -18,14 +16,12 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import manage.target.PostNewTarget;
-
 import org.im4java.core.ConvertCmd;
 import org.im4java.core.IMOperation;
 
-import com.google.gson.JsonArray;
-import com.google.gson.JsonObject;
 import com.veye.Constants;
+
+import manage.target.PostNewTarget;
 
 /**
  * Servlet implementation class UserUpdate

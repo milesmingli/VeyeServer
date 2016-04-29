@@ -2,11 +2,11 @@ package lib;
 
 import java.io.File;
 
-import lib.base.ISender;
-import lib.base.SenderWapper;
 import config.AppConfig;
 import config.MailConfig;
 import config.MessageConfig;
+import lib.base.ISender;
+import lib.base.SenderWapper;
 
 /**
  * A SenderWapper class as decoration class for user to send request by mail.
