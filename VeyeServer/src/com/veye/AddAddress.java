@@ -93,7 +93,7 @@ public class AddAddress extends HttpServlet {
 		"UTF-8");
 
 	
-			System.out.println("12345");
+		
 			
 		JsonObject returnJson = this.addAddress(userid, province, city, district,address, postcode ,receiver, phone,isdefault);
 
