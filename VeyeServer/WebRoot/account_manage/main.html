@@ -1,0 +1,225 @@
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+<meta http-equiv="Refresh" content="7200">
+<title>main.html</title>
+
+<link rel="stylesheet" href="../css/topmenu.css">
+<script type="text/javascript" src="../js/jquery-1.9.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+
+
+<style type="text/css">
+
+* { margin:0;
+	padding:0;
+}
+
+html {height: 100%;}
+
+body{
+	position: relative;
+	background: #F3F3F4;
+	font-family: 微软雅黑;
+
+}
+
+.navbox {
+	position: relative;
+	float: left;
+}
+
+ul.nav {
+	list-style: none;
+	display: block;
+	width: 50px;
+	position: relative;
+	top: 0px;
+	left: 10px;
+	padding: 60px 0 60px 0;
+	background: url(../css/shad2.png) no-repeat;
+	-webkit-background-size: 50% 100%;
+}
+
+li {
+	margin: 10px 0 0 0;
+}
+
+ul.nav li a {
+	-webkit-transition: all 0.3s ease-out;
+	background: #cbcbcb url(../css/border.png) no-repeat;
+	color: #174867;
+	padding: 7px 15px 7px 15px;
+	-webkit-border-top-right-radius: 10px;
+ 	-webkit-border-bottom-right-radius: 10px;
+	width: 80px;
+	display: block;
+	text-decoration: none;
+	-webkit-box-shadow: 2px 2px 4px #888;
+	cursor:pointer;
+	font-size: 15px;
+}
+
+ul.nav li a:hover {
+	background: #ebebeb url(../css/border.png) no-repeat;
+	color: #67a5cd;
+	padding: 7px 15px 7px 30px;
+}
+
+ul.nav li a.current {
+	background: #ebebeb url(../css/border.png) no-repeat;
+	color: #67a5cd;
+	padding: 7px 15px 7px 30px;
+}
+
+</style>
+
+
+
+<script type="text/javascript">
+var type=$.cookie('type_cookie');
+
+var id = $.cookie('userid');
+
+	window.onload=function(){ 
+	
+		if(type=="seller_artist"){
+			
+			document.getElementById("artworkmanage").style.display="block";
+			document.getElementById("createartwork").style.display="block";
+
+
+			document.getElementById("chartIframe").src= "../uploadpic/artworkmanage.jsp";
+
+			
+		}else if (type=="seller_organization"){
+			
+			document.getElementById("artistmanage").style.display="block";
+			document.getElementById("createartist").style.display="block";
+			document.getElementById("artworkmanage").style.display="block";
+			document.getElementById("createartwork").style.display="block";
+			document.getElementById("createmarker").style.display="block";
+			document.getElementById("makermanage").style.display="block";
+			document.getElementById("exhibitionmanage").style.display="block";
+			document.getElementById("createexhibition").style.display="block";
+			document.getElementById("insertexhibitionartwork").style.display="block";
+			document.getElementById("chartIframe").src= "../uploadpic/artistmanage.jsp";
+
+		}else if(type=="veye"){
+			document.getElementById("artistmanage").style.display="block";
+			document.getElementById("createartist").style.display="block";
+			document.getElementById("gallerymanage").style.display="block";
+			document.getElementById("creategallery").style.display="block";
+			document.getElementById("artworkmanage").style.display="block";
+			document.getElementById("createartwork").style.display="block";
+			document.getElementById("createmarker").style.display="block";
+			document.getElementById("makermanage").style.display="block";
+			document.getElementById("exhibitionmanage").style.display="block";
+			document.getElementById("createexhibition").style.display="block";
+			document.getElementById("insertexhibitionartwork").style.display="block";
+			document.getElementById("chartIframe").src= "../uploadpic/artistmanage.jsp";
+
+			
+		}
+		
+		
+		
+	}
+	
+	function menuClick(obj) {
+
+	
+		var sidemenus = document.getElementsByTagName("a");
+
+		//alert(sidemenus.length);
+
+		for (i = 0; i < sidemenus.length; i++) {
+
+			var reg = new RegExp('(\\s|^)' + "current" + '(\\s|$)');
+			sidemenus[i].className = sidemenus[i].className.replace(reg, ' ');
+		}
+
+		obj.className = obj.className + " " + "current";
+
+		var chartPage = obj.getAttribute("value");
+
+	
+		//载入成功后再显示
+		document.getElementById("chartIframe").src = chartPage;
+	
+
+	}
+
+	
+
+</script>
+
+
+<style type="text/css">
+
+a:link { color: #545454; text-decoration: none;}
+a:visited {text-decoration: none; color: #545454;}
+a:hover {text-decoration: none; color:#eb0102;}
+a:active {text-decoration: none; color:#eb0102;}
+
+</style>
+
+
+</head>
+
+
+<body>
+
+
+	<div style="text-align: center;margin-top: 30px">
+	<h3 style="color: red">Veye在线管理系统</h3>
+	
+	</div>
+
+	<div class="navbox" style="margin-top: -5px;position: fixed;top: 70px;width: 100px" >
+		<ul class="nav" >
+
+			<li id="artistmanage" style="display: none"><a class="current" onclick="menuClick(this)"
+				value="../uploadpic/artistmanage.jsp" style="font-size: 5px">作者-管理</a></li>
+			
+			<li id="createartist" style="display: none"><a onclick="menuClick(this)"
+				value="../CreateArtistServlet" style="font-size: 5px">作者-新建</a></li>	
+			
+			<li id="gallerymanage" style="display: none"><a onclick="menuClick(this)"
+				value="../uploadpic/gallerymanage.jsp" style="font-size: 5px">用户-管理</a></li>	
+							
+			<li id="creategallery" style="display: none" ><a onclick="menuClick(this)"
+				value="../CreateGalleryServlet" style="font-size: 5px">用户-新建</a></li>	
+				
+			<li id="artworkmanage" style="display: none"><a onclick="menuClick(this)"
+				value="../uploadpic/artworkmanage.jsp" style="font-size: 5px">作品-管理</a></li>	
+			<li  id="createartwork" style="display: none"><a onclick="menuClick(this)"
+				value="../CreateArtWorkServlet" style="font-size: 5px">作品-新建</a></li>	
+			<li id="makermanage" style="display: none"><a onclick="menuClick(this)"
+				value="../uploadpic/markermanger.jsp" style="font-size: 5px">Marker-管理</a></li>	
+			<li id="createmarker" style="display: none"><a onclick="menuClick(this)"
+				value="../CreateMarkerServlet" style="font-size: 5px">Marker-新建</a></li>	
+				
+			<li id="exhibitionmanage" style="display: none"><a onclick="menuClick(this)"
+				value="../exhibition/ExhibitionManage.jsp" style="font-size: 5px">展览-管理</a></li>	
+			<li id="createexhibition" style="display: none"><a onclick="menuClick(this)"
+				value="../ExhibitionGalleryServlet" style="font-size: 5px">展览-新建</a></li>	
+				
+			<li id="insertexhibitionartwork" style="display: none"><a onclick="menuClick(this)"
+				value="../exhibition/ExhibitionArtWork.jsp" style="font-size: 5px">添加展览作品</a></li>	
+				
+		</ul>
+	</div>
+
+
+	<iframe id="chartIframe" src="../uploadpic/artistmanage.jsp" width="88%"
+		height="600px" align="left" frameborder=0 ALLOWTRANSPARENCY="true"
+		style="display: none;float: right; margin-left:200px; margin-top:0px" onload="this.style.display = 'block';"></iframe>
+
+
+
+</body>
+
+
+</html>
+

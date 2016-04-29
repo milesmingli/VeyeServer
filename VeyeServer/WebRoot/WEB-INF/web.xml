@@ -1,12 +1,1293 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://java.sun.com/xml/ns/javaee" xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd" id="WebApp_ID" version="3.0">
-  <display-name>VeyeServer</display-name>
-  <welcome-file-list>
-    <welcome-file>index.html</welcome-file>
-    <welcome-file>index.htm</welcome-file>
-    <welcome-file>index.jsp</welcome-file>
-    <welcome-file>default.html</welcome-file>
-    <welcome-file>default.htm</welcome-file>
-    <welcome-file>default.jsp</welcome-file>
-  </welcome-file-list>
+<web-app xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_3_0.xsd"
+	id="WebApp_ID" version="3.0">
+	<display-name>TAEServerTest</display-name>
+	<welcome-file-list>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+		<welcome-file>default.html</welcome-file>
+		<welcome-file>default.htm</welcome-file>
+		<welcome-file>default.jsp</welcome-file>
+	</welcome-file-list>
+
+
+	<servlet>
+
+		<servlet-name>GeneData</servlet-name>
+		<servlet-class>com.veye.GeneData</servlet-class>
+	</servlet>
+
+	<servlet>
+
+		<servlet-name>RegisterUser</servlet-name>
+		<servlet-class>com.veye.RegisterUser</servlet-class>
+	</servlet>
+	
+	<servlet>
+
+		<servlet-name>Login</servlet-name>
+		<servlet-class>com.veye.Login</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>SmsVerify</servlet-name>
+		<servlet-class>com.veye.SmsVerify</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>UpdateUser</servlet-name>
+		<servlet-class>com.veye.UpdateUser</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>UpdatePhone</servlet-name>
+		<servlet-class>com.veye.UpdatePhone</servlet-class>
+	</servlet>
+
+
+	<servlet>
+
+		<servlet-name>UpdatePassword</servlet-name>
+		<servlet-class>com.veye.UpdatePassword</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>ClearUser</servlet-name>
+		<servlet-class>com.veye.ClearUser</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>GetOrganizationGalleryArtworkForMainpage</servlet-name>
+		<servlet-class>com.veye.GetOrganizationGalleryArtworkForMainpage</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>GetPersonalGalleryArtworkForMainpage</servlet-name>
+		<servlet-class>com.veye.GetPersonalGalleryArtworkForMainpage</servlet-class>
+	</servlet>
+	
+	
+
+	<servlet>
+
+		<servlet-name>GetGalleryById</servlet-name>
+		<servlet-class>com.veye.GetGalleryById</servlet-class>
+	</servlet>
+	
+	<servlet>
+
+		<servlet-name>GetArtworksByGallery</servlet-name>
+		<servlet-class>com.veye.GetArtworksByGallery</servlet-class>
+	</servlet>
+	
+	<servlet>
+
+		<servlet-name>GetArtworksByArtist</servlet-name>
+		<servlet-class>com.veye.GetArtworksByArtist</servlet-class>
+	</servlet>
+	
+	<servlet>
+
+		<servlet-name>GetArtistsByGallery</servlet-name>
+		<servlet-class>com.veye.GetArtistsByGallery</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>GetAllArtists</servlet-name>
+		<servlet-class>com.veye.GetAllArtists</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GetAllGalleries</servlet-name>
+		<servlet-class>com.veye.GetAllGalleries</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GetArtistById</servlet-name>
+		<servlet-class>com.veye.GetArtistById</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+
+		<servlet-name>UpdateFavorite</servlet-name>
+		<servlet-class>com.veye.UpdateFavorite</servlet-class>
+	</servlet>
+	
+	<servlet>
+
+		<servlet-name>GetFavoritesByUser</servlet-name>
+		<servlet-class>com.veye.GetFavoritesByUser</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>AddComment</servlet-name>
+		<servlet-class>com.veye.AddComment</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GetCommentsByArtwork</servlet-name>
+		<servlet-class>com.veye.GetCommentsByArtwork</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DeleteComment</servlet-name>
+		<servlet-class>com.veye.DeleteComment</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>AddAddress</servlet-name>
+		<servlet-class>com.veye.AddAddress</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DeleteAddress</servlet-name>
+		<servlet-class>com.veye.DeleteAddress</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>GetAllAddressesByUser</servlet-name>
+		<servlet-class>com.veye.GetAllAddressesByUser</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>UpdateAddress</servlet-name>
+		<servlet-class>com.veye.UpdateAddress</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>AddOrder</servlet-name>
+		<servlet-class>com.veye.AddOrder</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>DeleteOrder</servlet-name>
+		<servlet-class>com.veye.DeleteOrder</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>LockOrder</servlet-name>
+		<servlet-class>com.veye.LockOrder</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>ReleaseOrder</servlet-name>
+		<servlet-class>com.veye.ReleaseOrder</servlet-class>
+	</servlet>
+	
+	
+	
+	<servlet>
+		<servlet-name>GetAllOrdersByUser</servlet-name>
+		<servlet-class>com.veye.GetAllOrdersByUser</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GetArtworkSearchCondition</servlet-name>
+		<servlet-class>com.veye.GetArtworkSearchCondition</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>GetArtworksByCondition</servlet-name>
+		<servlet-class>com.veye.GetArtworksByCondition</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>GetArtworkById</servlet-name>
+		<servlet-class>com.veye.GetArtworkById</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>OrderPaySuccess</servlet-name>
+		<servlet-class>com.veye.OrderPaySuccess</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetArtworksByAR</servlet-name>
+		<servlet-class>com.veye.GetArtworksByAR</servlet-class>
+	</servlet>
+	
+	
+	
+	<servlet>
+		<servlet-name>GetExibitionArtworkForMainpage</servlet-name>
+		<servlet-class>com.veye.GetExibitionArtworkForMainpage</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetArtworksByExhibition</servlet-name>
+		<servlet-class>com.veye.GetArtworksByExhibition</servlet-class>
+	</servlet>
+
+	<servlet>
+		<servlet-name>GetExibitionArtworkByGallery</servlet-name>
+		<servlet-class>com.veye.GetExibitionArtworkByGallery</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>GetExibitionsByGallery</servlet-name>
+		<servlet-class>com.veye.GetExibitionsByGallery</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>StartPayment</servlet-name>
+		<servlet-class>com.veye.StartPayment</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>PaymentSucceedHook</servlet-name>
+		<servlet-class>com.veye.PaymentSucceedHook</servlet-class>
+	</servlet>
+	
+	<servlet>
+		<servlet-name>GetPaymentCharge</servlet-name>
+		<servlet-class>com.veye.GetPaymentCharge</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>FailOrder</servlet-name>
+		<servlet-class>com.veye.FailOrder</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>ResetPaswordBySMS</servlet-name>
+		<servlet-class>com.veye.ResetPaswordBySMS</servlet-class>
+	</servlet>
+
+
+	<servlet>
+		<servlet-name>CheckOrderStock</servlet-name>
+		<servlet-class>com.veye.CheckOrderStock</servlet-class>
+	</servlet>
+	
+	
+	<servlet>
+		<servlet-name>GetAllProducts</servlet-name>
+		<servlet-class>com.veye.GetAllProducts</servlet-class>
+	</servlet>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+	<servlet>
+ <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpLoadServlet</servlet-name>
+    <servlet-class>manage.UpLoadServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>RunOneSql</servlet-name>
+    <servlet-class>manage.RunOneSql</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ArtistManage</servlet-name>
+    <servlet-class>manage.ArtistManage</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateArtistServlet</servlet-name>
+    <servlet-class>manage.CreateArtistServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateArtistServlet</servlet-name>
+    <servlet-class>manage.UpdateArtistServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateArtistSql</servlet-name>
+    <servlet-class>manage.UpdateArtistSql</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewArtistServlet</servlet-name>
+    <servlet-class>manage.UpDateNewArtistServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateGalleryServlet</servlet-name>
+    <servlet-class>manage.CreateGalleryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UploadGalleryServlet</servlet-name>
+    <servlet-class>manage.UploadGalleryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SelectTypeServlet</servlet-name>
+    <servlet-class>manage.SelectTypeServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GalleryManage</servlet-name>
+    <servlet-class>manage.GalleryManage</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewGalleryServlet</servlet-name>
+    <servlet-class>manage.UpDateNewGalleryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SelectCategoryServlet</servlet-name>
+    <servlet-class>manage.SelectCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateArtWorkServlet</servlet-name>
+    <servlet-class>manage.CreateArtWorkServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UploadArtWorkServlet</servlet-name>
+    <servlet-class>manage.UploadArtWorkServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ArtWorkMange</servlet-name>
+    <servlet-class>manage.ArtWorkMange</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewArtWorkServlet</servlet-name>
+    <servlet-class>manage.UpDateNewArtWorkServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateMarkerServlet</servlet-name>
+    <servlet-class>manage.CreateMarkerServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateMarkerServet</servlet-name>
+    <servlet-class>manage.UpDateMarkerServet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>PostNewTargetSrvlet</servlet-name>
+    <servlet-class>manage.target.PostNewTargetSrvlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MarkerMangerServlet</servlet-name>
+    <servlet-class>manage.MarkerMangerServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MarkerManage</servlet-name>
+    <servlet-class>manage.MarkerManage</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewMarkerServlet</servlet-name>
+    <servlet-class>manage.UpDateNewMarkerServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ExhibitionGalleryServlet</servlet-name>
+    <servlet-class>manage.exhibition.ExhibitionGalleryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>InsertExhibitionServlet</servlet-name>
+    <servlet-class>manage.exhibition.InsertExhibitionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SerachExhibitionServlet</servlet-name>
+    <servlet-class>manage.exhibition.SerachExhibitionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>InsertExhibition_Artwork</servlet-name>
+    <servlet-class>manage.exhibition.InsertExhibition_Artwork</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ManageExhibitionServlet</servlet-name>
+    <servlet-class>manage.exhibition.ManageExhibitionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>MangeExhibitionArtworkServlet</servlet-name>
+    <servlet-class>manage.exhibition.MangeExhibitionArtworkServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestServlet</servlet-name>
+    <servlet-class>manage.target.TestServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>OnChangeSerachArtWork</servlet-name>
+    <servlet-class>manage.exhibition.OnChangeSerachArtWork</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DelOneSql</servlet-name>
+    <servlet-class>manage.exhibition.DelOneSql</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ExhibitionManageServlet</servlet-name>
+    <servlet-class>manage.exhibition.ExhibitionManageServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateExhibitionServlet</servlet-name>
+    <servlet-class>manage.exhibition.UpDateExhibitionServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SubmitArtWorkServlet</servlet-name>
+    <servlet-class>manage.SubmitArtWorkServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>TestFormServlet</servlet-name>
+    <servlet-class>manage.TestFormServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GeneDataForMarker</servlet-name>
+    <servlet-class>manage.GeneDataForMarker</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>RegisterServlet</servlet-name>
+    <servlet-class>manage.user.RegisterServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckEmailServlet</servlet-name>
+    <servlet-class>manage.user.CheckEmailServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckPhoneServlet</servlet-name>
+    <servlet-class>manage.user.CheckPhoneServlet</servlet-class>
+  </servlet>
+
+ <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>LoginServlet</servlet-name>
+    <servlet-class>manage.user.LoginServlet</servlet-class>
+  </servlet>
+
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ResetPasswordByEmail</servlet-name>
+    <servlet-class>manage.user.ResetPasswordByEmail</servlet-class>
+  </servlet>
+
+ <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckAccountServlet</servlet-name>
+    <servlet-class>manage.user.CheckAccountServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ArtistCategoryServlet</servlet-name>
+    <servlet-class>manage.ArtistCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ArtworkCategoryServlet</servlet-name>
+    <servlet-class>manage.ArtworkCategoryServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>ArtWorkTagServlet</servlet-name>
+    <servlet-class>manage.ArtWorkTagServlet</servlet-class>
+  </servlet>
+    <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateMyAccountServlet</servlet-name>
+    <servlet-class>manage.user.UpdateMyAccountServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateMyAccountServlet</servlet-name>
+    <servlet-class>manage.user.CreateMyAccountServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>NickNameServlet</servlet-name>
+    <servlet-class>manage.user.NickNameServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>VedioUploadServlet</servlet-name>
+    <servlet-class>manage.VedioUploadServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>DeleteVedioServlet</servlet-name>
+    <servlet-class>manage.DeleteVedioServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateVedioServlet</servlet-name>
+    <servlet-class>manage.UpdateVedioServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckpasswordServlet</servlet-name>
+    <servlet-class>manage.user.CheckpasswordServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdatePasswordServlet</servlet-name>
+    <servlet-class>manage.user.UpdatePasswordServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateDefaultServlet</servlet-name>
+    <servlet-class>manage.user.UpDateDefaultServlet</servlet-class>
+  </servlet>
+ <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateArtistidServlet</servlet-name>
+    <servlet-class>manage.user.CreateArtistidServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateAccountInformation</servlet-name>
+    <servlet-class>manage.user.UpdateAccountInformation</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateArtistServletForUser</servlet-name>
+    <servlet-class>manage.user.CreateArtistServletForUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewArtistServletForUser</servlet-name>
+    <servlet-class>manage.user.UpDateNewArtistServletForUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpdateAccountInformationForGallery</servlet-name>
+    <servlet-class>manage.user.UpdateAccountInformationForGallery</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateGalleryServletForUser</servlet-name>
+    <servlet-class>manage.user.CreateGalleryServletForUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>UpDateNewGalleryServletForUser</servlet-name>
+    <servlet-class>manage.user.UpDateNewGalleryServletForUser</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>GetAccountByIdServelt</servlet-name>
+    <servlet-class>manage.user.GetAccountByIdServelt</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CheckAccountServletForOnly</servlet-name>
+    <servlet-class>manage.user.CheckAccountServletForOnly</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateAccountForUpdate</servlet-name>
+    <servlet-class>manage.user.CreateAccountForUpdate</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>SelectElementServlet</servlet-name>
+    <servlet-class>manage.SelectElementServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>CreateArtwork_sellerartist</servlet-name>
+    <servlet-class>manage.user.CreateArtwork_sellerartist</servlet-class>
+  </servlet>
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>RemoveArtworkServlet</servlet-name>
+    <servlet-class>manage.user.RemoveArtworkServlet</servlet-class>
+  </servlet>
+
+  <servlet>
+    <description>This is the description of my J2EE component</description>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <servlet-name>EmailVerifyServlet</servlet-name>
+    <servlet-class>manage.user.EmailVerifyServlet</servlet-class>
+  </servlet>
+
+
+
+
+
+
+
+
+<!-- MAPPING Part -->
+
+	<servlet-mapping>
+		<servlet-name>GeneData</servlet-name>
+		<url-pattern>/GeneData</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>RegisterUser</servlet-name>
+		<url-pattern>/RegisterUser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>Login</servlet-name>
+		<url-pattern>/Login</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>SmsVerify</servlet-name>
+		<url-pattern>/SmsVerify</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>UpdateUser</servlet-name>
+		<url-pattern>/UpdateUser</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>UpdatePhone</servlet-name>
+		<url-pattern>/UpdatePhone</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>UpdatePassword</servlet-name>
+		<url-pattern>/UpdatePassword</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>ClearUser</servlet-name>
+		<url-pattern>/ClearUser</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetOrganizationGalleryArtworkForMainpage</servlet-name>
+		<url-pattern>/GetOrganizationGalleryArtworkForMainpage</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>GetPersonalGalleryArtworkForMainpage</servlet-name>
+		<url-pattern>/GetPersonalGalleryArtworkForMainpage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetGalleryById</servlet-name>
+		<url-pattern>/GetGalleryById</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>GetArtworksByGallery</servlet-name>
+		<url-pattern>/GetArtworksByGallery</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetArtworksByArtist</servlet-name>
+		<url-pattern>/GetArtworksByArtist</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>GetArtistsByGallery</servlet-name>
+		<url-pattern>/GetArtistsByGallery</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>GetAllArtists</servlet-name>
+		<url-pattern>/GetAllArtists</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetAllGalleries</servlet-name>
+		<url-pattern>/GetAllGalleries</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetArtistById</servlet-name>
+		<url-pattern>/GetArtistById</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	
+	<servlet-mapping>
+		<servlet-name>UpdateFavorite</servlet-name>
+		<url-pattern>/UpdateFavorite</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetFavoritesByUser</servlet-name>
+		<url-pattern>/GetFavoritesByUser</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>AddComment</servlet-name>
+		<url-pattern>/AddComment</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetCommentsByArtwork</servlet-name>
+		<url-pattern>/GetCommentsByArtwork</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>DeleteComment</servlet-name>
+		<url-pattern>/DeleteComment</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>AddAddress</servlet-name>
+		<url-pattern>/AddAddress</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>DeleteAddress</servlet-name>
+		<url-pattern>/DeleteAddress</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>GetAllAddressesByUser</servlet-name>
+		<url-pattern>/GetAllAddressesByUser</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>UpdateAddress</servlet-name>
+		<url-pattern>/UpdateAddress</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>AddOrder</servlet-name>
+		<url-pattern>/AddOrder</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>DeleteOrder</servlet-name>
+		<url-pattern>/DeleteOrder</url-pattern>
+	</servlet-mapping>
+	
+	
+	<servlet-mapping>
+		<servlet-name>LockOrder</servlet-name>
+		<url-pattern>/LockOrder</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>ReleaseOrder</servlet-name>
+		<url-pattern>/ReleaseOrder</url-pattern>
+	</servlet-mapping>
+	
+	
+
+	<servlet-mapping>
+		<servlet-name>GetArtworkSearchCondition</servlet-name>
+		<url-pattern>/GetArtworkSearchCondition</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetArtworksByCondition</servlet-name>
+		<url-pattern>/GetArtworksByCondition</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>GetArtworkById</servlet-name>
+		<url-pattern>/GetArtworkById</url-pattern>
+	</servlet-mapping>
+	
+		<servlet-mapping>
+		<servlet-name>GetAllOrdersByUser</servlet-name>
+		<url-pattern>/GetAllOrdersByUser</url-pattern>
+	</servlet-mapping>
+	
+	
+		
+	<servlet-mapping>
+		<servlet-name>OrderPaySuccess</servlet-name>
+		<url-pattern>/OrderPaySuccess</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetArtworksByAR</servlet-name>
+		<url-pattern>/GetArtworksByAR</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetExibitionArtworkForMainpage</servlet-name>
+		<url-pattern>/GetExibitionArtworkForMainpage</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetArtworksByExhibition</servlet-name>
+		<url-pattern>/GetArtworksByExhibition</url-pattern>
+	</servlet-mapping>
+	
+	
+	
+	<servlet-mapping>
+		<servlet-name>GetExibitionsByGallery</servlet-name>
+		<url-pattern>/GetExibitionsByGallery</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>GetExibitionArtworkByGallery</servlet-name>
+		<url-pattern>/GetExibitionArtworkByGallery</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>StartPayment</servlet-name>
+		<url-pattern>/StartPayment</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>PaymentSucceedHook</servlet-name>
+		<url-pattern>/PaymentSucceedHook</url-pattern>
+	</servlet-mapping>
+	
+	<servlet-mapping>
+		<servlet-name>GetPaymentCharge</servlet-name>
+		<url-pattern>/GetPaymentCharge</url-pattern>
+	</servlet-mapping>
+	
+	
+
+
+
+
+<servlet-mapping>
+    <servlet-name>UpLoadServlet</servlet-name>
+    <url-pattern>/UpLoadServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RunOneSql</servlet-name>
+    <url-pattern>/RunOneSql</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArtistManage</servlet-name>
+    <url-pattern>/ArtistManage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateArtistServlet</servlet-name>
+    <url-pattern>/CreateArtistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateArtistServlet</servlet-name>
+    <url-pattern>/UpdateArtistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateArtistSql</servlet-name>
+    <url-pattern>/UpdateArtistSql</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewArtistServlet</servlet-name>
+    <url-pattern>/UpDateNewArtistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateGalleryServlet</servlet-name>
+    <url-pattern>/CreateGalleryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UploadGalleryServlet</servlet-name>
+    <url-pattern>/UploadGalleryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SelectTypeServlet</servlet-name>
+    <url-pattern>/SelectTypeServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GalleryManage</servlet-name>
+    <url-pattern>/GalleryManage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewGalleryServlet</servlet-name>
+    <url-pattern>/UpDateNewGalleryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SelectCategoryServlet</servlet-name>
+    <url-pattern>/SelectCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateArtWorkServlet</servlet-name>
+    <url-pattern>/CreateArtWorkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UploadArtWorkServlet</servlet-name>
+    <url-pattern>/UploadArtWorkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArtWorkMange</servlet-name>
+    <url-pattern>/ArtWorkMange</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewArtWorkServlet</servlet-name>
+    <url-pattern>/UpDateNewArtWorkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateMarkerServlet</servlet-name>
+    <url-pattern>/CreateMarkerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateMarkerServet</servlet-name>
+    <url-pattern>/UpDateMarkerServet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>PostNewTargetSrvlet</servlet-name>
+    <url-pattern>/PostNewTargetSrvlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MarkerMangerServlet</servlet-name>
+    <url-pattern>/MarkerMangerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MarkerManage</servlet-name>
+    <url-pattern>/MarkerManage</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewMarkerServlet</servlet-name>
+    <url-pattern>/UpDateNewMarkerServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExhibitionGalleryServlet</servlet-name>
+    <url-pattern>/ExhibitionGalleryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InsertExhibitionServlet</servlet-name>
+    <url-pattern>/InsertExhibitionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SerachExhibitionServlet</servlet-name>
+    <url-pattern>/SerachExhibitionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>InsertExhibition_Artwork</servlet-name>
+    <url-pattern>/InsertExhibition_Artwork</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ManageExhibitionServlet</servlet-name>
+    <url-pattern>/ManageExhibitionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>MangeExhibitionArtworkServlet</servlet-name>
+    <url-pattern>/MangeExhibitionArtworkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestServlet</servlet-name>
+    <url-pattern>/TestServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>OnChangeSerachArtWork</servlet-name>
+    <url-pattern>/OnChangeSerachArtWork</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>DelOneSql</servlet-name>
+    <url-pattern>/DelOneSql</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ExhibitionManageServlet</servlet-name>
+    <url-pattern>/ExhibitionManageServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateExhibitionServlet</servlet-name>
+    <url-pattern>/UpDateExhibitionServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SubmitArtWorkServlet</servlet-name>
+    <url-pattern>/SubmitArtWorkServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>TestFormServlet</servlet-name>
+    <url-pattern>/TestFormServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GeneDataForMarker</servlet-name>
+    <url-pattern>/GeneDataForMarker</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>RegisterServlet</servlet-name>
+    <url-pattern>/RegisterServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckEmailServlet</servlet-name>
+    <url-pattern>/CheckEmailServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckPhoneServlet</servlet-name>
+    <url-pattern>/CheckPhoneServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>LoginServlet</servlet-name>
+    <url-pattern>/LoginServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>ResetPasswordByEmail</servlet-name>
+    <url-pattern>/ResetPasswordByEmail</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+	<servlet-name>ResetPaswordBySMS</servlet-name>
+	<url-pattern>/ResetPaswordBySMS</url-pattern>
+  </servlet-mapping>
+<servlet-mapping>
+    <servlet-name>CheckAccountServlet</servlet-name>
+    <url-pattern>/CheckAccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArtistCategoryServlet</servlet-name>
+    <url-pattern>/ArtistCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArtworkCategoryServlet</servlet-name>
+    <url-pattern>/ArtworkCategoryServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>ArtWorkTagServlet</servlet-name>
+    <url-pattern>/ArtWorkTagServlet</url-pattern>
+  </servlet-mapping>
+
+<servlet-mapping>
+    <servlet-name>UpdateMyAccountServlet</servlet-name>
+    <url-pattern>/UpdateMyAccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateMyAccountServlet</servlet-name>
+    <url-pattern>/CreateMyAccountServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>NickNameServlet</servlet-name>
+    <url-pattern>/NickNameServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>VedioUploadServlet</servlet-name>
+    <url-pattern>/VedioUploadServlet</url-pattern>
+  </servlet-mapping>
+
+  <servlet-mapping>
+    <servlet-name>DeleteVedioServlet</servlet-name>
+    <url-pattern>/DeleteVedioServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateVedioServlet</servlet-name>
+    <url-pattern>/UpdateVedioServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckpasswordServlet</servlet-name>
+    <url-pattern>/CheckpasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdatePasswordServlet</servlet-name>
+    <url-pattern>/UpdatePasswordServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateDefaultServlet</servlet-name>
+    <url-pattern>/UpDateDefaultServlet</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>CreateArtistidServlet</servlet-name>
+    <url-pattern>/CreateArtistidServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateAccountInformation</servlet-name>
+    <url-pattern>/UpdateAccountInformation</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateArtistServletForUser</servlet-name>
+    <url-pattern>/CreateArtistServletForUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewArtistServletForUser</servlet-name>
+    <url-pattern>/UpDateNewArtistServletForUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpdateAccountInformationForGallery</servlet-name>
+    <url-pattern>/UpdateAccountInformationForGallery</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateGalleryServletForUser</servlet-name>
+    <url-pattern>/CreateGalleryServletForUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>UpDateNewGalleryServletForUser</servlet-name>
+    <url-pattern>/UpDateNewGalleryServletForUser</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GetAccountByIdServelt</servlet-name>
+    <url-pattern>/GetAccountByIdServelt</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CheckAccountServletForOnly</servlet-name>
+    <url-pattern>/CheckAccountServletForOnly</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateAccountForUpdate</servlet-name>
+    <url-pattern>/CreateAccountForUpdate</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>SelectElementServlet</servlet-name>
+    <url-pattern>/SelectElementServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateArtwork_sellerartist</servlet-name>
+    <url-pattern>/CreateArtwork_sellerartist</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RemoveArtworkServlet</servlet-name>
+    <url-pattern>/RemoveArtworkServlet</url-pattern>
+  </servlet-mapping>
+
+ <servlet-mapping>
+    <servlet-name>EmailVerifyServlet</servlet-name>
+    <url-pattern>/EmailVerifyServlet</url-pattern>
+  </servlet-mapping>
+
+
+
+  <servlet-mapping>
+		<servlet-name>FailOrder</servlet-name>
+		<url-pattern>/FailOrder</url-pattern>
+	</servlet-mapping>
+
+
+	<servlet-mapping>
+		<servlet-name>CheckOrderStock</servlet-name>
+		<url-pattern>/CheckOrderStock</url-pattern>
+	</servlet-mapping>
+
+	<servlet-mapping>
+		<servlet-name>GetAllProducts</servlet-name>
+		<url-pattern>/GetAllProducts</url-pattern>
+	</servlet-mapping>
+
 </web-app>

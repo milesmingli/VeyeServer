@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>UpgradeAccount.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=utf-8">
+    
+    <!--<link rel="stylesheet" type="text/css" href="./styles.css">-->
+
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+<script type="text/javascript">
+var randomconut = Math.floor(Math.random() * 1000);
+var userdata=null;
+var addressdata=null;
+var userid = $.cookie('userid');
+
+window.onload=function(){
+	
+	
+	var user = $.cookie('user_cookie');
+	if (user.indexOf("@") > 0) {
+		name = "email";
+	} else {
+		name = "phone";
+	}
+	
+	$.ajax({
+			
+		    url : "../NickNameServlet?user="+ user
+		    + "&name=" + name+ "&randomconut=" + randomconut,
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			error : function(request, error) {
+				alert(error);
+			},
+	
+			success : function(data) {
+	
+				//console.log("data:" + JSON.stringify(data));
+				userdata=data;
+			
+				if(userdata[0].artistid!=null && userdata[0].artistid!="" && userdata[0].artistid!=undefined){
+					
+					window.location.href="../CreateArtistServletForUser?id="+userdata[0].artistid;
+				
+				var id=userdata[0].artistid;
+				sql="select * from artist where id='"+id+"'";
+				
+				sql=encodeURIComponent(sql);
+				
+				$.ajax({
+
+					url : '../UpdateArtistSql?sql='+sql,
+
+					dataType :"json",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+					error : function(request, error) {
+						alert(error);
+					},
+
+					success : function(data) {
+						console.log("data:" + JSON.stringify(data));
+						var name=data[0].name;
+							if(name!=null && name!="" && name!=undefined){
+							
+							window.location.href="../CreateArtistServletForUser?id="+userdata[0].artistid;
+						}
+						
+					}
+				
+				});
+				}else{
+					
+				
+				
+				
+				if(userdata[0].galleryid!=null && userdata[0].galleryid!="" && userdata[0].galleryid!=undefined){
+					 
+					 
+					window.location.href="../CreateGalleryServletForUser?id="+userdata[0].galleryid;
+					
+					
+					
+					var id=userdata[0].galleryid;
+					
+					sql="select * from gallery where id='"+id+"'";
+					
+					sql=encodeURIComponent(sql);
+					
+					$.ajax({
+
+						url : '../GalleryManage?sql='+sql,
+
+						dataType :"json",
+						contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+						error : function(request, error) {
+							alert(error);
+						},
+
+						success : function(data) {
+							console.log("data:" + JSON.stringify(data));
+							var name=data[0].name;
+								if(name!=null && name!="" && name!=undefined){
+								
+								window.location.href="../CreateGalleryServletForUser?id="+userdata[0].galleryid;
+							}
+							
+						}
+					
+					});
+				
+				
+				}
+			}
+				
+				$.ajax({
+					
+				    url : "../GetAllAddressesByUser?userid="+ userdata[0].id
+				    +  "&randomconut=" + randomconut,
+					dataType : "json",
+					contentType : "application/x-www-form-urlencoded; charset=utf-8",
+					error : function(request, error) {
+						alert(error);
+					},
+			
+					success : function(data) {
+						
+						var address=data["addresses"];
+				
+					if((userdata[0].realname=="" || userdata[0].realname==null || userdata[0].realname==undefined) || address==""){
+						
+						document.getElementById("button1").disabled=true;
+						
+						document.getElementById("button2").disabled=true;
+						
+						document.getElementById("div2").style.display="block";
+						
+						
+					}else {
+						
+						document.getElementById("div1").style.display="block";
+
+					}
+					
+						$.ajax({
+							
+						    url : "../GetAllAddressesByUser?userid="+ userdata[0].id
+						    +  "&randomconut=" + randomconut,
+							dataType : "json",
+							contentType : "application/x-www-form-urlencoded; charset=utf-8",
+							error : function(request, error) {
+								alert(error);
+							},
+					
+							success : function(data) {
+					
+								
+								var address=data["addresses"];
+							console.log(userdata[0].realname);
+							if((userdata[0].realname=="" || userdata[0].realname==null || userdata[0].realname==undefined) || address==""){
+								
+								document.getElementById("button1").disabled=true;
+								
+								document.getElementById("button2").disabled=true;
+								
+								document.getElementById("div2").style.display="block";
+
+								
+							}else if(userdata[0].galleryid!="" && userdata[0].galleryid!=null && userdata[0].galleryid!=undefined){
+								
+								document.getElementById("div1").style.display="none";
+								
+							}
+							
+							}
+						});
+						
+					
+							
+					}
+				});
+				
+			
+				
+				
+			}
+		});
+	
+	
+	
+
+}
+
+
+
+
+
+function CreateArtistId(){
+	$.ajax({
+
+		url : "../CreateArtistidServlet?randomconut="
+				+ randomconut,
+		dataType : "text",
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+
+			console.log(data);
+			
+			window.location.href="UpLoadPersonalInformation.jsp?artistid="+data;
+			
+
+		}
+	});
+}
+
+
+function CreateGalleryId(){
+	$.ajax({
+
+		url : "../CreateArtistidServlet?randomconut="
+				+ randomconut,
+		dataType : "text",
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+
+			console.log(data);
+			
+			window.location.href="UpLoadGalleryInformation.jsp?galleryid="+data;
+			
+
+		}
+	});
+}
+
+
+
+</script>
+
+  </head>
+  
+  <body  style="height: 500px; font-size: 13px;font-family: 微软雅黑;">
+   <div style="text-align: center;width: 100%;height: 100%;display: none" id="div2" >
+    <p>请先补充账户和地址信息!</p>
+   </div>
+  <div style="text-align: center;width: 100%;height: 100%;display: none" id="div1" >
+    
+   <div>
+	 <input type="button" id="button1" value="升级为个艺术家" style="margin-top: 150px;" onclick="CreateArtistId()"/>&nbsp;&nbsp;&nbsp;需要上传个人基本信息
+   <br> 
+     
+   <!-- 
+    <input type="button" id="button2" value="&nbsp;升级为艺术机构&nbsp;" style="margin-left: -7px;margin-top: 40px" onclick="CreateGalleryId()"/>&nbsp;&nbsp;&nbsp;需要上传公司基本信息
+
+     -->
+    <input type="button" id="button2" value="&nbsp;升级为艺术机构&nbsp;" style="margin-left: -7px;margin-top: 190px" onclick="CreateGalleryId()"/>&nbsp;&nbsp;&nbsp;需要上传公司基本信息
+    
+   </div>
+
+  </div> 
+  </body>
+</html>

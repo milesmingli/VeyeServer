@@ -1,0 +1,484 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>AddressManage.html</title>
+	
+    <meta name="keywords" content="keyword1,keyword2,keyword3">
+    <meta name="description" content="this is my page">
+    <meta name="content-type" content="text/html; charset=utf-8">
+    
+<script type="text/javascript" src="../js/jquery-2.1.1.min.js"></script>
+<script type="text/javascript" src="../js/jquery.cookie.js"></script>
+    <script type="text/javascript" src="../js/jsAddress.js"></script>
+
+
+<script type="text/javascript" charset="utf-8">
+var user=null;
+var name="";
+var username=null;
+var userid=null;
+var alldata=null;
+var count=null;
+var isfirst=false;
+var randomconut = Math.floor(Math.random() * 1000);
+var ChangeAddressValue=[];
+
+function findObj(theObj, theDoc) {
+	var p, i, foundObj;
+	if (!theDoc)
+		theDoc = document;
+	if ((p = theObj.indexOf("?")) > 0 && parent.frames.length) {
+		theDoc = parent.frames[theObj.substring(p + 1)].document;
+		theObj = theObj.substring(0, p);
+	}
+	if (!(foundObj = theDoc[theObj]) && theDoc.all)
+		foundObj = theDoc.all[theObj];
+	for (i = 0; !foundObj && i < theDoc.forms.length; i++)
+		foundObj = theDoc.forms[i][theObj];
+	for (i = 0; !foundObj && theDoc.layers && i < theDoc.layers.length; i++)
+		foundObj = findObj(theObj, theDoc.layers[i].document);
+	if (!foundObj && document.getElementById)
+		foundObj = document.getElementById(theObj);
+	return foundObj;
+}
+
+
+function AddSignRow() { //读取最后一行的行号，存放在txtTRLastIndex文本框中 
+	var txtTRLastIndex = findObj("txtTRLastIndex", document);
+	var rowID = parseInt(txtTRLastIndex.value);
+
+	var signFrame = findObj("SignFrame", document);
+	//添加行
+	var newTR = signFrame.insertRow(signFrame.rows.length);
+	newTR.id = "SignItem" + rowID;
+	
+	//添加列:收货人
+	var newReceiverTD = newTR.insertCell(0);
+	//添加列内容
+	newReceiverTD.innerHTML = "<input  name='receiver" + rowID + "' id='receiver" + rowID + "' type='text' size='13'  readonly='readonly' style='text-align:center;border: 1px'margin-left: -50px/>";
+	//添加列:地区
+	var newCityTD = newTR.insertCell(1);
+	//添加列内容
+	newCityTD.innerHTML = "<input  name='city" + rowID + "' id='city" + rowID + "' type='text' size='13'  readonly='readonly' style='text-align:center;border: 1px'margin-left: -50px/>";
+
+	var newDetailedaddressTD = newTR.insertCell(2);
+	//添加列内容
+	newDetailedaddressTD.innerHTML = "<input  name='Detailedaddress" + rowID + "' id='Detailedaddress" + rowID + "' type='text' size='13'  readonly='readonly' style='text-align:center;border: 1px'margin-left: -50px/>";
+	
+	//添加列联系电话
+	var newPhoneTD = newTR.insertCell(3);
+		//添加列内容
+	newPhoneTD.innerHTML = "<input name='phone" + rowID + "' id='phone" + rowID + "' type='text' size='10'readonly='readonly' style='border: 1px' />";
+
+	//添加列邮编
+	var newPostcodeTD = newTR.insertCell(4);
+		//添加列内容
+	newPostcodeTD.innerHTML = "<input name='postcode" + rowID + "' id='postcode" + rowID + "' type='text' size='10'readonly='readonly' style='border: 1px' />";
+	
+	//添加列:删除按钮
+	var newDeleteTD = newTR.insertCell(5);
+	//添加列内容
+	newDeleteTD.innerHTML = "<div align='center' style='width:40px text-align:center' ><a  href='javascript:;' onclick=\"DeleteSignRow('SignItem"
+			+ rowID + "')\"><input name='deletebutton" + rowID + "' id='deletebutton" + rowID + "' type='button' value='删除' size='10' /> </a></div>";
+			
+	//添加列:默认按钮
+	var newDefaultTD = newTR.insertCell(6);
+			//添加列内容
+	newDefaultTD.innerHTML = "<div align='center' style='width:40px text-align:center' ><a  href='javascript:;' onclick=\"DefaultSignRow('SignItem"
+	+ rowID + "')\"><input name='default" + rowID + "' id='default" + rowID + "' type='button' value='设为默认' size='10' /> </a></div>";
+
+	var newIdTD = newTR.insertCell(7);
+	//添加列内容
+	newIdTD.innerHTML = "<input  name='addressid" + rowID + "' id='addressid" + rowID + "' type='text' size='13'  readonly='readonly' style='text-align:center;border: 1px'margin-left: -50px;/>";
+	
+	
+	//将行号推进下一行
+	txtTRLastIndex.value = (rowID + 1).toString();
+	}
+	
+	
+function ClearAllSign(){
+	
+	var signFrame = findObj("SignFrame",document);
+	var rowscount = signFrame.rows.length;
+
+	//循环删除行,从最后一行往前删除
+	for(i=rowscount - 1;i > 0; i--){
+	   signFrame.deleteRow(i);
+	}
+
+	//重置最后行号为1
+	var txtTRLastIndex = findObj("txtTRLastIndex",document);
+	txtTRLastIndex.value = "1";
+
+	
+	}
+window.onload=function(){
+	
+	addressInit('cmbProvince', 'cmbCity', 'cmbArea', '北京', '市辖区', '朝阳区');
+	user = $.cookie('user_cookie');
+	if (user.indexOf("@") > 0) {
+		name = "email";
+	} else {
+		name = "phone";
+	}
+	$.ajax({
+		
+	    url : "../NickNameServlet?user="+ user
+	    + "&name=" + name+ "&randomconut=" + randomconut,
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+
+			////console.log("data:" + JSON.stringify(data));
+			
+			alldata=data;
+			userid=alldata[0].id;
+			
+			$.ajax({
+				
+			    url : "../GetAllAddressesByUser?userid="+userid
+			   	+ "&randomconut=" + randomconut,
+				dataType : "json",
+				contentType : "application/x-www-form-urlencoded; charset=utf-8",
+				error : function(request, error) {
+					alert(error);
+				},
+
+				success : function(data) {
+					
+				
+					//console.log("data:" + JSON.stringify(data));
+					var address=data["addresses"];
+					count=address;
+					var address1=null;
+					var AllAddress=document.getElementById("alladdresses");
+					//console.log("data:" + JSON.stringify(address));
+					if(JSON.stringify(address)=="[]"){
+						isfirst=true;
+					}
+					var l;
+					for(var k=0;k<address.length;k++){
+						
+						l=k+1;
+						AddSignRow();
+						//console.log(address[k].receiver);
+						document.getElementById("receiver" + l.toString()).value=address[k].receiver;
+						document.getElementById("city" + l.toString()).value=address[k].province+" "+address[k].city+" "+address[k].district;
+						document.getElementById("Detailedaddress" + l.toString()).value=address[k].address;
+						document.getElementById("phone" + l.toString()).value=address[k].phone;
+						document.getElementById("postcode" + l.toString()).value=address[k].postcode;
+						document.getElementById("addressid" + l.toString()).value=address[k].id;
+						document.getElementById("addressid" + l.toString()).style.display="none";
+
+						if(address[k].isdefault=="1"){
+							document.getElementById("default" + l.toString()).value="默认地址";
+							
+							//document.getElementById("default" + l.toString()).style.background="red";
+							document.getElementById("default" + l.toString()).disabled=true;
+
+						}
+						
+						
+						
+					}
+					
+			
+					
+				}
+			});
+			
+		}
+	});
+	
+}
+
+	
+	
+function DeleteSignRow(rowid) {
+	if(confirm("确认删除吗")){
+		var signFrame = findObj("SignFrame", document);
+		var signItem = findObj(rowid, document);
+		//获取将要删除的行的Index
+		var rowIndex = signItem.rowIndex;
+		var addressid=document.getElementById("addressid" + rowIndex).value;
+		$.ajax({
+
+			url : "../DeleteAddress?addressid="
+					+ addressid + "&randomconut="
+					+ randomconut,
+			dataType : "text",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				alert("删除成功");
+				ClearAllSign();
+				Search();
+
+
+			}
+		});
+		
+		
+		
+	}else{
+		
+		return;
+	}
+	
+	
+}
+
+function DefaultSignRow(rowid) {
+	var signFrame = findObj("SignFrame", document);
+	var signItem = findObj(rowid, document);
+	//获取执行行的Index
+	var rowIndex = signItem.rowIndex;
+	var addressid=document.getElementById("addressid" + rowIndex).value;
+	
+	
+	addressid=encodeURI(encodeURI(addressid));
+
+	
+	$.ajax({
+
+		url : "../UpDateDefaultServlet?addressid="
+				+ addressid + "&isdefault=1"
+				+ "&userid="
+				+ userid+ "&randomconut="
+				+ randomconut,
+		dataType : "text",
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+			//alert("设置成功");
+			ClearAllSign();
+			Search();
+		
+			
+
+
+		}
+	});
+	
+	
+	
+	
+}
+
+
+function Submit(){
+	
+	var receiver=document.getElementById("addreceiver").value;
+	var Province=document.getElementById("cmbProvince").value;
+	var city=document.getElementById("cmbCity").value;
+	var district=document.getElementById("cmbArea").value;
+	var address=document.getElementById("adddetailedaddress").value;
+	var addphone=document.getElementById("addphone").value;
+	var postcode=document.getElementById("addpostcode").value;
+
+
+	if(receiver==null || receiver==""){
+		alert("请添加收货人");
+		return;
+		
+	}else if(address==null || address==""){
+		
+		alert("请添加详细地址");
+		return;
+	}else if(addphone==null || addphone==""){
+		
+		alert("请添加联系电话");
+		return;
+	}else if(postcode==null || postcode==""){
+		
+		alert("请添加邮编");
+		return;
+	}
+	
+	if(postcode!=null && postcode!=""){
+		  var re= /^[1-9][0-9]{5}$/
+		  
+		  if(!re.test(postcode)){
+			  alert("邮编格式不正确");
+			  return;
+		  }
+	}
+	
+	receiver=encodeURI(encodeURI(receiver));
+	Province=encodeURI(encodeURI(Province));
+	city=encodeURI(encodeURI(city));
+	district=encodeURI(encodeURI(district));
+	address=encodeURI(encodeURI(address));
+	addphone=encodeURI(encodeURI(addphone));
+	postcode=encodeURI(encodeURI(postcode));
+		
+		$.ajax({
+
+			url : "../AddAddress?receiver="
+				+ receiver + "&province=" + Province + "&city=" 
+				+ city + "&district=" + district + "&address=" 
+				+ address + "&phone=" + addphone+ "&postcode=" 
+				+ postcode+ "&userid=" + userid+ "&isdefault=0"+"&randomconut=" + randomconut,
+			dataType : "json",
+			contentType : "application/x-www-form-urlencoded; charset=utf-8",
+			error : function(request, error) {
+				alert(error);
+			},
+
+			success : function(data) {
+				isfirst=false;
+				////console.log("data:" + JSON.stringify(data));
+				alert("添加成功");
+				ClearAllSign();
+				Search();
+				
+				document.getElementById("addreceiver").value="";
+				document.getElementById("adddetailedaddress").value="";
+				document.getElementById("addphone").value="";
+				document.getElementById("addpostcode").value="";
+				
+			}
+		});
+
+}
+
+
+function Search(){
+	
+	$.ajax({
+		
+	    url : "../GetAllAddressesByUser?userid="+userid
+	   	+ "&randomconut=" + randomconut,
+		dataType : "json",
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+			
+		
+			//console.log("data:" + JSON.stringify(data));
+			var address=data["addresses"];
+			count=address;
+			var address1=null;
+			var AllAddress=document.getElementById("alladdresses");
+			//console.log("data:" + JSON.stringify(address));
+			if(JSON.stringify(address)=="[]"){
+				isfirst=true;
+			}
+			var l;
+			for(var k=0;k<address.length;k++){
+				l=k+1;
+				AddSignRow();
+				//console.log(address[k].receiver);
+				document.getElementById("receiver" + l.toString()).value=address[k].receiver;
+				document.getElementById("city" + l.toString()).value=address[k].province+" "+address[k].city+" "+address[k].district;
+				document.getElementById("Detailedaddress" + l.toString()).value=address[k].address;
+				document.getElementById("phone" + l.toString()).value=address[k].phone;
+				document.getElementById("postcode" + l.toString()).value=address[k].postcode;
+				document.getElementById("addressid" + l.toString()).value=address[k].id;
+				document.getElementById("addressid" + l.toString()).style.display="none";
+
+				if(address[k].isdefault=="1"){
+					document.getElementById("default" + l.toString()).value="默认地址";
+					//document.getElementById("default" + l.toString()).style.background="red";
+					document.getElementById("default" + l.toString()).disabled=true;
+
+				}
+				
+				
+				
+			}
+			
+	
+			
+		}
+	});
+	
+	
+}
+
+</script>
+
+
+  </head>
+  
+  <body style="font-family: 微软雅黑;font-size: 14px;margin-left: 50px">
+    <div style=";text-align: center;" id="alladdresses">
+   
+   		<table id="SignFrame" border="1" cellspacing="0" cellpadding="0"
+			width="100%">
+			<tbody>
+
+				<tr id="trHeader" align="center">
+					<td bgcolor="#D3D3D3">收货人</td>
+					<td bgcolor="#D3D3D3">所在地区</td>
+					<td bgcolor="#D3D3D3">详细地址</td>
+					<td bgcolor="#D3D3D3">联系电话</td>
+					<td bgcolor="#D3D3D3">邮编</td>
+					<td bgcolor="#D3D3D3">删除</td>
+					<td bgcolor="#D3D3D3">设为默认</td>
+					<td bgcolor="#D3D3D3"></td>
+				
+				</tr>
+
+			</tbody>
+		</table>
+		<input name='txtTRLastIndex' type='hidden' id='txtTRLastIndex'value="1" />
+    </div>
+    	<div style="margin-top: 100px;text-align: center;width: 100%">
+    		<h2>添加新地址</h2>
+    	</div>				 
+    <div style="margin-top: 80px;width: 100%;margin-bottom: 0px">
+  
+   		 <div style="border:#AAAAAB 1px solid;width: 100%;" >
+   		<div style="margin-left: 10px">
+    	收&nbsp;货&nbsp;人  &nbsp;:<input type="text" id="addreceiver" name="addreceiver" value="" style="margin-top: 40px;" />&nbsp;<font color='red'>*</font>
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+    	&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		城  &nbsp;市 :	<select id="cmbProvince" name="prov" style="margin-top: 20px;"></select>
+					:<select id="cmbCity" name="city"></select>
+					:<select id="cmbArea" name="dist"></select>&nbsp;<font color='red'>*</font>
+					<br>
+		联系电话 :<input type="text" id="addphone" name="addphone" value="" style="margin-top: 20px;" />&nbsp;<font color='red'>*</font>
+				  <br>
+		
+		详细地址 :<input type="text" id="adddetailedaddress" name="adddetailedaddress" value="" style="margin-top: 20px;width: 444px" />&nbsp;<font color='red'>*</font>
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+		邮 &nbsp;编 : <input type="text" id="addpostcode" name="addpostcode" value="" style="margin-top: 20px;width: 222px" />&nbsp;<font color='red'>*</font>
+				  <br>		  
+				  <br>
+				  <br>
+			<div style="width: 100%;text-align: center;">
+			<input type="button" value="提交" onclick="Submit()" style="margin-left: -100px"/>
+			  <br>
+			    <br>	  
+			</div>	  
+				
+				 
+		</div>		 
+				 
+				
+    	</div>
+   	
+  
+    		
+   	 </div>
+    
+    
+  </body>
+</html>
