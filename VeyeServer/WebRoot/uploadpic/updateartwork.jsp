@@ -209,13 +209,13 @@ if(type=="veye"){
 						artistid=$.cookie('artistid');
 						
 							if(artistid!="null"){
-								document.getElementById("artist").value=artistid;
+						/* 		document.getElementById("artist").value=artistid;
 								document.getElementById("choseartists").value=artistid.split(",")[0];
 							
 								console.log(artistid);
 		
 								$.cookie('artistid', null, { expires: 1, path: '/' });
-								
+								 */
 							}
 					
 					}else if(type=="seller_artist"){
