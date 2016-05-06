@@ -295,6 +295,9 @@ function dosubmit() {
 	 	 document.getElementById("birthday").value=birthday+"-01-01";
 		 document.form1.submit();
 		 document.getElementById("submitbutton").disabled=true;
+		
+		 
+		 
 
 }
 
@@ -507,8 +510,9 @@ function AddArtist(){
 
 </head>
 <body style="font-family: 微软雅黑">
+<p id="pid" style="text-align: center;">点击艺术家头像可添加作品</p>
+
 <div style="width: 100%;height: 100%;margin: 40px;text-align: center;" id="artistdiv">
-<p id="pid" style="margin-top: -30px">点击艺术家头像可添加作品</p>
 </div>
 <div style="width: 100%;margin-top: 50px" id="linediv" >
 
@@ -517,7 +521,7 @@ function AddArtist(){
 	<div style="margin-left: 20px;margin-top: 100px;display: none" id="AddArtistDiv" >
 		<div style="font-size: 14px;margin-top: 30px">
 
-			<form action="${pageContext.request.contextPath}/UpdateArtistServlet" method="post" name="form1">
+			<form action="${pageContext.request.contextPath}/GalleryInsertArtistServlet" method="post" name="form1">
 				
 				<div style="float: left;margin-left: 10px">
 				<input type="file" value="sdgsdg" id="demo_input" accept="image/png, image/jpeg"  />

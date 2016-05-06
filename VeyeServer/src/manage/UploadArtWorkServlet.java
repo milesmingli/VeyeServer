@@ -10,6 +10,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -267,7 +268,7 @@ public class UploadArtWorkServlet extends HttpServlet {
 							if(veyetype.equals("veyetype")){
 								sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId) values('";
 								sql = sql +userid+"','"+name+"','"+artistid1+"','"+artistname1+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid1+"','"+galleryname1+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"')";
-								
+								stmt.execute(sql);
 							}else{
 								sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId) values('";
 								sql = sql +userid+"','"+name+"','"+artistid+"','"+artistname+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid+"','"+galleryname+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"')";
@@ -298,7 +299,13 @@ public class UploadArtWorkServlet extends HttpServlet {
 					conn = null;
 					System.out.println(Realpath+"999");
 					
-					out.print(returnMsg+":");
+					if(!veyetype.equals("veyetype")){
+						
+						RequestDispatcher rd = request.getRequestDispatcher("/seller_organization/arrwork_artist.jsp?artistid="+artistid);
+						rd.forward(request, response);
+						
+					}
+				
 		} catch (SQLException e) {
 			returnMsg = "Ö´ÐÐÊ§°Ü";
 			out.print(returnMsg+":");

@@ -9,6 +9,7 @@ import java.sql.Statement;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -183,8 +184,11 @@ public class GalleryInsertArtistServlet extends HttpServlet {
 			
 			Decoder.GenerateImage(RsStream, Realpath);
 			
+			RequestDispatcher rd = request.getRequestDispatcher("/seller_organization/seller_organization.jsp");
 			
-			out.print(returnMsg+":");
+			
+			rd.forward(request, response);
+		//	out.print(returnMsg+":");
 			
 			
 			
