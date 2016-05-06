@@ -77,7 +77,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		
 		
-		var id=decodeURI(<%="'"+request.getParameter("id")+"'"%>)
+		var id=decodeURI(<%="'"+request.getParameter("id")+"'"%>);
 		var sql=null;
 		
 		sql="select * from artist where id='"+id+"'";
@@ -174,8 +174,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				console.log("data:" + JSON.stringify(data));
 				
 				if(JSON.stringify(data)!="[]"){
-					document.getElementById("name").disabled=true;
-					alert("改作者名下有作品存在，名字将无法修改");
+					//如果有作品将无法删除
+					//document.getElementById("name").disabled=true;
+					//alert("改作者名下有作品存在，名字将无法修改");
 				}
 				 
 			}
@@ -322,7 +323,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	</div>
-	<div style="border:#AAAAAB 2px solid;width: 1000px;height:600px;margin-left: 20px">
+	<div style="width: 1000px;height:600px;margin-left: 20px">
 		
 			<form action="${pageContext.request.contextPath}/UpDateNewArtistServlet" method="post" name="form1" id="form1">
 				
@@ -378,6 +379,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					：<select id="cmbCity" name="city"></select>
 					：<select id="cmbArea" name="dist"></select>&nbsp;<font color='red'>*</font>
 					
+				<br/>
 				<br/>
 				作家类型:<select id="artistcategory" name="artistcategory" onchange="CategorycChange(this)"></select>
 				<br/>

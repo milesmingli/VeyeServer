@@ -91,7 +91,7 @@ public class UpdateAccountInformationForGallery extends HttpServlet {
 
 		 sql = "update user set galleryid='"+galleryid+"',license='"+license+"',licenseportrait='"+licenseportrait+"',type='seller_organization' where id="+id; 
 		 
-		 gallerysql="insert into gallery (id,type,updatetime) VALUES ('"+galleryid+"','"+"字更"+"','"+date+"')";
+		 gallerysql="insert into gallery (id,type,updatetime,userid) VALUES ('"+galleryid+"','"+"字更"+"','"+date+"',"+id+")";
 		 
 		
 		Boolean success = this.runSql(sql);

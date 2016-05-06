@@ -308,10 +308,12 @@ if(type=="veye"){
 			            
 			        	if(issale==1){
 							document.getElementById("stock").style.display="block";	
-							document.getElementById("stock").value="1";
+							//document.getElementById("stock").value="1";
 
 						}
 			        }
+					document.getElementById("stock").value=data[0].stock;
+
 					document.getElementById("imgid").src ="<%=basePath%>"+data[0].thumbnail+"?rand="+randomconut;
 					document.getElementById("imgs").src ="<%=basePath%>"+data[0].originalpicture+"?rand="+randomconut;
 					document.getElementById("videoid").value ="<%=basePath%>"+data[0].vedio+"?rand="+randomconut;
@@ -683,7 +685,7 @@ function CheckUpload(){
 				
 					<div id="notveyeartist">
 				
-					艺术家&nbsp;&nbsp;&nbsp;<input type="button" value="" id="choseartists" onclick="choseartist()"/>
+					艺术家&nbsp;&nbsp;&nbsp;<input type="button" value="" id="choseartists" onclick="choseartist()" disabled="disabled"/>
 						
 					<input type="text" id=artist name="artist" value="" style="display: none">
 						</div>

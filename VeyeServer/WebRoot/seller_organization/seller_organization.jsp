@@ -74,17 +74,23 @@ window.onload=function(){
 						 var img = document.createElement('img');
 						 var upadtebtn = document.createElement('input');
 						 var deletebtn = document.createElement('input');
+						 var p = document.createElement('input');
+
 						 var br = document.createElement('br');
 						 var picv1 = document.createElement('div');
 						
-						 	
 						 
 						 	picv1.setAttribute("style","float: left;text-align: center;width:200px;height:200px;position:relative;margin:auto;");
 						 	picv1.setAttribute("id",i);
-						  	img.src=picpath;
+						  	p.value=data[i].name;
+							p.setAttribute("disabled","disabled");
+						  	p.setAttribute("style","margin-top:-22px;border: none;background:#fff;text-align: left;");
+						
+						 	img.src=picpath;
 						  	img.setAttribute("style","position:absolute;left:0px;bottom:40px;");
-						  	img.setAttribute("id","img"+i);
-
+						  	img.setAttribute("id",data[i].id);
+						  	img.setAttribute("onclick","link(this)");
+							
 						  	upadtebtn.type = 'button';
 						  	deletebtn.type = 'button';
 						  	upadtebtn.value = "修  改";
@@ -100,37 +106,39 @@ window.onload=function(){
 							
 						  	artistdiv.appendChild(picv1);
 							var artistdiv2=document.getElementById(i);
+						  	artistdiv2.appendChild(p);
 						  	artistdiv2.appendChild(img);
 						  	artistdiv2.appendChild(br);
 						  	artistdiv2.appendChild(upadtebtn);
 						  	artistdiv2.appendChild(deletebtn);
-							var imgwh=document.getElementById("img"+i);
+							var imgwh=document.getElementById(data[i].id);
 							var w=imgwh.width;
 							var h=imgwh.height;
 							
 							if((w/h)<1){
 								w=w/(h/150);
 
-								document.getElementById("img"+i).width=w;
-								document.getElementById("img"+i).height="150";
+								document.getElementById(data[i].id).width=w;
+								document.getElementById(data[i].id).height="150";
 								
 
 							}else{
-								document.getElementById("img"+i).width="150";
+								document.getElementById(data[i].id).width="150";
 								
 							}
 							
 							
 
-							linediv.innerHTML="<br><div><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/><br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
+							//linediv.innerHTML="<br><div><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/><br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
+							linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
 
 						
 					}
 
 				}else{
-					linediv.innerHTML="<br><div><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/><br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
-
-					//linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
+					//linediv.innerHTML="<br><div><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/><br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
+					document.getElementById("pid").style.display="none";
+					linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
 	
 				}	
 						
@@ -162,7 +170,7 @@ window.onload=function(){
 
 			success : function(data) {
 
-				console.log("data:" + JSON.stringify(data));
+				//console.log("data:" + JSON.stringify(data));
 				
 				var select = document.getElementById("artistcategory");
 
@@ -186,6 +194,12 @@ window.onload=function(){
 	
 }
 
+function link(obj){
+
+	window.location.href="seller_organization/arrwork_artist.jsp?artistid="+obj.id;
+	
+	
+}
 var imgs = new Image();
 function readFile() {
 	
@@ -229,11 +243,14 @@ function readFile() {
 
 
 function dosubmit() {
+	
+	/*
+	//重名验证
 	var isaudit=$.cookie('isaudit');
 	if(isaudit!="null"){
 		document.getElementById("isaudit").value=isaudit;
     	$.cookie('isaudit', null, { expires: 1, path: '/' }); 
-	}
+	} */
 
 
 	var RsStream=document.getElementById("result").value;
@@ -308,7 +325,11 @@ if((obj.value).indexOf("国外")>=0){
 }
 
 function Checkname(){
-	var namevalue=document.getElementById("name").value;
+	
+/* 	
+ //同名验证
+ var namevalue=document.getElementById("name").value;
+	
 	if(namevalue.length>0){
 		document.getElementById("demo_input").disabled=false;
 	}else{
@@ -336,16 +357,16 @@ function Checkname(){
 			alert("艺术家同名，将跳转至同名艺术家界面");
 			window.location.href="uploadpic/SameName.jsp?name="+name;
 		 } 
-	}	
+	}	 */
 	
 }
 
 function Update(obj){
 	
 	
-	var artworkid=(obj.id).split("upadte")[0];
+	var artistid=(obj.id).split("upadte")[0];
 	
-	window.location.href="uploadpic/updateartwork.jsp?id="+artworkid;
+	window.location.href="uploadpic/updateartist.jsp?id="+artistid;
 
 	
 	
@@ -354,32 +375,59 @@ function Update(obj){
 function Delete(obj){
 	
 	
-	var artworkid=(obj.id).split("delete")[0];
+	var artistid=(obj.id).split("delete")[0];
 	
+
 	if(confirm("确认删除吗")){
-	
-		delsql = "delete from artwork where ";
-		delsql = delsql + "id='"
-				+artworkid+ "'";
-		delsql = encodeURIComponent(delsql);
+		
+		
 		$.ajax({
-
-			url : '<%=basePath%>/RunOneSql?sql='+ delsql+'&id='+artworkid+'&tablename=artwork',
-
-			dataType : 'text',
+			url : '<%=basePath%>/SelectElementServlet?slectname=*'
+				+"&tablename=artwork where artistid='"+artistid+
+				"'&randomconut="+ randomconut,
+			dataType : "json",
 			contentType : "application/x-www-form-urlencoded; charset=utf-8",
-
 			error : function(request, error) {
-				alert(error);
+				//alert(error+"1");
 			},
 
 			success : function(data) {
-				
-				alert("删除成功");
-				location.reload(); 
+		
+				if(JSON.stringify(data)!="[]"){
+					alert("改艺术家名下有作品，不能删除");
+					
+				}else{
 
+					delsql = "delete from artist where ";
+					delsql = delsql + "id='"
+							+artistid+ "'";
+					delsql = encodeURIComponent(delsql);
+					$.ajax({
+
+						url : '<%=basePath%>/RunOneSql?sql='+ delsql+'&id='+artistid+'&tablename=artist',
+
+						dataType : 'text',
+						contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+						error : function(request, error) {
+							alert(error);
+						},
+
+						success : function(data) {
+							
+							alert("删除成功");
+							location.reload(); 
+
+						}
+					});
+					
+				}
+				
+				
 			}
 		});
+		
+	
 		
 	}else{
 		
@@ -392,27 +440,46 @@ function Delete(obj){
 
 
 function AddArtist(){
-	document.getElementById("AddArtworkDiv").style.display="block";
-	linediv.innerHTML="<br><div><input type='button' value='取消添加' style='margin-left: 70px;margin-top: 50px' id='RemoveArtwork' onclick='RemoveArtwork()'/> <br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
+	document.getElementById("AddArtistDiv").style.display="block";
+	linediv.innerHTML="<br><div><input type='button' value='取消添加' style='margin-left: 70px;margin-top: 50px' id='RemoveArtist' onclick='RemoveArtist()'/> <br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
 
 	
 }
 
-function RemoveArtwork(){
-	document.getElementById("AddArtworkDiv").style.display="none";
-	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtwork()'/> </div>";	
+function RemoveArtist(){
 	
+	var artistid=document.getElementById("userid").value;
+
+	document.getElementById("AddArtistDiv").style.display="none";
+	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
+	
+	$.ajax({
+
+		url : '<%=basePath%>/RemoveArtistServlet?artistid='+ artistid+'&randomconut='+randomconut,
+
+		dataType : 'text',
+		contentType : "application/x-www-form-urlencoded; charset=utf-8",
+
+		error : function(request, error) {
+			alert(error);
+		},
+
+		success : function(data) {
+			
+
+		}
+	});
 
 }
 
 function AddArtist(){
 	document.getElementById("AddArtistDiv").style.display="block";
-	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='取消添加' style='margin-left: 70px;margin-top: 50px' id='RemoveArtwork' onclick='RemoveArtwork()'/> </div>";	
+	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='取消添加' style='margin-left: 70px;margin-top: 50px' id='RemoveArtist' onclick='RemoveArtist()'/> </div>";	
 	var artistid=document.getElementById("userid").value;
 	
 	$.ajax({
 
-		url : '<%=basePath%>/CreateArtist_sellerartist?artistid='+ artistid+'&randomconut='+randomconut,
+		url : '<%=basePath%>/CreateGallery_seller_organization?artistid='+ artistid+'&randomconut='+randomconut,
 
 		dataType : 'text',
 		contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -440,8 +507,8 @@ function AddArtist(){
 
 </head>
 <body style="font-family: 微软雅黑">
-<div style="width: 100%;height: 100%;margin: 40px;" id="artistdiv">
-
+<div style="width: 100%;height: 100%;margin: 40px;text-align: center;" id="artistdiv">
+<p id="pid" style="margin-top: -30px">点击艺术家头像可添加作品</p>
 </div>
 <div style="width: 100%;margin-top: 50px" id="linediv" >
 
@@ -453,7 +520,7 @@ function AddArtist(){
 			<form action="${pageContext.request.contextPath}/UpdateArtistServlet" method="post" name="form1">
 				
 				<div style="float: left;margin-left: 10px">
-				<input type="file" value="sdgsdg" id="demo_input" accept="image/png, image/jpeg"  disabled="disabled"/>
+				<input type="file" value="sdgsdg" id="demo_input" accept="image/png, image/jpeg"  />
 				
 				<textarea id="result" rows=30 cols=300 name=RsStream style="display: none" ></textarea>
 				<p id="img_area"></p>
@@ -531,7 +598,7 @@ function AddArtist(){
 				<br/>
 				<br/>
 				
-					<div style="margin-left: 240px;margin-top: 15px">
+					<div style="margin-left: 240px;margin-top: 15px;">
 						<a href="javascript:dosubmit();"> 
 						<input type="button" value="  提  交  "  id="submitbutton" class="js-crop"/>
 						</a>

@@ -732,6 +732,27 @@
     <servlet-name>EmailVerifyServlet</servlet-name>
     <servlet-class>manage.user.EmailVerifyServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>CreateGallery_seller_organization</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>manage.user.CreateGallery_seller_organization</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GalleryInsertArtistServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>manage.user.GalleryInsertArtistServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>RemoveArtistServlet</servlet-name>
+    <display-name>This is the display name of my J2EE component</display-name>
+    <description>This is the description of my J2EE component</description>
+    <servlet-class>manage.user.RemoveArtistServlet</servlet-class>
+  </servlet>
+
+
+
 
 
 
@@ -1289,6 +1310,18 @@
 		<servlet-name>GetAllProducts</servlet-name>
 		<url-pattern>/GetAllProducts</url-pattern>
 	</servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>CreateGallery_seller_organization</servlet-name>
+    <url-pattern>/CreateGallery_seller_organization</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GalleryInsertArtistServlet</servlet-name>
+    <url-pattern>/GalleryInsertArtistServlet</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>RemoveArtistServlet</servlet-name>
+    <url-pattern>/RemoveArtistServlet</url-pattern>
+  </servlet-mapping>
 	
 
 </web-app>

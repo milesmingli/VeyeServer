@@ -11,7 +11,7 @@ import sun.misc.BASE64Encoder;
 
 public class Decoder {
 	public static void main(String[] args) {
-	System.out.println("应用程序出现不可捕获类异常，请联系sun公司反馈此问题");
+	
 	}
 
 	public static String GetImageStr() {// 将图片文件转化为字节数组字符串，并对其进行Base64编码处理
