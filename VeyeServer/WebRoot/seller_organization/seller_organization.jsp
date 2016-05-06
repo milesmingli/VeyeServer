@@ -502,7 +502,7 @@ function AddArtist(){
 
 
 
-</script>
+</script> 
 
 
 </head>
