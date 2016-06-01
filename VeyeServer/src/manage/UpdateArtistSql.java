@@ -68,6 +68,7 @@ public class UpdateArtistSql extends HttpServlet {
 		PrintWriter out = response.getWriter();		
 		
 		String sql=new String(request.getParameter("sql").getBytes ("ISO-8859-1"), "UTF-8");
+		System.out.println("123");
 		System.out.println(sql);
 		String data = null;
 		Connection conn = null;
@@ -111,8 +112,9 @@ public class UpdateArtistSql extends HttpServlet {
 				
 				alldatas="nothingness";
 			}
+			System.out.println("123"+array.toString());
 			out.print(array.toString());
-			System.out.println(array.toString());
+		
 			stmt.close();
 			conn.close();
 		} catch (Exception e) {

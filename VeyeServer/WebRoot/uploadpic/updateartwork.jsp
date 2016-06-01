@@ -32,8 +32,17 @@ var randomconut=Math.floor(Math.random()*1000);
 var vediopath=null;	
 var type=$.cookie('type_cookie');
 //var id = $.cookie('userid');
-var artistid=null;		
+var artistid=null;	
+var arup=null;
+arup=decodeURI(<%="'"+request.getParameter("arup")+"'"%>);
+
+
 	window.onload=function(){
+		//修改成功后返回本页面arup=already 修改成功
+		if(arup=="already"){
+			
+			alert("修改成功");	
+		}
 		
 	
 if(type=="veye"){
@@ -203,7 +212,15 @@ if(type=="veye"){
 				document.getElementById("name").value = data[0].name;
 				document.getElementById("artist").value = data[0].artist+","+data[0].artistid;
 				document.getElementById("choseartists").value = data[0].artist;
+				document.getElementById("uploadtype").value=data[0].type;
+				
+				if(data[0].type=="商品"){
+					//artwork-div
+					document.getElementById("artwork-div").style.display="none";
 
+				}
+				
+				
 					if(type=="seller_organization"){
 					
 						artistid=$.cookie('artistid');
@@ -240,8 +257,11 @@ if(type=="veye"){
 				
 				
 			
+				if(data[0].createtime!=null){
 
-				document.getElementById("createtime").value = (data[0].createtime).split("-")[0];
+					document.getElementById("createtime").value = (data[0].createtime).split("-")[0];
+
+				}
 				
 				
 				var category=document.getElementById("category").options;
@@ -260,11 +280,17 @@ if(type=="veye"){
 				
 				document.getElementById("brief").value = data[0].brief;
 
-				document.getElementById("size1").value = (data[0].size).split("*")[0];
-				
-				document.getElementById("size2").value =(data[0].size).split("*")[1].split("cm")[0];
 
-				document.getElementById("price").value =data[0].price;
+				document.getElementById("size1").value = (data[0].size).split("*")[0];
+						
+				document.getElementById("size2").value =(data[0].size).split("*")[1].split("cm")[0];
+				 
+				 if(data[0].price!=null){
+				
+					 document.getElementById("price").value =data[0].price;
+
+				 }
+
 				
 				if(type=="seller_organization" || type=="seller_artist"){
 					
@@ -284,10 +310,16 @@ if(type=="veye"){
 
 				
 		
-				
-				document.getElementById("agent").value =  data[0].agent;
-				
-				document.getElementById("agentphone").value = data[0].agentphone;
+				 if(data[0].agent!=null){
+					 
+					document.getElementById("agent").value =  data[0].agent;
+
+				 }
+				 if(data[0].agentphone!=null){
+				 
+					document.getElementById("agentphone").value = data[0].agentphone;
+
+				 }
 				
 				 if(data[0].agentemail!=null){
 				 document.getElementById("agentemail").value = data[0].agentemail;
@@ -295,32 +327,40 @@ if(type=="veye"){
 				  document.getElementById("agentemail").value ="";
 				 }
 				
-			
+				 var issale=null;
+				 if(data[0].issale!=null){
+					 
+					 issale= data[0].issale;
+						var ridaolen=document.form1.issale.length;
+						 for(var i=0;i<ridaolen;i++){
+					            if(issale==document.form1.issale[i].value){
+					                document.form1.issale[i].checked=true;
+					                
+					                
+					            }
+					            
+					        	if(issale==1){
+									//document.getElementById("stock").style.display="block";	
+									//document.getElementById("stock").value="1";
 
-				var issale= data[0].issale;
-				var ridaolen=document.form1.issale.length;
-				 for(var i=0;i<ridaolen;i++){
-			            if(issale==document.form1.issale[i].value){
-			                document.form1.issale[i].checked=true;
-			                
-			                
-			            }
-			            
-			        	if(issale==1){
-							document.getElementById("stock").style.display="block";	
-							//document.getElementById("stock").value="1";
+								}
+					        }
+				 }
+				 
+				 if(data[0].stock!=null){
+				 
+						document.getElementById("stock").value=data[0].stock;
 
-						}
-			        }
-					document.getElementById("stock").value=data[0].stock;
+				 }
 
 					document.getElementById("imgid").src ="<%=basePath%>"+data[0].thumbnail+"?rand="+randomconut;
 					document.getElementById("imgs").src ="<%=basePath%>"+data[0].originalpicture+"?rand="+randomconut;
 					document.getElementById("videoid").value ="<%=basePath%>"+data[0].vedio+"?rand="+randomconut;
 			
 					
-				
-					document.getElementById("isupload").value= data[0].ismarker;
+					
+					 document.getElementById("isupload").value= data[0].ismarker;
+
 					document.getElementById("targetId").value= data[0].uniqueTargetId;
 					var isvedio = data[0].vedio;
 					console.log("isvedio="+isvedio);
@@ -369,94 +409,102 @@ if(type=="veye"){
 		
 		var imgwh=document.getElementById("size1").value;
 		var imght=document.getElementById("size2").value;
+		var uploadtype=document.getElementById("uploadtype").value;
+
+
+		if(uploadtype=="商品"){
+			
+		 if (name == null || name == "") {
+				alert("作品名不能为空");
+				return;
+			}
+			 else if (brief == null || brief == "") {
+				alert("简介不能为空");
+				return;
+
+			} else if (size== "*cm") {
+				alert("尺寸不能为空");
+				return;
+
+			}
+		}else if(uploadtype=="艺术品"){
+			 if(name== null || name== ""){
+				   alert("作品名不能为空");
+					return;
+			 	}else if(createtime== null || createtime== ""){
+				   alert("年代不能为空");
+					return;
+				   
+			   }
+			 	else if(brief== null || brief== ""){
+				   alert("简介不能为空");
+					return;
+				   
+			   }else if(size== null || size== ""){
+				   alert("尺寸不能为空");
+					return;
+				   
+			   }else if(price== null || price== ""){
+				   alert("价格不能为空");
+					return;
+				   
+			   }
 	
-			
-				 if(name== null || name== ""){
-					   alert("作品名不能为空");
-						return;
-				 	}else if(createtime== null || createtime== ""){
-					   alert("年代不能为空");
-						return;
-					   
-				   }
-				 	else if(brief== null || brief== ""){
-					   alert("简介不能为空");
-						return;
-					   
-				   }else if(size== null || size== ""){
-					   alert("尺寸不能为空");
-						return;
-					   
-				   }else if(price== null || price== ""){
-					   alert("价格不能为空");
-						return;
-					   
-				   }
-				 /*   else if(agent== null || agent== ""){
-					   alert("经纪人不能为空");
-						return;
-					   
-				   }
-				   else if(agentphone== null || agentphone== ""){
-					   alert("手机不能为空");
-						return;
-					   
-				   }else if(agentemail== null || agentemail== ""){
-					   alert("邮箱不能为空");
-						return;
-				   } */
-				 
-				  for ( var i = 0; i < issale.length; i++) {
-					  if (issale[i].checked==true) {
-					      i++;
-					  
-					  		if(issale[--i].value==1){
-					  			if(stock== null || stock== ""){
-					  				alert("库存不能为空");
-									return;	
-							  	}
-					  		} 
-					  
-					  }
-					  }
-				   if (createtime != null && createtime != "") {
+			  for ( var i = 0; i < issale.length; i++) {
+				  if (issale[i].checked==true) {
+				      i++;
+				  
+				  		if(issale[--i].value==1){
+				  			if(stock== null || stock== ""){
+				  				alert("库存不能为空");
+								return;	
+						  	}
+				  		} 
+				  
+				  }
+				  }
+			   if (createtime != null && createtime != "") {
 
-						var filter =/^\d{4}$/;
-						if (!filter.test(createtime)) {
-						alert("请输入四位数字日期");
-						return;
-						}
-						
-				 }
+					var filter =/^\d{4}$/;
+					if (!filter.test(createtime)) {
+					alert("请输入四位数字日期");
+					return;
+					}
+					
+			 }
+			
+			 
+		 		//正则验证输入邮箱，性别，手机。。。。
+		 		
+				if(agentemail!= ""){
 				
-				 
-			 		//正则验证输入邮箱，性别，手机。。。。
-			 		
-					if(agentemail!= ""){
-					
-						 var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-						 if (!filter.test(agentemail)){
-							 alert('您的电子邮件格式不正确');
-							 return;
-						 }
-					}
-			 		
-					//用来验证输入的长宽与上传图片长宽的像素比是否相差太大
-					if (imagesize-(imgwh/imght)>0.15 || imagesize-(imgwh/imght)<-0.15 ) {
-					
-						alert('输入的尺寸和像素比相差太大请重新输入尺寸');
-						return;
-					}
-			 		
-			
-					
-				   document.getElementById("createtime").value=createtime+"-01-01";
+					 var filter  = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+					 if (!filter.test(agentemail)){
+						 alert('您的电子邮件格式不正确');
+						 return;
+					 }
+				}
+		 		
+				//用来验证输入的长宽与上传图片长宽的像素比是否相差太大
+				if (imagesize-(imgwh/imght)>0.15 || imagesize-(imgwh/imght)<-0.15 ) {
+				
+					alert('输入的尺寸和像素比相差太大请重新输入尺寸');
+					return;
+				}
+		 		
+		
+				
+			   document.getElementById("createtime").value=createtime+"-01-01";
 
+			
+		}
+				
 					document.form1.submit();
 					document.getElementById("submitbutton").disabled=true;
-					
-		
+			
 		}
+	
+
 	function CheckIsSale(){
 		
 		
@@ -653,11 +701,16 @@ function CheckUpload(){
   <body>
  
 
-	<div style="width: 1000px;height:1000px;margin-left: 20px;font-family: 微软雅黑">
+	<div style="margin-left: 20px;font-family: 微软雅黑">
+		<div style="text-align:center;font-family: 微软雅黑">
+	
+		<a href="javascript:history.go(-1);"><input type="button" value=" 返  回 " /></a>
+		</div>
 		<div style="font-size: 14px;margin-top: 30px">
 		
 			<form action="${pageContext.request.contextPath}/UpDateNewArtWorkServlet" method="post" name="form1">
-				<img alt="" src="" id="imgid" width="260px">
+				<div style="float: left;margin-top:0px;">
+					<img alt="" src="" id="imgid" width="260px">
 				
 				 <!-- <video  loop="loop" controls="" autoplay="autoplay" width="260px" id="videoid">
  				 <source src="">
@@ -665,11 +718,11 @@ function CheckUpload(){
  				 
 				
 				<img alt="" src="" id="imgs" style="display: none">
-		
-				<div style="float: right;margin-top:0px;margin-right: 300px;">
+				</div>
+			
+				<div style="float: left;margin-top:0px;margin-left: 100px">
 				I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;<input type="text" id="userid" name="userid"  value="${requestScope.idname}"  readonly="readonly" style="width:225px"/>
-				<br/>
-				<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				作品名&nbsp;&nbsp;&nbsp;<input type="text" id="name" name="name" value="" style="margin-top: 5px;width:225px"/>
 				<br/>
 				<br/>
@@ -690,32 +743,35 @@ function CheckUpload(){
 					<input type="text" id=artist name="artist" value="" style="display: none">
 						</div>
 					<br/>
+				简&nbsp;&nbsp;&nbsp;介&nbsp;&nbsp;&nbsp;<input type="text" id="brief" name="brief" value="" style="margin-top: 5px;width:225px"/>
+				<br/><br/>
+				图&nbsp;&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;<input type="text" id="size2" name="size2" value="" style="margin-top: 5px;width:225px"/>cm
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				图&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;<input type="text" id="size1" name="size1" value="" style="margin-top: 5px;width:225px"/>cm
+				<br/><br/>
 				
 				
 				
 				<!-- 年&nbsp;代:<input type="text" class="Wdate"  id="createtime" name="createtime" placeholder="请选择日期" onClick="WdatePicker()"  value="" style="margin-top: 5px;width:225px"/>
 				<br/> -->
+				<div id="artwork-div">
 				年 &nbsp;&nbsp;&nbsp;代&nbsp;&nbsp;&nbsp;<input type="text" id="createtime" name="createtime" value="" style="margin-top: 5px;width:225px"/>&nbsp;<font color='red'>*</font>
-				<br/>
-				<br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				
 				类&nbsp;&nbsp;&nbsp;别&nbsp;&nbsp;&nbsp;<select id="category" name="category" style="margin-top: 5px;width:229px">
 						
 						 </select>
 				<br/>
 				<br/>
-				<div id="alltags" style="width: 300px"> 
-					</div><br>
-					标 签:<input name="tags" id="tags" value="" style="width: 260px" placeholder="请选择标签" readonly="readonly"/>
-						<br />
-				简&nbsp;&nbsp;&nbsp;介&nbsp;&nbsp;&nbsp;<input type="text" id="brief" name="brief" value="" style="margin-top: 5px;width:225px"/>
-				<br/><br/>
-				图&nbsp;&nbsp;&nbsp;高&nbsp;&nbsp;&nbsp;<input type="text" id="size2" name="size2" value="" style="margin-top: 5px;width:225px"/>cm
-				<br/><br/>
-				图&nbsp;&nbsp;&nbsp;宽&nbsp;&nbsp;&nbsp;<input type="text" id="size1" name="size1" value="" style="margin-top: 5px;width:225px"/>cm
-				<br/><br/>
-				
+					
+				<div id="alltags" style="width: 650px"> 
+					</div>
+					<br>
+					标&nbsp;&nbsp;&nbsp;签&nbsp;&nbsp;&nbsp;<input name="tags" id="tags" value=""  placeholder="请选择标签" readonly="readonly"/>
+					<br />
+			
 				价&nbsp;&nbsp;&nbsp;格&nbsp;&nbsp;&nbsp;<input type="text" id="price" name="price" value="" style="margin-top: 5px;width:225px"/>
-				<br/><br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				<!-- 画&nbsp;廊:<select id="gallery" name="gallery" style="margin-top: 5px;width:225px"></select>
 				<br/>	
 				 -->
@@ -731,16 +787,22 @@ function CheckUpload(){
 				<br/><br/>
 				
 				电&nbsp;&nbsp;&nbsp;话&nbsp;&nbsp;&nbsp;<input type="text" id="agentphone" name="agentphone" value="" style="margin-top: 5px;width:225px"/>
-				<br/><br/>
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 				
 				邮&nbsp;&nbsp;&nbsp;箱&nbsp;&nbsp;&nbsp;<input type="text" id="agentemail" name="agentemail" value="" style="margin-top: 5px;width:225px"/>
 				<br/><br/>
 			
 				可&nbsp;&nbsp;&nbsp;售&nbsp;&nbsp;&nbsp;<input type="radio" name="issale" value="1" style="margin-top: 5px" onclick="CheckIsSale()">是
 				<input type="radio" name="issale"   value="0" style="margin-top: 5px"  onclick="CheckIsSale()">否
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+				&nbsp;
+				
+				库&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;<input type="text" id="stock" name="stock" value="" style="margin-top: 5px;width:245px;"/>
 				<br/><br/>
-				库&nbsp;&nbsp;&nbsp;存&nbsp;&nbsp;&nbsp;<input type="text" id="stock" name="stock" value="0" style="margin-top: 5px;width:245px;display: none"/>
-				<br/><br/>
+				</div>
+				
 				<div id="checkdeletevedio">
 				<!-- <input type="radio" name="VedioDelete" value="1"
 						style="margin-top: 5px" onclick="IsDelete()">是 <input
@@ -764,11 +826,10 @@ function CheckUpload(){
 				<input type="text" id="uploadvedio" name="uploadvedio" value="0"  style="display: none" />
 				<input type="text" id="targetId" name="targetId" value=""  style="display: none" />
 				<input type="text" id="message" name="message" value="" style="display: none" />
+				<input type="text" id="uploadtype" name="uploadtype" value="" style="display: none" />
 			
 					<div style="margin-left: 120px;margin-top: 15px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="提交"  id="submitbutton" style="margin-top: 300px;margin-bottom: 20px"/>
-						</a>
+						<input type="button" value="提交"  id="submitbutton" style="margin-top: 300px;margin-bottom: 20px" onclick="dosubmit()"/>
 					</div>
 				
 				</div>
@@ -777,7 +838,7 @@ function CheckUpload(){
 	
 		</div>
 	</div>
-		<div style="float: right;margin-top: 20px;margin-right: -300px;display: none" id="vediodiv">
+		<div style="float: left;margin-top: -300px;margin-left:380px;display: none" id="vediodiv">
 				<form action="${pageContext.request.contextPath}/UpdateVedioServlet?id=<%=request.getParameter("id") %>" id="vedioform" name="vedioform" enctype="multipart/form-data" method="post" target="ifm" >
 					 <input type="file" value="" accept="video/mp4" id="vedio" name="vedio" style="margin-right: 20px;"/>
 					 <input  type="submit" value="上传" onclick="SubmitVedio()" style="margin-top: 20px;margin-right: -70px;width: 50px;height: 25px" >

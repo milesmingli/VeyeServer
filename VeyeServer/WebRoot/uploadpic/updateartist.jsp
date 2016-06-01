@@ -33,10 +33,18 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	<script type="text/javascript" charset="utf-8">
-
+	var result=null;
 	var randomconut = Math.floor(Math.random() * 1000);
+	var arup=null;
+	arup=decodeURI(<%="'"+request.getParameter("arup")+"'"%>);
+
 	window.onload = function(){
 		//time();
+		//修改成功后返回本页面arup=already 修改成功
+		if(arup=="already"){
+			
+			alert("修改成功");	
+		}
 		
 		$.ajax({
 
@@ -119,8 +127,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				document.getElementById("fax").value = data[0].fax;
 				document.getElementById("web").value = data[0].web;
 				document.getElementById("email").value = data[0].email;
-				document.getElementById("imgid").src = "<%=basePath%>"+data[0].portrait;
-				
+				document.getElementById("imgid").src = "<%=basePath%>"+data[0].portrait+"?rand"+randomconut;
+
 				var gender= data[0].gender;
 				var ridaolen=document.form1.gender.length;
 				 for(var i=0;i<ridaolen;i++){
@@ -188,7 +196,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		//FileReader
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 			if (typeof (FileReader) === 'undefined') {
 				result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
@@ -318,9 +326,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 
   </head>
   
-<body style="font-family: 微软雅黑;font-size: 15px">
-   <div style="text-align: center;margin-top: 100px">
-	
+<body style="font-family: 微软雅黑;font-size: 13px">
+   <div style="text-align: center;margin-top: 10px">
+	<a href="javascript:history.go(-1);"><input type="button" value=" 返  回 " /></a>
+
 	
 	</div>
 	<div style="width: 1000px;height:600px;margin-left: 20px">
@@ -344,7 +353,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<textarea id="result" rows=30 cols=300 name=RsStream style="display: none" ></textarea>
 				<p id="img_area" ></p>
 				
-				<div class="component" >
+					<div class="component" style="width: 300px;height: 300px" >
 				
 					<div class="overlay">
 						<div class="overlay-inner"></div>
@@ -397,9 +406,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<br/>
 			
 					<div style="margin-left: 120px;margin-top: 15px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="提交"  id="submitbutton"  class="js-crop"/>
-						</a>
+						<input type="button" value="提交"  id="submitbutton" onclick="dosubmit()" class="js-crop"/>
 					</div>
 				
 				</div>

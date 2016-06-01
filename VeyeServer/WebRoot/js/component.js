@@ -1,7 +1,8 @@
 /*if(window.location.protocol == 'file:'){
   alert('To test this demo properly please use a local server such as XAMPP or WAMP. See README.md for more details.');
 }*/
- function imgresize() {
+
+function imgresize() {
 var resizeableImage = function(image_target) {
   // Some variable and settings
   var $container,
@@ -34,7 +35,8 @@ var resizeableImage = function(image_target) {
     // Add events
     $container.on('mousedown touchstart', '.resize-handle', startResize);
     $container.on('mousedown touchstart', 'img', startMoving);
-    $('.js-crop').on('click', crop);
+   
+    $('.js-crop').on('mouseover', crop);
   };
 
   startResize = function(e){
@@ -192,7 +194,7 @@ var resizeableImage = function(image_target) {
     
     crop_canvas.getContext('2d').drawImage(image_target, left, top, width, height, 0, 0, width, height);
     document.getElementById("result").value=crop_canvas.toDataURL("image/png").split(",")[1];
-    console.log(crop_canvas.toDataURL("image/png").split(",")[1]);
+  //  console.log(crop_canvas.toDataURL("image/png").split(",")[1]);
    // window.open(crop_canvas.toDataURL("image/png"));
     
   }

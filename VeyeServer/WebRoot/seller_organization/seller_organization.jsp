@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/js/jquery.tagsinput1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/CheckIe.js"></script>
 	
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/jquery.tagsinput1.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/fileinput.css" />
@@ -43,7 +44,7 @@ var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 var random = Math.floor(Math.random() * 10000);
 var artwork_id=str+"_"+random;
 var artist_id=str+"_"+random;
-
+var result=null;
 window.onload=function(){
 	
 	document.getElementById("userid").value=artist_id;
@@ -69,6 +70,8 @@ window.onload=function(){
 						var artistdiv=document.getElementById("artistdiv");
 						var picpath=null;
 					for(var i=0;i<data.length;i++){
+				
+						
 						 picpath='<%=basePath%>'+data[i].portrait;
 
 						 var img = document.createElement('img');
@@ -85,12 +88,17 @@ window.onload=function(){
 						  	p.value=data[i].name;
 							p.setAttribute("disabled","disabled");
 						  	p.setAttribute("style","margin-top:-22px;border: none;background:#fff;text-align: left;");
-						
-						 	img.src=picpath;
+							
+						  	img.src=picpath;
 						  	img.setAttribute("style","position:absolute;left:0px;bottom:40px;");
 						  	img.setAttribute("id",data[i].id);
 						  	img.setAttribute("onclick","link(this)");
-							
+						
+
+						 
+						 	
+						 	
+						 	
 						  	upadtebtn.type = 'button';
 						  	deletebtn.type = 'button';
 						  	upadtebtn.value = "修  改";
@@ -111,24 +119,34 @@ window.onload=function(){
 						  	artistdiv2.appendChild(br);
 						  	artistdiv2.appendChild(upadtebtn);
 						  	artistdiv2.appendChild(deletebtn);
-							var imgwh=document.getElementById(data[i].id);
+						 
+							document.getElementById(data[i].id).width="150";
+							document.getElementById(data[i].id).height="150";
+
+						
+					
+					/* 		var imgwh=document.getElementById(data[i].id);
 							var w=imgwh.width;
 							var h=imgwh.height;
 							
 							if((w/h)<1){
-								w=w/(h/150);
+								w1=w/(h/150);
 
-								document.getElementById(data[i].id).width=w;
-								document.getElementById(data[i].id).height="150";
+								document.getElementById(data[i].id).width=w1;
+								h1=h/(w/w1);
+								document.getElementById(data[i].id).height=h1;
 								
 
 							}else{
-								document.getElementById(data[i].id).width="150";
+								h1=h/(w/150);
+								document.getElementById(data[i].id).height=h1;
+								w1=w/(h/h1);
+								document.getElementById(data[i].id).width=w1;
 								
-							}
-							
-							
 
+							}
+							console.log(w);
+							console.log(h); */
 							//linediv.innerHTML="<br><div><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/><br><img src='images/u21_line.png' style='width:99%;margin-top:50px' /></div>";	
 							linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
 
@@ -150,7 +168,7 @@ window.onload=function(){
 		addressInit('cmbProvince', 'cmbCity', 'cmbArea', '北京', '市辖区', '朝阳区');
 		//time();
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 		if (typeof (FileReader) === 'undefined') {
 			result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
@@ -195,8 +213,13 @@ window.onload=function(){
 }
 
 function link(obj){
+	if ("IE" == mb || "ActiveXObject" in window){
+		window.location.href="arrwork_artist.jsp?artistid="+obj.id;
 
-	window.location.href="seller_organization/arrwork_artist.jsp?artistid="+obj.id;
+		}else{
+			window.location.href="seller_organization/arrwork_artist.jsp?artistid="+obj.id;
+
+		}
 	
 	
 }
@@ -369,7 +392,17 @@ function Update(obj){
 	
 	var artistid=(obj.id).split("upadte")[0];
 	
-	window.location.href="uploadpic/updateartist.jsp?id="+artistid;
+
+		
+	if ("IE" == mb || "ActiveXObject" in window) {
+		
+		window.location.href="../uploadpic/updateartist.jsp?id="+artistid;
+
+	}else{
+		
+		window.location.href="uploadpic/updateartist.jsp?id="+artistid;
+
+	}
 
 	
 	
@@ -456,7 +489,7 @@ function RemoveArtist(){
 	document.getElementById("AddArtistDiv").style.display="none";
 	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加艺术家' style='margin-left: 70px;margin-top: 50px' onclick='AddArtist()'/> </div>";	
 	
-	$.ajax({
+<%-- 	$.ajax({
 
 		url : '<%=basePath%>/RemoveArtistServlet?artistid='+ artistid+'&randomconut='+randomconut,
 
@@ -472,7 +505,7 @@ function RemoveArtist(){
 
 		}
 	});
-
+ --%>
 }
 
 function AddArtist(){
@@ -502,14 +535,11 @@ function AddArtist(){
 
 
 
-
-
-
 </script> 
 
 
 </head>
-<body style="font-family: 微软雅黑">
+<body style="font-family: 微软雅黑;font-size: 12px">
 <p id="pid" style="text-align: center;">点击艺术家头像可添加作品</p>
 
 <div style="width: 100%;height: 100%;margin: 40px;text-align: center;" id="artistdiv">
@@ -603,9 +633,7 @@ function AddArtist(){
 				<br/>
 				
 					<div style="margin-left: 240px;margin-top: 15px;">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="  提  交  "  id="submitbutton" class="js-crop"/>
-						</a>
+						<input type="button" value="  提  交  "  id="submitbutton" onclick="dosubmit()" class="js-crop"/>
 					</div>
 				
 				</div>

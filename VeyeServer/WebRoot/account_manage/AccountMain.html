@@ -108,7 +108,7 @@ window.onload=function(){
 			
 			if(data[0].portrait!=null && data[0].portrait!="" && data[0].portrait!=undefined){
 				document.getElementById("userimg").src = ".."+data[0].portrait+"?rand="+randomconut;
-				document.getElementById("nav").innerHTML="<li><a>"+nickname+"</a> <ul style='text-align: center;'><li><a href='../index.html'>首页</a></li><li><a href='#'>我的收藏</a></li> <li><a href='#'>我的订单</a></li><li><a href='#'>我的后台</a></li><li><a href='#' onclick='exitlogin()'>退出登录</a></li></ul></li>";
+				document.getElementById("nav").innerHTML="<li><a>"+nickname+"</a> <ul style='text-align: center;'><li><a href='../index.html'>首页</a></li><li><a href='#' onclick='exitlogin()'>退出</a></li></ul></li>";
 				
 			}
 			
@@ -252,29 +252,17 @@ function exitlogin(){
 
 </head>
 <body style="font-family: 微软雅黑">
-<div style="width: 100%;margin-top: 75px;">
+<div style="width: 100%;margin-top: 15px;">
+
 		<div style="height: 100px;">
-				<div style="float: left;">
-				<img alt="" src="../images/u0.png"  style="margin-left: 50px;margin-top: 53px" />
-				</div>
-				
-				<div style="float: left;">
-				<input type="text" style="margin-left: 50px;margin-top: 63px;height: 23px;width: 100%" />
-				</div>
-				
-				<div style="float: left;">
-				<img alt="" src="../images/u24.png" style="margin-left: 70px;margin-top: 63px;width: 13%" />
-				</div>
-				
-				<div style="float: right;">
-				<img alt="" src="../images/u19.png" style="margin-right: 70px;width: 50%" />
-				</div>
-				
+			
 				<div style="width: 10%;float: right;margin-top: 50px;margin-left: -10px">
 						<ul id="nav" style="z-index:4;text-align: center;">
 		
 					 </ul>
 				</div>
+				<img alt="" src="../images/banner2.jpg" style="width: 28%;margin-left: 15px;margin-top: 10px">
+				
 				<div style="float: right;width:10% ">
 				
 				<img alt="" src="../images/u22.png" id="userimg" style="margin-right:0px;width: 65%" />
@@ -288,7 +276,7 @@ function exitlogin(){
 <div id="tab03">
 	<h3>账户</h3>
 		<div class="tab"><iframe src="" width="1200px" height=900px style="border: none;" id="CreateMyAccountServlet"></iframe></div>
-	<h3>地址管理</h3>
+	<h3>地址</h3>
 		<div class="tab"><iframe src="./AddressManage.html" width="1000px" height=600px  style="border: none;" ></iframe></div>
 	<h3>密码</h3>
 		<div class="tab"><iframe src="./updatepassword.html" width="1000px" height=600px  style="border: none;" ></iframe></div>
@@ -298,7 +286,7 @@ function exitlogin(){
 		<div class="tab"><iframe src="" width="1100px" height=1000px  frameborder="0" scrolling="yes";" id="UpgradeAccount"></iframe></div></div>
 	<div  id="mybackstage" style="display: none">
 	
-	<a onclick=" Check1()">	<h3>我的后台</h3></a>
+	<a onclick=" Check1()">	<h3>后台</h3></a>
 		<div class="tab"><iframe src="" width="1200px" height=1500px  style="border: none;" id="mainx"></iframe></div></div>
 	</div>
 

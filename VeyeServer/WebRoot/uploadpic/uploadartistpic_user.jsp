@@ -35,6 +35,8 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var randomconut = Math.floor(Math.random() * 1000);
 	var userid = $.cookie('userid');
 	var alldata=null;
+	var result=null;
+	var sql=null;
 	window.onload = function() {
 		
 		document.getElementById("accountid").value=userid;
@@ -52,22 +54,23 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			success : function(data) {
 				console.log("data2:" + JSON.stringify(data));
 				alldata=data;
-				
-		
 		
 			}
 		});
 		
-		var sql=null;
+	
+		
+		
+	
 		var id=document.getElementById("userid").value;
 		sql="select * from artist where id='"+id+"'";
 		
 		sql=encodeURIComponent(sql);
 		
-		
+	
 		$.ajax({
 
-			url : '<%=basePath%>UpdateArtistSql?sql='+sql,
+			url : '<%=basePath%>UpdateArtistSql?sql='+sql+'&randomconut='+randomconut,
 
 			dataType :"json",
 			contentType : "application/x-www-form-urlencoded; charset=utf-8",
@@ -77,6 +80,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 			},
 
 			success : function(data) {
+				
+				
+				console.log("data3:" + JSON.stringify(data));
+
 				if(data[0].name!="" && data[0].name!=null && data[0].name!=undefined){
 					
 					document.getElementById("name").value =data[0].name;
@@ -84,7 +91,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	        	
 
 				}else{
-					
+				
 					document.getElementById("name").value =alldata[0].realname;
 
 				}
@@ -96,7 +103,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 					document.getElementById("birthday").value =(alldata[0].birthday).split("-")[0];
 
 				}
-				
+			
 				if(data[0].brief!="" && data[0].brief!=null && data[0].brief!=undefined){
 
 					document.getElementById("brief").value =data[0].brief;
@@ -237,11 +244,10 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		}); 
 		
 		
-		
 	
 		//time();
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 		if (typeof (FileReader) === 'undefined') {
 			result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
@@ -507,9 +513,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<br/>
 				<br/>
 					<div style="margin-left: 240px;margin-top: 15px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="  提  交  "  id="submitbutton" class="js-crop"/>
-						</a>
+					 
+						<input type="button" value="  提  交  "  id="submitbutton" class="js-crop" onclick="dosubmit()"/>
+					
 					</div>
 				
 				</div>

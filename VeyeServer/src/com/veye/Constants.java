@@ -9,7 +9,7 @@ public class Constants {
 	*/
 	
 	
-	public static String DB_URL = "jdbc:mysql://localhost:3306/veyemanage";
+	public static String DB_URL = "jdbc:mysql://localhost:3306/veye";
 	public static String USER = "root";
 	public static String PASS = "root";
 	

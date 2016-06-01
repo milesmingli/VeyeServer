@@ -14,6 +14,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<script type="text/javascript" src="<%=basePath%>js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/jquery.cookie.js"></script>
 	<script type="text/javascript" src="<%=basePath%>/js/jquery.tagsinput1.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/CheckIe.js"></script>
 	
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/jquery.tagsinput1.css" />
 <link rel="stylesheet" type="text/css" href="<%=basePath%>/css/fileinput.css" />
@@ -28,10 +29,12 @@ var id = $.cookie('userid');
 var randomconut = Math.floor(Math.random() * 1000);
 var type=$.cookie('type_cookie');
 var artistid=null;
+var result=null;
 var d = new Date();
 var str = d.getFullYear()+"-"+(d.getMonth()+1)+"-"+d.getDate();
 var random = Math.floor(Math.random() * 10000);
 var artwork_id=str+"_"+random;
+
 window.onload=function(){
 	
 	document.getElementById("userid").value=artwork_id;
@@ -64,13 +67,15 @@ window.onload=function(){
 					success : function(data) {
 						//console.log("data2:" + JSON.stringify(data));
 						var linediv=document.getElementById("linediv");
+						var pdiv=document.getElementById("pdiv");
 
 						if(JSON.stringify(data)!="[]"){
 						
 						var picdiv=document.getElementById("picdiv");
 						var picpath=null;
 					for(var i=0;i<data.length;i++){
-						 picpath='<%=basePath%>'+data[i].showpicture;
+						// picpath='<%=basePath%>'+data[i].showpicture;
+						 picpath='<%=basePath%>'+data[i].showpicture+'?rand='+randomconut;
 
 						 var img = document.createElement('img');
 						 var upadtebtn = document.createElement('input');
@@ -110,18 +115,22 @@ window.onload=function(){
 							var h=imgwh.height;
 							
 							if((w/h)<1){
-								w=w/(h/150);
-
-								document.getElementById("img"+i).width=w;
-								document.getElementById("img"+i).height="150";
+								w1=w/(h/150);
+								document.getElementById("img"+i).width=w1;
+								h1=h/(w/w1);
+								document.getElementById("img"+i).height=h1;
 								
 
 							}else{
-								document.getElementById("img"+i).width="150";
+								h1=h/(w/150);
+								document.getElementById("img"+i).height=h1;
+								w1=w/(h/h1);
+								document.getElementById("img"+i).width=w1;
 								
 							}
 							
-							
+							pdiv.innerHTML="<div><p style='text-align:center'>"+data[0].artist+"作品<p/> </div>";	
+
 
 							linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加作品' style='margin-left: 70px;margin-top: 50px' onclick='AddArtwork()'/> </div>";	
 
@@ -129,7 +138,8 @@ window.onload=function(){
 					}
 
 				}else{
-					
+					//pdiv.innerHTML="<div><p style='text-align:center'>"+data[0].artist+"作品<p/> </div>";	
+
 					linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加作品' style='margin-left: 70px;margin-top: 50px' onclick='AddArtwork()'/> </div>";	
 	
 				}	
@@ -284,7 +294,7 @@ window.onload=function(){
 					}
 				});
 				var input = document.getElementById("demo_input");
-				var result = document.getElementById("result");
+				result = document.getElementById("result");
 				var img_area = document.getElementById("img_area");
 
 				if (typeof (FileReader) === 'undefined') {
@@ -305,7 +315,14 @@ function Update(obj){
 	
 	var artworkid=(obj.id).split("upadte")[0];
 	
-	window.location.href="uploadpic/updateartwork.jsp?id="+artworkid;
+	if ("IE" == mb || "ActiveXObject" in window) {
+		
+		window.location.href="../uploadpic/updateartwork.jsp?id="+artworkid;
+	}else {
+		
+		window.location.href="uploadpic/updateartwork.jsp?id="+artworkid;
+
+	}
 
 	
 	
@@ -380,7 +397,7 @@ function RemoveArtwork(){
 	document.getElementById("AddArtworkDiv").style.display="none";
 	linediv.innerHTML="<div><img src='images/u21_line.png' style='width:99%;margin-top:50px' /><br><input type='button' value='添加作品' style='margin-left: 70px;margin-top: 50px' onclick='AddArtwork()'/> </div>";	
 	
-	$.ajax({
+<%-- 	$.ajax({
 
 		url : '<%=basePath%>/RemoveArtworkServlet?artworkid='+ artworkid+'&randomconut='+randomconut,
 
@@ -395,7 +412,7 @@ function RemoveArtwork(){
 			
 
 		}
-	});
+	}); --%>
 	
 }
 
@@ -478,104 +495,113 @@ var imgs = new Image();
 		var imagesize = document.getElementById("imagesize").value;
 		var imgwh=document.getElementById("size1").value;
 		var imght=document.getElementById("size2").value;
-		 
-		if (RsStream == null || RsStream == "") {
+		var uploadtype=document.getElementById("uploadtype").value;
+
+		if(uploadtype=="商品"){
+			if (RsStream == null || RsStream == "") {
 				alert("请上传图片");
 				return;
 
-			} 
+			}
+			
 			 else if (name == null || name == "") {
 				alert("作品名不能为空");
 				return;
 			}
+			 else if (brief == null || brief == "") {
+				alert("简介不能为空");
+				return;
+
+			} else if (size== "*cm") {
+				alert("尺寸不能为空");
+				return;
+
+			}
+			
+			if (imagesize-(imgwh/imght)>0.15 || imagesize-(imgwh/imght)<-0.15 ) {
+			
+				alert("输入的尺寸和像素比相差太大请重新输入尺寸");
+				return;
+			}	
+			
+	
+		
+		}else if(uploadtype=="艺术品"){
+			if (RsStream == null || RsStream == "") {
+				alert("请上传图片");
+				return;
+
+			}
+			
+			 else if (name == null || name == "") {
+				alert("作品名不能为空");
+				return;
+			}
+			 else if (brief == null || brief == "") {
+				alert("简介不能为空");
+				return;
+
+				} else if (size== "*cm") {
+				alert("尺寸不能为空");
+				return;
+
+			}
 			
 			else if (createtime == null || createtime == "") {
-			alert("年代不能为空");
-			return;
+				alert("年代不能为空");
+				return;
 
-		} else if (brief == null || brief == "") {
-			alert("简介不能为空");
-			return;
+			} else if (price == null || price == "") {
+				alert("价格不能为空");
+				return;
 
-		} else if (size == null || size == "") {
-			alert("尺寸不能为空");
-			return;
+			}else if (stock == null || stock == "") {
+				alert("库存不能为空");
+				return;
 
-		} else if (price == null || price == "") {
-			alert("价格不能为空");
-			return;
+			}
+			
 
-		}else if (stock == null || stock == "") {
-			alert("库存不能为空");
-			return;
+			 if (createtime != null && createtime != "") {
 
-		}
-		
-		
-		
-		/*  else if (iscount == 0) {
-			alert("请选择是否可售");
-			return;
-
-		} *//*  else if (ismcount == 0) {
-			alert("请选择是否作为marker上传");
-			return;
-
-		} */
-
-
-	/* 	for (var i = 0; i < issale.length; i++) {
-
-			if (issale[i].checked == true) {
-				i++;
-
-				if (issale[--i].value == 1) {
-					if (stock == null || stock == "") {
-						alert("库存不能为空");
-						return;
+					var filter =/^\d{4}$/;
+					if (!filter.test(createtime)) {
+					alert("请输入四位数字日期");
+					return;
 					}
-				}
+					
+			 }
+			
+			
+			//正则验证输入邮箱，性别，手机。。。。
 
+			if (agentmail != "") {
+
+				var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
+				if (!filter.test(agentmail)) {
+					alert('您的电子邮件格式不正确');
+					return;
+				}
 			}
-		} */
-
-		 if (createtime != null && createtime != "") {
-
-				var filter =/^\d{4}$/;
-				if (!filter.test(createtime)) {
-				alert("请输入四位数字日期");
-				return;
-				}
-				
-		 }
-		
-		
-		//正则验证输入邮箱，性别，手机。。。。
-
-		if (agentmail != "") {
-
-			var filter = /^([a-zA-Z0-9_\.\-])+\@(([a-zA-Z0-9\-])+\.)+([a-zA-Z0-9]{2,4})+$/;
-			if (!filter.test(agentmail)) {
-				alert('您的电子邮件格式不正确');
+			
+			
+			//alert(imagesize-(imgwh/imght));
+			//用来验证输入的长宽与上传图片长宽的像素比是否相差太大
+			if (imagesize-(imgwh/imght)>0.15 || imagesize-(imgwh/imght)<-0.15 ) {
+			
+				alert("输入的尺寸和像素比相差太大请重新输入尺寸");
 				return;
 			}
+			
+		 	 document.getElementById("birthday").value=createtime+"-01-01";
 		}
 		
 		
-	//	alert(imagesize-(imgwh/imght));
-		//用来验证输入的长宽与上传图片长宽的像素比是否相差太大
-		if (imagesize-(imgwh/imght)>0.15 || imagesize-(imgwh/imght)<-0.15 ) {
-		
-			alert("输入的尺寸和像素比相差太大请重新输入尺寸");
-			return;
-		}
-		
-		
-		
-	 	 document.getElementById("birthday").value=createtime+"-01-01";
-		 document.form1.submit();
-		 document.getElementById("submitbutton").disabled=true;
-		 document.getElementById("RemoveArtwork").disabled=true;
+	
+
+		document.form1.submit();
+		document.getElementById("submitbutton").disabled=true;
+		document.getElementById("RemoveArtwork").disabled=true;
 
 		 
 		
@@ -739,15 +765,31 @@ var imgs = new Image();
 	
 
 
+	function SelectOnchange(obj){
+		
+		if(obj.value=="艺术品"){
+			
+			document.getElementById("artwork-div").style.display="block";
+		}else if(obj.value=="商品"){
+			document.getElementById("artwork-div").style.display="none";
+
+		}
+		
+	}
 
 
-
+	
 
 </script>
 
 
 </head>
 <body style="font-family: 微软雅黑">
+<div style="width: 100%;height: 100%;margin: 40px;" id="pdiv">
+
+
+</div>
+
 <div style="width: 100%;height: 100%;margin: 40px;" id="picdiv">
 
 </div>
@@ -771,39 +813,49 @@ var imgs = new Image();
 				
 				<div>
 						&nbsp;&nbsp;&nbsp;&nbsp;
-					I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;<input type="text" id="userid" name="userid"
+					I&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;D&nbsp;&nbsp;<input type="text" id="userid" name="userid"
 						value="" readonly="readonly"
 						style="width:225px" />
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						作品名&nbsp;&nbsp;<input type="text" id="name" name="name" value="" style="margin-top: 5px;width:225px" />&nbsp;<font color='red'>*</font>
+						名&nbsp;&nbsp;称&nbsp;&nbsp;<input type="text" id="name" name="name" value="" style="margin-top: 5px;width:225px" />&nbsp;<font color='red'>*</font>
 						 <br/>
 						 <br/>
 							&nbsp;&nbsp;&nbsp;&nbsp;
 						
-							艺术家&nbsp;&nbsp;<input type="text" value="请选择艺术家" id="choseartists" onclick="choseartist()" style="width: 225px"/>
+							作&nbsp;&nbsp;者&nbsp;&nbsp;<input type="text" value="请选择艺术家" id="choseartists" onclick="choseartist()" style="width: 225px"/>
 					 		<input type="text" id="artist" name="artist" value="" style="display: none">
-							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-						
-	 					年&nbsp;&nbsp;代&nbsp;&nbsp;	<input type="text" id="birthday" name="createtime" value="" style="margin-top: 5px;width: 225px"/>&nbsp;<font color='red'>*</font>
-						<br/>
-						<br/>
+							&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+							类&nbsp;&nbsp;型&nbsp;&nbsp;<select id="uploadtype" name="uploadtype" style="margin-top: 5px;width:225px" onchange="SelectOnchange(this)">
+							<option value="商品">商品</option>
+							<option value="艺术品">艺术品</option>
+							</select>&nbsp;<font color='red'>*</font>							
+							<br/>
+							<br/>
+							&nbsp;&nbsp;&nbsp;&nbsp;
+			 				 图&nbsp;&nbsp;高&nbsp;&nbsp;<input type="text" id="size2" name="size2" value="" style="margin-top: 5px;width:220px" placeholder="请勿输入单位"/>cm &nbsp;<font color='red'>*</font>
+								&nbsp;&nbsp;
+							 图&nbsp;&nbsp;宽&nbsp;&nbsp;<input type="text" id="size1" name="size1" value="" style="margin-top: 5px;width:220px" placeholder="请勿输入单位"/>cm &nbsp;<font color='red'>*</font>
+							<br /> 
+							<br /> 	
+				
 						&nbsp;&nbsp;&nbsp;&nbsp;
 	 				 简 &nbsp;&nbsp;介&nbsp;&nbsp;<textarea type="text" id="brief" name="brief" value=""
 						style="margin-top: 5px;width: 550px;height: 80px"></textarea>&nbsp;<font color='red'>*</font>
 					<br />
 					<br />
+					<div id="artwork-div" style="display: none">	
+						
+						&nbsp;&nbsp;&nbsp;&nbsp;
+	 					年&nbsp;&nbsp;代&nbsp;&nbsp;	<input type="text" id="birthday" name="createtime" value="" style="margin-top: 5px;width: 225px"/>&nbsp;<font color='red'>*</font>
+						<br/>
+						<br/>
 						&nbsp;&nbsp;&nbsp;&nbsp;				
 	 				标&nbsp;&nbsp;签&nbsp;&nbsp;<input name="tags" id="tags" value="" style="width: 555px" placeholder="请选择标签" readonly="readonly"/>
 	 				 <br /> 
 	 				<div id="alltags" style="width: 555px;margin-left: 60px"> </div>
 	 				 <br /> 
 	 				 <br /> 
-	 				 	&nbsp;&nbsp;&nbsp;&nbsp;
-	 				 图&nbsp;&nbsp;高&nbsp;&nbsp;<input type="text" id="size2" name="size2" value="" style="margin-top: 5px;width:220px" placeholder="请勿输入单位"/>cm &nbsp;<font color='red'>*</font>
-						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
-					 图&nbsp;&nbsp;宽&nbsp;&nbsp;<input type="text" id="size1" name="size1" value="" style="margin-top: 5px;width:220px" placeholder="请勿输入单位"/>cm &nbsp;<font color='red'>*</font>
-					<br /> 
-					<br /> 	
+	 			
 						&nbsp;&nbsp;&nbsp;&nbsp;	 
 	 				类&nbsp;&nbsp;别&nbsp;&nbsp;<select id="category" name="category" style="margin-top: 5px;width:225px">
 					</select>&nbsp;<font color='red'>*</font>
@@ -828,10 +880,12 @@ var imgs = new Image();
 					 <br />
 					 <br />
 					 	&nbsp;&nbsp;&nbsp;&nbsp;
-						  库&nbsp;&nbsp;存&nbsp;&nbsp;<input type="text" id="stock" name="stock" value=""style="margin-top: 5px;width:225px;" /> 
+						  库&nbsp;&nbsp;存&nbsp;&nbsp;<input type="text" id="stock" name="stock" value=""style="margin-top: 5px;width:225px;" /> <font color='red'>*</font>
 						&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;	
+					</div> 
+					&nbsp;&nbsp;&nbsp;&nbsp;
 						是否上传mp4文件:<input type="radio" name="IsVedio" value="1" style="margin-top: 5px" onclick="IsV()">是
-						 <input type="radio" name="IsVedio" value="0" style="margin-top: 5px" onclick="IsV()">否<font color='red'>*</font>
+						 <input type="radio" name="IsVedio" value="0" style="margin-top: 5px" onclick="IsV()"  checked="checked">否<font color='red'>*</font>
 						
 					 <input
 						type="text" id="imagetype" name="imagetype" 
@@ -845,13 +899,12 @@ var imgs = new Image();
 						name="isupload" value="" style="display: none" />
 						<input type="text" id="img123"
 						name="img123" value="" style="display: none" /> 
-						<input type="text" id="veyetype" name="veyetype" value="" style="display: none">
+						<input type="text" id="veyetype" name="veyetype" value="seller_artist" style="display: none">
 						
 					<div style="margin-left: 0px;margin-top: 15px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="  提  交  "  id="submitbutton" style="margin-top: 300px;margin-bottom: 20px;margin-left: 180px"/>
+					
+						<input type="button" value="  提  交  "  id="submitbutton" style="margin-top: 300px;margin-bottom: 20px;margin-left: 180px" onclick="dosubmit()"/>
 
-						</a>
 					</div>
 
 				</div>

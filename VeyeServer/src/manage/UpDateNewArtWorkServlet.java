@@ -8,6 +8,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -157,6 +158,17 @@ public class UpDateNewArtWorkServlet extends HttpServlet {
 		String type="artwork";
 		String message=request.getParameter("message");
 		String veyetype=request.getParameter("veyetype");
+		String uploadtype=request.getParameter("uploadtype");
+
+		
+		if(uploadtype.equals("…Ã∆∑")){
+			
+			createtime=createtime+"-01-01";
+			price="-1";
+			stock="1";
+			
+				
+		}
 		System.out.println("message="+message);
 		
 		String path = request.getSession().getServletContext().getRealPath("")
@@ -209,7 +221,12 @@ public class UpDateNewArtWorkServlet extends HttpServlet {
 				String imageLocation=Realpath;
 				metadata="{"+"'type':'"+type+"','id':'"+userid+"'}";
 
-				float width= Float.parseFloat(size1);				
+				float width= Float.parseFloat(size1);	
+				
+				
+				
+				
+				
 						if(message.equals("1")){
 							if(veyetype.equals("veyetype")){
 
@@ -267,7 +284,13 @@ public class UpDateNewArtWorkServlet extends HttpServlet {
 
 			conn.close();
 			conn = null;
-			out.print(returnMsg+":");
+			//out.print(returnMsg+":");
+			
+			RequestDispatcher rd = request.getRequestDispatcher("uploadpic/updateartwork.jsp?id="+userid+"&arup=already");
+			
+			
+			rd.forward(request, response);
+			
 		} catch (SQLException e) {
 			returnMsg = "÷¥–– ß∞‹";
 			out.print(returnMsg+":");

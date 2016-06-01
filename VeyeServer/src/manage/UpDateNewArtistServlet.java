@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.SQLException;
 import java.sql.Statement;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -162,7 +163,11 @@ public class UpDateNewArtistServlet extends HttpServlet {
 
 			conn.close();
 			conn = null;
-			out.print(returnMsg+":");
+			RequestDispatcher rd = request.getRequestDispatcher("uploadpic/updateartist.jsp?id="+userid+"&arup=already");
+			
+			
+			rd.forward(request, response);
+			//out.print(returnMsg+":");
 		} catch (SQLException e) {
 			returnMsg = "Ö´ÐÐÊ§°Ü";
 			out.print(returnMsg+":");

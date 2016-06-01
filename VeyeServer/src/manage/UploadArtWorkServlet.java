@@ -128,6 +128,7 @@ public class UploadArtWorkServlet extends HttpServlet {
 		
 		//System.out.println("Ö´ÐÐ12345");
 		String createtime=request.getParameter("createtime");
+	
 		//System.out.println("Ö´ÐÐ123456");
 		String category=request.getParameter("category");
 		
@@ -171,6 +172,7 @@ public class UploadArtWorkServlet extends HttpServlet {
 		String type="artwork";
 		String message=request.getParameter("message");
 		String veyetype=request.getParameter("veyetype");
+		String uploadtype=request.getParameter("uploadtype");
 
 		//System.out.println(RsStream);
 		//System.out.println(markerpic);
@@ -205,7 +207,12 @@ public class UploadArtWorkServlet extends HttpServlet {
 		Date d= new Date();
 		SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 		String date = sdf.format(d);
-	
+		if(createtime.equals("")){
+			
+			createtime="1900-01-01";
+			price="-1";
+			stock="1";
+		}
 		
 		
 		
@@ -265,14 +272,18 @@ public class UploadArtWorkServlet extends HttpServlet {
 					String uniqueTargetId=PostNewTarget.GetuniqueTargetId();
 					//String uniqueTargetId="";
 					
-							if(veyetype.equals("veyetype")){
-								sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId) values('";
-								sql = sql +userid+"','"+name+"','"+artistid1+"','"+artistname1+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid1+"','"+galleryname1+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"')";
-								stmt.execute(sql);
-							}else{
-								sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId) values('";
-								sql = sql +userid+"','"+name+"','"+artistid+"','"+artistname+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid+"','"+galleryname+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"')";
-								}
+				
+						
+						if(veyetype.equals("veyetype")){
+							sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId,type) values('";
+							sql = sql +userid+"','"+name+"','"+artistid1+"','"+artistname1+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid1+"','"+galleryname1+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"','"+uploadtype+"')";
+							stmt.execute(sql);
+						}else{
+							sql = "insert into artwork (id,name,artistid,artist,createtime,category,tags,brief,size,price,galleryid,gallery,agent,agentphone,agentemail,thumbnail,showpicture,originalpicture,issale,stock,ismarker,vedio,uniqueTargetId,type) values('";
+							sql = sql +userid+"','"+name+"','"+artistid+"','"+artistname+"','"+createtime+"',"+category+",'"+tags+"','"+brief+"','"+size+"','"+price+"','"+galleryid+"','"+galleryname+"','"+agent+"','"+agentphone+"','"+agentmail+"','"+thumbnail+"','"+relativepath+"','"+original+"','"+issale+"','"+stock+"','"+isupload+"','"+vediopath+"','"+uniqueTargetId+"','"+uploadtype+"')";
+							}	
+					
+						
 						
 							
 				}/*else{
@@ -298,10 +309,14 @@ public class UploadArtWorkServlet extends HttpServlet {
 					conn.close();
 					conn = null;
 					System.out.println(Realpath+"999");
-					
-					if(!veyetype.equals("veyetype")){
+					System.out.println("veyetype="+veyetype);
+					if(!veyetype.equals("veyetype")&& !veyetype.equals("seller_artist")){
 						
 						RequestDispatcher rd = request.getRequestDispatcher("/seller_organization/arrwork_artist.jsp?artistid="+artistid);
+						rd.forward(request, response);
+						
+					}else if(veyetype.equals("seller_artist")){
+						RequestDispatcher rd = request.getRequestDispatcher("/seller_artist/seller_artist.jsp?artistid="+artistid);
 						rd.forward(request, response);
 						
 					}

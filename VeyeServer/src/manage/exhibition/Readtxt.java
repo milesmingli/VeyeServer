@@ -16,8 +16,7 @@ public class Readtxt {
 
  public static void main(String[] args) throws IOException, JSONException {
 
-
-    	 
+	
 
 File file = new File("d:\\ximalaya\\原始文件不要删除.txt");
 
@@ -37,6 +36,7 @@ String ff=ee.split("result:")[1];
 String []gg=ff.split(",");
 JSONArray array = new JSONArray(); 
 JSONArray array1 = new JSONArray(); 
+
 
 
 StringBuffer sb = new StringBuffer();
@@ -79,10 +79,14 @@ while (!m1.hitEnd() && m1.find()) {
 String jj=array.toString();
 String kk=array1.toString();
 String ll="";
-int a=(int)(1+Math.random()*(1000-1+1));
+String money="";
+int sum=0;
+//生成打赏txt文件
+/*int a=(int)(1+Math.random()*(1000-1+1));
 System.out.println(a);
 File file1 = new File("d:\\ximalaya\\"+a+"提取结果.txt");
-PrintStream ps = new PrintStream(new FileOutputStream(file1));
+PrintStream ps = new PrintStream(new FileOutputStream(file1));*/
+
 for(int k=0;k<array.length();k++){
 	
 	ll=/*k+1+":"+*/(jj.split(",")[k]+","+kk.split(",")[k]);
@@ -92,12 +96,29 @@ for(int k=0;k<array.length();k++){
 	String pp=oo.replace("]","");
 	String qq=pp.replace("\"","");
 	
-	 ps.println(qq); 		
+	//生成打赏txt文件
+	// ps.println(qq); 		
 	System.out.println(qq);
+	 money=qq.split("打赏金额:")[1];
 	
+	if(money.indexOf("mark打赏金额")>0){
+	
+		money=money.split("mark打赏金额")[0];
+	
+	}	
+;
+	
+	String money2=money.split(".00")[0];
+	int a=Integer.parseInt(money2);
+
+	sum=sum+a;
+
 }
+System.out.println("");
+System.out.println("");
 
-
+System.out.println("打赏总数="+sum+" 元");
+	 
 }
 
 br.close(); 

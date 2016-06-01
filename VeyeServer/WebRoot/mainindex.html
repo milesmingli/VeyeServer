@@ -7,6 +7,8 @@
 <title>index</title>
 <link rel="stylesheet" type="text/css" href="css/main.css" />
 <link rel="stylesheet" type="text/css" href="css/style.css" />
+<link rel="stylesheet" type="text/css" href="css/mm_lodging1.css" />
+
 <script type="text/javascript" src="js/jquery-1.9.1.min.js"></script>
 <script type="text/javascript" src="js/jquery.cookie.js"></script>
 
@@ -654,6 +656,48 @@
 			
 		}
 	
+		function Changed(obj){
+			
+				
+				var idarray1 =["zhuye_1", "product_1", "about_us_1","contact_us_1"];
+				var idarray2 =["zhuye", "product", "about_us","contact_us"];
+
+				var i;
+				for(i=0;i<4;i++ ){
+				document.getElementById(idarray1[i]).style.display = "none";	
+				document.getElementById(idarray2[i]).style.display = "none";	
+					
+				}
+				
+				if(obj.id=="main_1"){
+					
+					document.getElementById("zhuye_1").style.display = "block";	
+					document.getElementById("zhuye").style.display = "block";
+					
+				}else if(obj.id=="product1"){
+					document.getElementById("product_1").style.display = "block";	
+					document.getElementById("product").style.display = "block";	
+					
+				}else if(obj.id=="about_us1"){
+					
+					document.getElementById("about_us_1").style.display = "block";	
+					document.getElementById("about_us").style.display = "block";	
+				}else if(obj.id=="contact_us1"){
+					
+					document.getElementById("contact_us_1").style.display = "block";	
+					document.getElementById("contact_us").style.display = "block";	
+				}
+			
+				
+		
+			
+			
+			
+		}
+		
+		
+		
+		
 </script>
 
 
@@ -664,19 +708,18 @@
 
 </head>
 
-<body>
+<body style="background: #999966">
 
 
 
-	<div id="main" style="width: 100%;height: 100%">
+	<div id="main" style="width: 100%;height: 100%;background: #999966;">
+	
+	
 		<div class="demo"
 			style="width: 100%;height: 30%">
 		
 		<div id="islogin" style="display: none" >
-		<div style="width: 10%;float: right;margin-top: 60px">
-		<!-- <img alt="" src="images/u19.png" style="width: 55%;" /> -->
-		
-		</div>
+	
 			<div style="width: 10%;float: right;margin-top: 100px">
 				<ul id="nav">
 		
@@ -701,10 +744,14 @@
 					</ul>
 				</nav>
 			</div>
-
+			
+		
 
 			<div style="width: 100%;">
-				<img alt="" src="images/banner1.jpg" style="width: 28%;margin-left: 15px;margin-top: 10px">
+				
+			
+				<img alt="" src="images/banner2.jpg" style="width: 28%;margin-left: 15px;margin-top: 10px">
+			
 			
 				<img alt="" src="images/u21_line.png"
 					style="width: 100%;">
@@ -713,11 +760,87 @@
 
 			<!-- <hr style="width: 90%;text-align: center;color: black;"> -->
 		</div>
-		<div style="width: 100%; text-align: center;">
-		
-		<img alt="" src="images/art1.jpg" style="width: 98%">
-		
-		<img alt="" src="images/art2.jpg" style="width: 98%">
+		<div style="width: 100%;background: #A4C2C2">
+			<div>
+				<table >
+				
+					<tr>
+						<td colspan="6"><img src="images/mm_spacer.gif" alt="" width="1"
+							height="1" border="0" /></td>
+					</tr>
+
+					<tr bgcolor="#a4c2c2">
+						<td width="15" nowrap="nowrap">&nbsp;</td>
+						<td height="36" colspan="3" id="navigation" class="navText">
+							<a id="main_1"
+								href="#" onclick="Changed(this)">主页</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+								id="product1" onclick="Changed(this)"href="#">产品</a>&nbsp;&nbsp;&nbsp;&nbsp; <a
+								id="about_us1" onclick="Changed(this)"href="#">关于我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+								id="contact_us1" onclick="Changed(this)"href="#">联系我们</a>&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+						</td>
+						<td width="40">&nbsp;</td>
+						<td width="100%">&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td colspan="6"><img src="images/mm_spacer.gif" alt="" width="1"
+							height="1" border="0" /></td>
+					</tr>
+
+					<tr >
+						<td width="230" colspan="2" valign="top" bgcolor="#a4c2c2"><img
+							src="images/mm_lodging_image.jpg" alt="Home Page Image" width="230"
+							height="240" border="0" />
+							<table border="0" cellspacing="0" cellpadding="0" width="230">
+								<tr>
+									<td width="15">&nbsp;</td>
+									<td width="200" class="sidebarText" id="padding">免费注册，轻松制作属于自己的AR内容。<br />
+										&nbsp;<br />
+									</td>
+									<td width="15">&nbsp;</td>
+								</tr>
+							</table></td>
+						<td width="50" valign="top"><img src="images/mm_spacer.gif" alt=""
+							width="50" height="1" border="0" /></td>
+						<td width="440" valign="top"><br /> <br />
+							<table border="0" cellspacing="0" cellpadding="0" width="440">
+								<tr id="zhuye_1">
+									<td class="pageName"><p>纵眸创意</p></td>
+								</tr>
+								<tr id="product_1" style="display: none">
+									<td class="pageName"><p>公司产品</p></td>
+								</tr>
+								<tr id="about_us_1" style="display: none">
+									<td class="pageName"><p>关于我们</p></td>
+								</tr>
+								<tr id="contact_us_1" style="display: none">
+									<td class="pageName"><p>联系我们</p></td>
+								</tr>
+
+								<tr>
+									<td class="bodyText">
+										<p id="zhuye"><br><br>纵眸创意专为艺术和创意设计订制的AR（增强现实）平台，在我们的平台上您可以制作自己喜欢的AR作品，通过纵眸创意和纵眸艺术App发布，让AR（增强现实）为您的作品和创意增添乐趣。</p>
+										<p id="product" style="display: none"><br><br>纵眸艺术平台： 让艺术家和用户轻松订制自己的AR作品，免费注册。<br>纵眸创意产品： 各种具有AR（增强现实）功能的创意商品，可以在网上购买。<br>淘宝链接<br>微店链接</p>
+										<p id="about_us" style="display: none"><br><br>纵眸创意由纵眸科技（北京）有限责任责任公司出品，我们是由工程师和艺术家组成的团队，致力于为用户提供更多更好玩的AR创意。</p>
+										<p id="contact_us" style="display: none"><br><br>email: info@v-eye.net</p>
+
+										<br />
+									</td>
+								</tr>
+							</table></td>
+						<td width="40">&nbsp;</td>
+						<td width="100%">&nbsp;</td>
+					</tr>
+
+					<tr>
+						<td colspan="6"><img src="images/mm_spacer.gif" alt="" width="1"
+							height="1" border="0" /></td>
+					</tr>
+
+			
+				</table>
+			</div>
+
 		</div>
 
 

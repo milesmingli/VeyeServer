@@ -35,7 +35,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	<script type="text/javascript" charset="utf-8">
 	
-	
+	 var result=null; 
+	 var randomconut = Math.floor(Math.random() * 1000);
+
 	window.onload = function(){
 		addressInit('cmbProvince', 'cmbCity', 'cmbArea', '北京市', '市辖区', '朝阳区');
 
@@ -125,7 +127,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				
 				if(data[0].portrait!="" && data[0].portrait!=null && data[0].portrait!=undefined){
 					document.getElementById("picarea").style.display="block";
-					document.getElementById("imgid").src = "<%=basePath%>"+data[0].portrait;
+					document.getElementById("imgid").src = "<%=basePath%>"+data[0].portrait+"?rand="+randomconut;
 
 					
 				}else{
@@ -145,7 +147,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 		
 		//FileReader
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 			if (typeof (FileReader) === 'undefined') {
 				result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
@@ -278,7 +280,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   </head>
   
 <body>
-	<div style="width: 1100px;height:800px;margin-left: 0px;margin-top: 50px;font-family: 微软雅黑">
+	<div style="width: 1100px;height:800px;margin-left: 0px;margin-top: 50px;font-family: 微软雅黑" class="js-crop">
 		<div style="font-size: 14px;margin-top: 30px">
 		
 			<form action="${pageContext.request.contextPath}/UpDateNewGalleryServletForUser" method="post" name="form1">
@@ -357,9 +359,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				<input type="text" id="name1" style="display: none"/>
 				
 					<div style="margin-left: 290px;margin-top: 15px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="  提  交  "  id="submitbutton"  class="js-crop"/>
-						</a>
+						
+						
+						<input type="button" value="  提  交  "  id="submitbutton" onclick="dosubmit()" />
+						
+						
 					</div>
 				
 				</div>

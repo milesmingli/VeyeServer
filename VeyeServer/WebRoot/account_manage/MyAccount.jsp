@@ -25,8 +25,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/demo300.css" />
 	<!--必要样式-->
 	<link rel="stylesheet" type="text/css" href="<%=basePath%>css/component.css" />
-	<script type="text/javascript" src="<%=basePath%>js/jquery-2.1.1.min.js"></script>
 	<script type="text/javascript" src="<%=basePath%>js/component.js"></script>
+	<script type="text/javascript" src="<%=basePath%>js/jquery-2.1.1.min.js"></script>
+	
 	<script type="text/javascript" src="<%=basePath%>js/jquery.cookie.js"></script>
 	<style type="text/css">
 	.input_1 {
@@ -64,8 +65,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var user=null;
 	var user_id = $.cookie('userid');
 	var type=null;
-	var randomconut = Math.floor(Math.random() * 1000);
-	
+	var result=null;
 
 
 	
@@ -252,7 +252,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 		if (typeof (FileReader) === 'undefined') {
 			result.innerHTML = "抱歉，你的浏览器不支持 FileReader，请使用chrome浏览器操作！";
@@ -470,6 +470,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	
 	
 	function dosubmit() {
+		
 		CheckInput();
 	
 		var RsStream=document.getElementById("result").value;
@@ -542,7 +543,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 </script>
   </head>
   
-<body style="font-family: 微软雅黑">  
+<body style="font-family: 微软雅黑"  class="js-crop">  
 
 	<div style="width: 1100px;height:800px;margin-left: 10px;">
 		<div style="font-size: 14px;margin-top: 30px">
@@ -624,9 +625,9 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 				 
 				
 					<div style="margin-left: 300px;margin-top: 35px">
-						<a href="javascript:dosubmit();"> 
-						<input type="button" value="  提  交  "  id="submitbutton" class="js-crop"/>
-						</a>
+					
+							<input type="button" value="  提  交  "  id="submitbutton"  onclick="dosubmit()"/>
+						
 					</div>
 				
 				</div>

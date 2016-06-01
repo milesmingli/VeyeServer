@@ -20,6 +20,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	var randomconut = Math.floor(Math.random() * 1000);
 	var alldata=null;
 	var user=null;
+	var result=null;
     window.onload=function(){
     	
 		user = $.cookie('user_cookie');
@@ -40,7 +41,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
     		}
     	});
 		var input = document.getElementById("demo_input");
-		var result = document.getElementById("result");
+		result = document.getElementById("result");
 		var img_area = document.getElementById("img_area");
 
 		if (typeof (FileReader) === 'undefined') {
